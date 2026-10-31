@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Marketing Madness</title>
+<meta name="description" content="Coming soon – nur für kurze Zeit! (Für immer.)">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0b14;
+    --bg-2: #1a1526;
+    --gold: #e8c060;
+    --gold-2: #b8862f;
+    --text: #f4efe6;
+    --muted: #a89fb5;
+    --alarm: #ff3b5c;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: radial-gradient(ellipse at top, var(--bg-2), var(--bg) 70%);
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: "Inter", system-ui, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+  }
+
+  /* Laufband */
+  .ticker {
+    background: var(--alarm);
+    color: #fff;
+    font-weight: 800;
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    padding: 8px 0;
+  }
+  .ticker span {
+    display: inline-block;
+    padding-left: 100%;
+    animation: ticker 18s linear infinite;
+  }
+  @keyframes ticker { to { transform: translateX(-100%); } }
+
+  main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px 16px;
+    gap: 24px;
+  }
+
+  .frame {
+    border: 3px solid var(--gold);
+    outline: 1px solid var(--gold-2);
+    outline-offset: 8px;
+    padding: 32px 24px;
+    max-width: 560px;
+    width: 100%;
+    background: rgba(255,255,255,0.02);
+    box-shadow: 0 0 60px rgba(232,192,96,0.15);
+  }
+
+  .eyebrow {
+    font-size: 12px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+  h1 {
+    font-family: "Playfair Display", serif;
+    font-weight: 900;
+    font-size: clamp(40px, 11vw, 72px);
+    line-height: 1;
+    background: linear-gradient(180deg, #fff3c4, var(--gold) 50%, var(--gold-2));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .sub {
+    margin-top: 16px;
+    color: var(--muted);
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  .countdown-label {
+    font-size: 13px;
+    color: var(--alarm);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .countdown {
+    font-family: "Playfair Display", serif;
+    font-size: clamp(36px, 10vw, 56px);
+    font-variant-numeric: tabular-nums;
+    color: var(--text);
+    margin-top: 4px;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,59,92,0.12);
+    border: 1px solid var(--alarm);
+    color: #ffb3c0;
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--alarm);
+    animation: pulse 1s ease-in-out infinite;
+  }
+  @keyframes pulse { 50% { opacity: 0.3; } }
+
+  .cta {
+    background: linear-gradient(180deg, var(--gold), var(--gold-2));
+    color: #1a1206;
+    border: none;
+    font: inherit;
+    font-weight: 800;
+    font-size: 18px;
+    padding: 16px 28px;
+    border-radius: 8px;
+    cursor: pointer;
+    animation: wiggle 2.5s ease-in-out infinite;
+    width: 100%;
+    max-width: 360px;
+  }
+  @keyframes wiggle {
+    0%, 85%, 100% { transform: rotate(0); }
+    88% { transform: rotate(-3deg) scale(1.03); }
+    92% { transform: rotate(3deg) scale(1.03); }
+    96% { transform: rotate(-2deg); }
+  }
+  .fineprint {
+    font-size: 10px;
+    color: #6f6680;
+    max-width: 360px;
+    line-height: 1.4;
+  }
+
+  .plaque {
+    margin-top: 8px;
+    font-size: 12px;
+    color: var(--muted);
+    border-top: 1px solid #2c2540;
+    padding-top: 16px;
+    max-width: 360px;
+    line-height: 1.6;
+  }
+  .plaque strong { color: var(--gold); font-weight: 600; }
+
+  /* Toast */
+  .toast {
+    position: fixed;
+    left: 16px; right: 16px; bottom: 16px;
+    max-width: 380px;
+    margin: 0 auto;
+    background: #fff;
+    color: #1a1526;
+    padding: 12px 16px;
+    border-radius: 10px;
+    font-size: 14px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    transform: translateY(150%);
+    transition: transform 0.4s ease;
+  }
+  .toast.show { transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<div class="ticker"><span>🔥 NUR HEUTE 🔥 &nbsp; +++ &nbsp; LIMITIERTE AUFLAGE &nbsp; +++ &nbsp; JETZT ODER NIE (ODER SPÄTER) &nbsp; +++ &nbsp; 1000 % MEHR SYNERGIE &nbsp; +++ &nbsp; CALL TO ACTION: ACTION! &nbsp; +++</span></div>
+
+<main>
+  <div class="frame">
+    <p class="eyebrow">Vernissage After Dark · Exponat Nr. 1</p>
+    <h1>Marketing Madness</h1>
+    <p class="sub">Die größte Ausstellung aller Marketing-Klischees öffnet bald ihre Pforten. Exklusiv. Disruptiv. Nur für kurze Zeit (für immer).</p>
+  </div>
+
+  <div>
+    <p class="countdown-label">⏰ Angebot endet in</p>
+    <p class="countdown" id="countdown">04:59</p>
+  </div>
+
+  <div class="badge"><span class="dot"></span><span id="viewers">17</span>&nbsp;Personen sehen sich das gerade an</div>
+
+  <button class="cta" id="cta">JETZT NICHTS VERPASSEN!*</button>
+  <p class="fineprint">*Es gibt noch nichts zu verpassen. Aber das könnte sich jederzeit ändern. Angebot gilt nur solange der Vorrat reicht. Der Vorrat ist unendlich. Es gelten die AGB, die wir noch nicht geschrieben haben.</p>
+
+  <p class="plaque">
+    <strong>Künstlerkollektiv:</strong> CHECKito Marketing<br>
+    <strong>Material:</strong> Popups, Buzzwords, Kaffee<br>
+    <strong>Status:</strong> Coming soon
+  </p>
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  // Countdown, der natürlich nie abläuft
+  let seconds = 299;
+  const cd = document.getElementById('countdown');
+  setInterval(() => {
+    seconds--;
+    if (seconds < 0) seconds = 299;
+    const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+    const s = String(seconds % 60).padStart(2, '0');
+    cd.textContent = m + ':' + s;
+  }, 1000);
+
+  // Zuschauerzahl, die wild schwankt
+  const viewers = document.getElementById('viewers');
+  setInterval(() => {
+    viewers.textContent = Math.floor(12 + Math.random() * 80);
+  }, 3000);
+
+  // Social-Proof-Toasts
+  const toasts = [
+    '🛒 Jemand aus Kassel hat gerade NICHTS gekauft',
+    '🔥 Kevin aus dem Marketing hat sich gerade begeistert',
+    '⭐ „Beste Seite, die ich je gescannt habe“ – ein Kollege',
+    '📈 +312 % Engagement in den letzten 5 Minuten',
+    '🎨 Exponat wurde 42× bewundert'
+  ];
+  const toast = document.getElementById('toast');
+  let i = 0;
+  function showToast() {
+    toast.textContent = toasts[i % toasts.length];
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 3500);
+    i++;
+  }
+  setTimeout(showToast, 2500);
+  setInterval(showToast, 8000);
+
+  // CTA
+  const ctaTexts = ['Fast geschafft! Bitte erneut klicken.', 'Sie sind auf der Warteliste! Platz 4.817', 'Bald mehr. Versprochen. 🤞', 'JETZT NICHTS VERPASSEN!*'];
+  let c = 0;
+  document.getElementById('cta').addEventListener('click', (e) => {
+    e.target.textContent = ctaTexts[c % ctaTexts.length];
+    c++;
+  });
+</script>
+</body>
+</html>
