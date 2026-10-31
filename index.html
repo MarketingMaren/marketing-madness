@@ -159,6 +159,36 @@
   .w4 { background: conic-gradient(from 200deg, var(--blue), var(--navy), var(--alarm), var(--yellow), var(--blue)); }
   .w4 .btn { background: #fff; color: var(--navy); font-weight: 800; padding: 14px 22px; border-radius: 999px; font-size: 18px; box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
 
+  /* ---------- Sammlung 2026 ---------- */
+  .gallery.small { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 22px 16px; }
+  .gallery.small .canvas { border-width: 7px; }
+  .gallery.small .plaque { width: 96%; padding: 8px 8px; font-size: 10.5px; }
+  .gallery.small .plaque b { font-size: 13px; line-height: 1.2; margin-bottom: 2px; }
+  .gallery.small .plaque em { font-size: 10px; }
+  .sticker {
+    position: absolute; background: var(--alarm); color: #fff; font-weight: 800; font-size: 11px;
+    padding: 3px 7px; border-radius: 3px; transform: rotate(8deg); box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  }
+  .bis { position: absolute; top: 10px; left: 10px; font-size: 10px; font-weight: 800; color: var(--navy); background: #fff; border-radius: 999px; padding: 2px 7px; }
+  .art-blitz { background: radial-gradient(circle at 50% 40%, #0a3a7a, var(--navy)); }
+  .art-blitz .bolt { width: 46%; aspect-ratio: 1/1.7; background: var(--yellow); clip-path: polygon(55% 0, 10% 58%, 45% 58%, 30% 100%, 90% 38%, 55% 38%, 75% 0); filter: drop-shadow(0 0 18px rgba(255,187,28,0.7)); }
+  .art-blitz.two .bolt { width: 30%; margin: 0 -2%; }
+  .art-fruehling { background: linear-gradient(180deg, #dff3e4, #a8dcb6); flex-wrap: wrap; align-content: center; gap: 4px 10px; padding: 14px; }
+  .art-fruehling span { font-family: "Playfair Display", serif; font-weight: 900; color: #fff; text-shadow: 0 2px 0 #4f9a64; }
+  .art-oster { background: #f6efe1; }
+  .art-oster .egg { width: 58%; aspect-ratio: 3/4; border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; background: repeating-linear-gradient(0deg, var(--yellow) 0 14%, var(--blue) 14% 18%, #f6c1cf 18% 32%, var(--blue) 32% 36%); display: flex; align-items: center; justify-content: center; font-weight: 800; color: var(--navy); font-size: 20px; box-shadow: inset -8px -10px 0 rgba(0,0,0,0.08); }
+  .art-wm { background: linear-gradient(180deg, #0a2550, #04142e); flex-direction: column; }
+  .art-wm .cup { width: 44%; aspect-ratio: 1; background: linear-gradient(135deg, #fff3c4, var(--gold), var(--gold-2)); border-radius: 0 0 50% 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; color: var(--navy); font-size: 17px; }
+  .art-wm .foot { width: 12%; height: 18px; background: var(--gold-2); }
+  .art-wm .base { width: 34%; height: 12px; background: var(--gold); border-radius: 2px; }
+  .art-summer { background: linear-gradient(180deg, #ffd36b, #ff8a5c 70%, #0271c2 70%); }
+  .art-summer .sun { width: 52%; aspect-ratio: 1; border-radius: 50%; background: var(--yellow); box-shadow: 0 0 0 10px rgba(255,187,28,0.35), 0 0 0 22px rgba(255,187,28,0.15); display: flex; align-items: center; justify-content: center; font-weight: 800; color: var(--navy); font-size: 14px; margin-bottom: 18%; }
+  .art-smily { background: var(--blue); }
+  .art-smily .face { width: 66%; aspect-ratio: 1; border-radius: 50%; background: var(--yellow); position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+  .art-smily .face::before, .art-smily .face::after { content: ""; position: absolute; top: 30%; width: 12%; height: 18%; background: var(--navy); border-radius: 50%; }
+  .art-smily .face::before { left: 28%; } .art-smily .face::after { right: 28%; }
+  .art-smily .mouth { position: absolute; left: 22%; right: 22%; top: 48%; height: 28%; border: 6px solid var(--navy); border-top: none; border-radius: 0 0 999px 999px; }
+
   /* ---------- Testimonials & Trust ---------- */
   .quotes { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-top: 28px; }
   .quote { background: var(--card); border: 1px solid var(--line); padding: 20px; border-radius: 4px; }
@@ -386,6 +416,45 @@
       <div class="work">
         <div class="canvas w4"><div class="btn">JETZT ›</div></div>
         <div class="plaque"><b>Komposition in Call-to-Action</b>Abteilung Conversion, 2024<em>Button auf Verlauf. A/B-getestet in 47 Varianten.</em></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SAMMLUNG 2026 ================= -->
+<section>
+  <div class="wrap center">
+    <p class="eyebrow">Sonderausstellung</p>
+    <h2 class="gold-text">Die Sammlung 2026</h2>
+    <p class="lead">Sieben Werke aus dem Atelier des Marketing-Kollektivs. Alle entstanden in diesem Jahr, fast alle unter dem Leitmotiv „bis zu 10 %“.</p>
+    <div class="gallery small">
+      <div class="work">
+        <div class="canvas art-blitz"><span class="bis">bis zu 10 %</span><div class="bolt"></div><span class="sticker" style="right:8px;bottom:14px">VERLÄNGERT!</span></div>
+        <div class="plaque"><b>Blitz I (Februar)</b>02.–09.02.2026<em>Täglich wechselnde Angebote. Der Blitz schlug ein, und dann gleich noch eine Woche.</em></div>
+      </div>
+      <div class="work">
+        <div class="canvas art-fruehling"><span style="font-size:20px">5 %</span><span style="font-size:26px">8 %</span><span style="font-size:36px">10 %</span><span style="font-size:18px">8 %</span><span style="font-size:24px">5 %</span><span style="font-size:30px">10 %</span></div>
+        <div class="plaque"><b>Frühlingserwachen</b>09.–16.03.2026<em>Jeden Tag blüht ein anderer Rabatt auf. Pflegeleicht, nur in der App.</em></div>
+      </div>
+      <div class="work">
+        <div class="canvas art-oster"><div class="egg">10 %</div></div>
+        <div class="plaque"><b>Das Osterei, das sich nicht verstecken ließ</b>31.03.–06.04.2026<em>10 % auf viele Hotels. Für jede und jeden sofort zu finden.</em></div>
+      </div>
+      <div class="work">
+        <div class="canvas art-blitz two"><span class="bis">bis zu 10 %</span><div class="bolt"></div><div class="bolt"></div></div>
+        <div class="plaque"><b>Blitz II (Mai)</b>18.–27.05.2026<em>Es heißt, der Blitz schlägt nie zweimal ein. Wir haben das widerlegt.</em></div>
+      </div>
+      <div class="work">
+        <div class="canvas art-wm"><div class="cup">10 %</div><div class="foot"></div><div class="base"></div></div>
+        <div class="plaque"><b>Der ReiseWeltMeister</b>28.05.–30.06.2026<em>Ein Pokal für alle, die reisen. Gehalten über einen ganzen Monat.</em></div>
+      </div>
+      <div class="work">
+        <div class="canvas art-summer"><span class="bis">bis zu</span><div class="sun">10 %</div></div>
+        <div class="plaque"><b>Super Summer</b>03.07.–02.08.2026<em>Ein ganzer Monat Sonne. Lichtschutzfaktor: bis zu 10 %.</em></div>
+      </div>
+      <div class="work">
+        <div class="canvas art-smily"><div class="face"><div class="mouth"></div></div><span class="sticker" style="right:8px;top:12px;transform:rotate(-8deg)">bis zu 25 %!</span></div>
+        <div class="plaque"><b>Smily</b>17.–23.08.2026<em>Der Ausreißer der Saison: bis zu 25 % auf über 1 Mio. Hotels. Das Lächeln ist echt.</em></div>
       </div>
     </div>
   </div>
