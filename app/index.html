@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow">
-<title>Smily Level 4</title>
+<title>GoldClub Level 4</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,800&family=Playfair+Display:wght@700;800;900&display=swap">
 <style>
 /* Layout: one narrow phone column, sticky timer bar on top, a single card per step; overlays for retention offers. Deliberately single-theme (evergreen + gold "premium" look). */
 :root{
-  /* CHECK24 / Smily: Blau #022D94, Smily-Gold #B39656, Inter, weiße Karten */
+  /* Basiswerte; das GoldClub-Theme weiter unten überschreibt sie */
   --bg:#f4f5f7; --bg2:#022D94; --card:#ffffff; --line:#dcdcdc;
   --gold:#B39656; --gold-ink:#ffffff; --fg:#181818; --muted:#5f6368;
   --red:#E30613; --ok:#1b8a4c; --ghost:#eef1f8; --blue:#022D94; --blue-soft:#e8edf8;
@@ -158,74 +158,148 @@ canvas.confetti{position:fixed;inset:0;width:100%;height:100%;pointer-events:non
 .spinner{width:54px;height:54px;border-radius:50%;border:5px solid var(--line);border-top-color:var(--gold);animation:spin .9s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 .dead-back{position:absolute;top:calc(env(safe-area-inset-top,0px) + 60px);left:max(10px,env(safe-area-inset-left,0px));background:none;color:#4f736b;font-size:.75rem;font-weight:500;padding:6px}
-/* ===== CHECK24-/Smily-Theme (überschreibt die Basis oben) ===== */
-body{background:linear-gradient(180deg,var(--blue) 0,var(--blue) 150px,#c9d3ea 260px,var(--bg) 380px) no-repeat,var(--bg)}
-body::before{background:var(--blue)}
-h1,h2{letter-spacing:-.01em;font-weight:800}
-.bar{background:var(--blue);border-bottom:0;backdrop-filter:none;color:#fff}
-.brand{font-style:italic;font-weight:800;font-size:1rem;letter-spacing:-.01em;color:#fff}
-.brand b{color:var(--gold)}
-.timer{color:#fff;background:rgba(255,255,255,.14);border-radius:99px;padding:3px 10px;font-weight:700}
-.pill{background:#fff;border:0}
-.pill.on{color:var(--red)} .pill.off{color:var(--ok)}
-.card{background:var(--card);border:0;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,.16)}
-.ticket{color:#fff;background:linear-gradient(135deg,#d6c08c,#B39656 45%,#8e7542 85%,#c9b07a);box-shadow:0 2px 8px rgba(0,0,0,.16);border-radius:10px}
-.ticket::after{border-color:rgba(255,255,255,.55)}
-.ticket h1{color:#fff}
-.ticket .eyebrow{letter-spacing:.08em;font-weight:600}
-input[type=text],select,textarea{background:#fff;border:1px solid #949494;border-radius:8px;color:var(--fg)}
-input:focus-visible,select:focus-visible,textarea:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid var(--blue)}
+/* ===== GoldClub-Theme (überschreibt die Basis oben): Navy + Gold wie die Sperrseite ===== */
+:root{
+  --navy:#0b1a33; --navy2:#05101f; --bg:#f7f2e7; --card:#fffdf8; --line:#e6dcc4; --fg:#1d1a14; --muted:#6c6352;
+  --gold:#c99a3c; --gold-hi:#f3d68a; --gold-lo:#9c7128; --gold-ink:#1d1406; --ghost:#f3ecdc;
+  --red:#b3261e; --ok:#1d7a47; --blue:#0b1a33;
+  --f-display:"Playfair Display", Georgia, "Times New Roman", serif;
+  --gold-grad:linear-gradient(180deg,#fff1bf,#e8c060 55%,#b8862f);
+}
+html,body{background:var(--navy2)}
+body{background:radial-gradient(70% 40% at 50% 0%,rgba(232,192,96,.18),transparent 70%),linear-gradient(180deg,var(--navy),var(--navy2) 75%) fixed;color:var(--fg)}
+body::before{background:var(--navy)}
+h1,h2{font-family:var(--f-display);font-weight:800;letter-spacing:0}
+.bar{background:rgba(5,16,31,.88);border-bottom:1px solid rgba(232,192,96,.25);backdrop-filter:blur(8px);color:#f4efe6}
+.brand{font-family:var(--f-display);font-weight:900;font-size:1.05rem;color:#f4efe6;user-select:none;-webkit-user-select:none;cursor:default}
+.brand b{background:var(--gold-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.timer{color:var(--gold-hi);background:rgba(232,192,96,.12);border:1px solid rgba(232,192,96,.35);border-radius:99px;padding:3px 10px;font-weight:700}
+.pill{background:transparent;border:1px solid currentColor}
+.pill.on{color:#ff9b8f} .pill.off{color:#7fd8a5}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:0 10px 30px -12px rgba(0,0,0,.6)}
+.ticket,.slide-ticket{color:var(--gold-ink);background:linear-gradient(135deg,#f6dc8e,#d9ad4f 45%,#a87a2a 85%,#e9c66f);box-shadow:0 14px 40px -14px rgba(232,192,96,.55);border-radius:14px}
+.ticket::after{border-color:rgba(29,20,6,.35)}
+.ticket h1{color:var(--gold-ink)}
+input[type=text],input[type=password],select,textarea{background:#fff;border:1px solid #b9ad92;border-radius:10px;color:var(--fg)}
+input:focus-visible,select:focus-visible,textarea:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid var(--gold)}
 button{border-radius:50px}
-.btn-gold{background:var(--gold);color:#fff;font-size:1.05rem;font-weight:600}
-.btn-gold:hover{background:#a3864a}
-.btn-red{background:var(--red);font-weight:600;border-radius:50px}
-.btn-ghost{background:#fff;color:var(--blue);border:1px solid var(--blue);font-weight:600}
+.btn-gold{background:linear-gradient(180deg,#f3d68a,#d4a94a 55%,#a87a2a);color:var(--gold-ink);font-family:var(--f-body);font-size:1.05rem;font-weight:700;box-shadow:0 6px 18px -6px rgba(201,154,60,.7)}
+.btn-gold:hover{filter:brightness(1.05)}
+.btn-red{background:var(--red);font-weight:700;border-radius:50px}
+.btn-ghost{background:#fff;color:var(--fg);border:1px solid var(--gold-lo);font-weight:600}
 .btn-tiny{color:var(--muted);border-radius:6px}
-.err{color:#c4000f}
-.fine{color:#8a8f98}
-.benefits li::before{color:var(--gold)}
-footer.legal{color:#9aa0a8;border-top-color:var(--line)}
-footer.legal a.cancel{color:#d3d6dc}
-.modal{border:0;border-radius:12px;box-shadow:0 10px 40px rgba(0,0,0,.25)}
-.captcha button{background:#fff;border:1px solid #949494;border-radius:10px}
-.captcha button[aria-pressed=true]{border:2px solid var(--gold);background:#f6f0e2}
-.captcha button.ph{background:#fff}
-.queue-num{color:var(--blue)}
+.err{color:var(--red)}
+.fine{color:#8b826f}
+footer.legal{color:#6a7486;border-top-color:rgba(232,192,96,.15)}
+footer.legal a.cancel{color:#2a3850}
+.modal{background:var(--card);border:1px solid var(--gold);border-radius:14px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.captcha button{background:#fff;border:1px solid #b9ad92;border-radius:10px}
+.captcha button[aria-pressed=true]{border:2px solid var(--gold);background:#fbf1d8}
+.queue-num{color:var(--gold-lo);font-family:var(--f-display)}
 .progress{background:var(--ghost)}
-canvas.sig{background:#fff;border:1px dashed #949494}
-.board li{border-bottom-color:var(--line)}
-.board li.me{color:var(--blue)}
-.toast{background:#181818;color:#fff;border-radius:10px}
-.mission{background:#fff;border:0;border-left:3px solid var(--blue);border-radius:4px 10px 10px 4px;box-shadow:0 2px 8px rgba(0,0,0,.16)}
-.mission .eyebrow{color:var(--blue);font-weight:700;letter-spacing:.06em}
-.mission-strip{background:#fdecee;border:1px solid #f5b5ba;color:#9b0610;border-radius:10px}
-.steps .n{background:var(--blue);color:#fff}
-.dot{background:#c3c8d2}
-.dot.on{background:var(--blue)}
-.deal{background:#fff;color:var(--fg);border:2px solid var(--gold);border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,.12)}
-.deal-t{background:var(--gold);color:#fff}
-.deal.hot .deal-t{background:var(--red)}
-.proof,.push{background:#fff;color:var(--fg);border-left:3px solid var(--blue);border-radius:10px;box-shadow:0 4px 18px rgba(0,0,0,.2)}
-.proof .av,.push .av{background:var(--blue);color:#fff}
-.agb{background:#fafbfc;border-color:var(--line)}
-.stars button{color:var(--gold);border-radius:6px}
-.bot-fab{background:var(--blue);color:#fff;box-shadow:0 4px 16px rgba(2,45,148,.4)}
-.bot{border:0;border-radius:12px;box-shadow:0 10px 40px rgba(0,0,0,.25)}
-.bot-head{background:var(--blue);color:#fff;border-bottom:0}
-.bot-head .on{color:#bfe8cf}
-.bot-head button{color:#fff}
+canvas.sig{background:#fff;border:1px dashed #b9ad92}
+.board li.me{color:var(--gold-lo)}
+.toast{background:#05101f;color:#f4efe6;border:1px solid rgba(232,192,96,.4);border-radius:10px}
+.mission{background:var(--card);border:0;border-left:3px solid var(--gold);border-radius:4px 14px 14px 4px;box-shadow:0 10px 30px -12px rgba(0,0,0,.6)}
+.mission .eyebrow{color:var(--gold-lo);font-weight:700;letter-spacing:.1em}
+.mission-strip{background:rgba(179,38,30,.14);border:1px solid rgba(255,155,143,.45);color:#ffd2cc;border-radius:12px}
+.steps .n{background:var(--gold-grad);color:var(--gold-ink)}
+.dot{background:rgba(244,239,230,.25)}
+.dot.on{background:var(--gold)}
+.intro-nav .btn-tiny{color:#aab3c2}
+.deal{background:var(--card);color:var(--fg);border:2px solid var(--gold);border-radius:12px}
+.deal-t{background:var(--gold);color:var(--gold-ink)}
+.deal.hot .deal-t{background:var(--red);color:#fff}
+.proof,.push{background:var(--card);color:var(--fg);border-left:3px solid var(--gold);border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.45)}
+.proof .av,.push .av{background:var(--navy);color:var(--gold-hi)}
+.proof.live{border-left-color:var(--ok)}
+.proof.live .av{background:var(--ok);color:#fff}
+.agb{background:#fbf8f1;border-color:var(--line)}
+.stars button{color:var(--gold)}
+.bot-fab{background:linear-gradient(180deg,#f3d68a,#c99a3c);color:var(--gold-ink);box-shadow:0 6px 20px rgba(0,0,0,.5)}
+.bot{border:1px solid var(--gold);border-radius:14px;box-shadow:0 20px 50px rgba(0,0,0,.55)}
+.bot-head{background:var(--navy);color:#f4efe6;border-bottom:0}
+.bot-head b{font-family:var(--f-display)}
+.bot-head .on{color:#9fe0bb}
+.bot-head button{color:#f4efe6}
 .msg.bot-m{background:var(--ghost);color:var(--fg)}
-.msg.me-m{background:var(--gold);color:#fff}
-.bot-quick button{background:#fff;color:var(--blue);border:1px solid var(--blue)}
-.bot-form{border-top-color:var(--line)}
-.sheet{background:#fff;border-top:0;border-radius:16px 16px 0 0;box-shadow:0 -6px 30px rgba(0,0,0,.2)}
-.grab{background:#c3c8d2}
-.freedom{background:var(--ok);color:#fff;border-radius:10px}
-.deadend{background:var(--bg)}
-.spinner{border-color:#d8deeb;border-top-color:var(--blue)}
-.dead-back{color:#b6bac1}
+.msg.me-m{background:var(--gold);color:var(--gold-ink)}
+.msg.tip{background:#fff4d1;border:1px solid var(--gold)}
+.bot-quick button{background:#fff;color:var(--fg);border:1px solid var(--gold-lo)}
+.sheet{background:var(--card);border-top:2px solid var(--gold);border-radius:18px 18px 0 0}
+.grab{background:#d6cbb0}
+.freedom{background:var(--ok);color:#fff;border-radius:12px}
+.deadend{background:var(--bg);overflow-y:auto;align-items:flex-start}
+.deadend .dead-in{margin:auto}
+.spinner{border-color:var(--line);border-top-color:var(--gold)}
+.dead-back{color:#8b826f}
 .stamp{color:var(--ok);border-color:var(--ok)}
-.wheel-pointer{border-top-color:var(--blue)}
+.wheel-pointer{border-top-color:var(--navy)}
+.on-dark{color:#f4efe6}
+.on-dark .muted,.muted-dark{color:#aab3c2}
+
+/* Preise */
+.prizes{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.prizes li{display:flex;gap:12px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.prizes .m{flex:none;font-size:1.7rem;line-height:1}
+.prizes b{font-family:var(--f-display);font-size:1.05rem}
+.endnote{display:flex;gap:10px;align-items:flex-start;background:var(--navy);color:#f4efe6;border-radius:12px;padding:12px 14px;font-size:.9rem}
+.endnote b{color:var(--gold-hi)}
+
+/* Sperrseite (wie „Das goldene Zeitalter des GoldClubs“) */
+body.locked .bar{display:none}
+body.locked #app{padding-top:0!important}
+.lock{display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px;padding:34px 0 10px;color:#f4efe6}
+.lock .eyebrow{font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:#e8c060;font-weight:600}
+.gold-h{font-family:var(--f-display);font-weight:900;font-size:clamp(2.3rem,11vw,3.4rem);line-height:1.02;background:var(--gold-grad);-webkit-background-clip:text;background-clip:text;color:transparent;margin:0}
+.lock .lead{color:#c9cfdb;max-width:30ch;font-size:.95rem}
+.door{width:min(250px,70vw);margin:12px auto 0;filter:drop-shadow(0 30px 40px rgba(0,0,0,.55))}
+.door svg{display:block;width:100%;height:auto}
+.door .medal{cursor:pointer}
+.cd-label{font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:#aab3c2;margin-top:8px}
+.cd{display:flex;gap:8px;justify-content:center}
+.cd div{width:64px;padding:10px 0 8px;border:1px solid rgba(232,192,96,.25);border-radius:8px;background:rgba(255,255,255,.03)}
+.cd b{display:block;font-family:var(--f-display);font-size:1.8rem;line-height:1;color:#fff;font-variant-numeric:lining-nums tabular-nums}
+.cd span{font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:#aab3c2}
+.lock .when b{color:#e8c060}
+.plaque{background:linear-gradient(135deg,#f6dc8e,#d9ad4f 50%,#b8862f);color:var(--gold-ink);border-radius:4px;padding:12px 22px;box-shadow:0 10px 30px rgba(0,0,0,.45);max-width:300px}
+.plaque b{font-family:var(--f-display);font-size:1.05rem}
+.plaque i{display:block;font-size:.78rem;margin-top:4px}
+.lock .foot{font-size:.68rem;color:#6a7486;margin-top:10px}
+.simbadge{position:fixed;z-index:50;left:10px;bottom:calc(10px + env(safe-area-inset-bottom,0px));background:#b3261e;color:#fff;font-size:.68rem;font-weight:700;border-radius:99px;padding:4px 10px;letter-spacing:.04em}
+
+/* Admin-Menü + Monitoring */
+.admin .modal{text-align:left}
+.admin .grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.admin button{padding:10px 12px;font-size:.85rem}
+.admin h3{margin:6px 0 0;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+body.mon .wrap{max-width:1100px}
+body.mon .bar-in{max-width:1100px}
+.mon-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
+.mon-kpis div{background:var(--card);border-radius:12px;padding:12px 14px;border:1px solid var(--line)}
+.mon-kpis b{display:block;font-family:var(--f-display);font-size:1.8rem;line-height:1.1}
+.mon-kpis span{font-size:.75rem;color:var(--muted)}
+.tbl{width:100%;border-collapse:collapse;font-size:.82rem}
+.tbl th{text-align:left;font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--line);padding:6px 8px}
+.tbl td{border-bottom:1px solid var(--ghost);padding:7px 8px;vertical-align:top}
+.tbl .num{text-align:right;font-variant-numeric:tabular-nums}
+.tblwrap{overflow-x:auto}
+.tag{display:inline-block;font-size:.65rem;font-weight:700;border-radius:99px;padding:2px 8px;background:var(--ghost)}
+.tag.ok{background:#dff3e7;color:var(--ok)} .tag.act{background:#fdecd2;color:#8a5a00} .tag.test{background:#fde3e1;color:var(--red)}
+.funnel{display:flex;flex-direction:column;gap:5px}
+.funnel div{display:grid;grid-template-columns:minmax(120px,190px) 1fr 3em;gap:8px;align-items:center;font-size:.8rem}
+.funnel i{display:block;height:12px;border-radius:99px;background:var(--gold);min-width:2px}
+.funnel span:last-child{text-align:right;font-variant-numeric:tabular-nums}
+
+/* Hässliche Hunde auf der Fehlerseite */
+.dogpic{width:min(240px,70vw);border-radius:14px;overflow:hidden;background:#fff;border:1px solid var(--line);box-shadow:0 8px 24px rgba(0,0,0,.15)}
+.dogpic img,.dogpic svg{display:block;width:100%;height:auto}
+.dogcap{font-size:.85rem;color:var(--muted);max-width:32ch}
+
+/* Flüchtender Premium-Skip */
+.skipzone{position:relative;min-height:56px}
+.skipzone .btn-gold{transition:transform .25s ease,opacity .3s}
+.skipzone .btn-gold.flee{position:absolute;width:auto;left:0;top:0}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 @keyframes wob{0%,100%{transform:rotate(0)}25%{transform:rotate(-2deg)}75%{transform:rotate(2deg)}}
 .wobble{animation:wob .4s 2}
@@ -235,16 +309,16 @@ canvas.sig{background:#fff;border:1px dashed #949494}
 <body>
 
 <header class="bar"><div class="bar-in">
-  <span class="brand">Smily <b>Level 4</b></span>
+  <span class="brand" id="brand">GoldClub <b>Level 4</b></span>
   <span class="pill on" id="abo-pill" hidden>Abo aktiv</span>
   <span class="timer" id="timer">00:00.0</span>
 </div></header>
 
 <main class="wrap" id="app" style="padding-top:18px"></main>
 <div id="overlay-root"></div>
-<button class="bot-fab" id="botfab" type="button" aria-label="Smily-Bot öffnen" hidden>💬</button>
-<section class="bot" id="bot" aria-label="Smily-Bot Chat" hidden>
-  <div class="bot-head"><span aria-hidden="true">🤖</span><div><b>Smily-Bot</b><br><span class="on">● online · antwortet sofort</span></div><button type="button" id="botclose" aria-label="Chat schließen">✕</button></div>
+<button class="bot-fab" id="botfab" type="button" aria-label="GoldClub-Bot öffnen" hidden>💬</button>
+<section class="bot" id="bot" aria-label="GoldClub-Bot Chat" hidden>
+  <div class="bot-head"><span aria-hidden="true">🤖</span><div><b>GoldClub-Bot</b><br><span class="on">● online · antwortet sofort</span></div><button type="button" id="botclose" aria-label="Chat schließen">✕</button></div>
   <div class="bot-msgs" id="botmsgs" aria-live="polite"></div>
   <div class="bot-quick" id="botquick"></div>
   <form class="bot-form" id="botform"><input type="text" id="botin" placeholder="Deine Frage …" autocomplete="off" maxlength="120"><button class="btn-gold" type="submit">Senden</button></form>
@@ -253,7 +327,16 @@ canvas.sig{background:#fff;border:1px dashed #949494}
 <script>
 let QUEUE_SECONDS = 60;
 const SKIP_PENALTY = 10;
-const API = location.pathname.replace(/\/+$/, "") + "/api";
+const BOT_TIP_AFTER = 120000;   // Chatbot-Tipp auf dem Dashboard nach spätestens 2 Minuten
+const PRIZES = [
+  { m: "🥇", p: "1. Platz", t: "100 € Gutschein" },
+  { m: "🥈", p: "2. Platz", t: "Süße GoldClub-Karte" },
+  { m: "🥉", p: "3. Platz", t: "Goldenes Schreibtisch-Upgrade" }
+];
+const IS_MONITOR = /\/monitor\/?$/.test(location.pathname);
+const BASEPATH = location.pathname.replace(/\/+$/, "").replace(/\/monitor$/, "");
+const API = BASEPATH + "/api";
+let PHASE = { phase: "live", sim: null, start: 0, end: 0, offset: 0 };
 
 const $ = (s, r = document) => r.querySelector(s);
 const app = $("#app"), overlayRoot = $("#overlay-root");
@@ -265,9 +348,12 @@ async function api(route, body){
     { method: "POST", credentials: "same-origin", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
   let j = {}; try { j = await r.json(); } catch {}
   if (r.status === 401 && route !== "/login") { go("pin"); throw new Error("auth"); }
+  if (r.status === 423 && j.phase) { applyPhase({ ...PHASE, phase: j.phase }); throw new Error("phase"); }
   if (!r.ok) { const e = new Error(j.error || "Fehler"); e.status = r.status; throw e; }
   return j;
 }
+/* Tracking fürs Monitoring (fire and forget) */
+function track(ev){ if (!S.startedAt || S.endedAt) return; try { fetch(API + "/step", { method: "POST", credentials: "same-origin", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ev }) }).catch(() => {}); } catch {} }
 
 /* ===== Zustand ===== */
 const local = {
@@ -287,54 +373,69 @@ function toast(msg){
   const t = document.createElement("div"); t.className = "toast"; t.setAttribute("role", "status"); t.textContent = msg; document.body.append(t);
   setTimeout(() => t.remove(), 2600);
 }
-function go(step){ S.step = step; if (!["loading","pin"].includes(step)) local.set(step); render(); window.scrollTo(0, 0); }
+const NO_RESUME = ["loading","pin","lock","ended","monitor"];
+function go(step){
+  S.step = step; if (!NO_RESUME.includes(step)) local.set(step);
+  if (["dash","wheel","agb","reason","queue","sign"].includes(step)) track(step);
+  render(); window.scrollTo(0, 0);
+}
 function shake(el){ el.classList.remove("wobble"); void el.offsetWidth; el.classList.add("wobble"); }
 
 const views = {};
-views.loading = () => { app.innerHTML = `<section class="card"><p class="muted">Smily Level 4 wird geladen …</p></section>`; };
+views.loading = () => { app.innerHTML = `<section class="card"><p class="muted">GoldClub Level 4 wird geladen …</p></section>`; };
 
 views.pin = () => {
+  const N = 5;
   app.innerHTML = `
   <div class="intro" id="intro" aria-roledescription="Karussell">
-    <section class="slide" aria-label="1 von 4">
+    <section class="slide" aria-label="1 von ${N}">
       <div class="ticket slide-ticket">
-        <p class="eyebrow">Exponat Nr. 024 · Weihnachtsfeier-Edition</p>
-        <div class="slide-emoji" aria-hidden="true">🎫</div>
+        <div class="slide-emoji" aria-hidden="true">💳</div>
         <h1 class="slide-h">Willkommen in der Abo-Falle.</h1>
         <p>Du hast den Code gescannt. Herzlichen Glückwunsch! Oder auch nicht.</p>
       </div>
     </section>
-    <section class="slide" aria-label="2 von 4">
+    <section class="slide" aria-label="2 von ${N}">
       <div class="mission">
         <p class="eyebrow">Deine Mission</p>
-        <h1 class="slide-h">Befreie dich aus der Abo-Falle des Marketingteams!</h1>
-        <p>Das Marketingteam hat sich ein „unwiderstehliches" Premium-Abo ausgedacht. Du schließt es gleich ab, ob du willst oder nicht.</p>
+        <h1 class="slide-h">Befreie dich aus der Abo-Falle des Marketing-Teams!</h1>
+        <p>Das Marketing-Team hat sich ein „unwiderstehliches" Premium-Abo ausgedacht: <b>GoldClub Level 4</b>. Du schließt es gleich ab, ob du willst oder nicht.</p>
         <p><b>Deine Aufgabe: Kündige es so schnell wie möglich.</b></p>
       </div>
     </section>
-    <section class="slide" aria-label="3 von 4">
+    <section class="slide" aria-label="3 von ${N}">
+      <div class="mission">
+        <p class="eyebrow">Die schnellste Flucht wird belohnt</p>
+        <h1 class="slide-h">Das gibt's zu gewinnen</h1>
+        <ul class="prizes">${PRIZES.map(x => `<li><span class="m" aria-hidden="true">${x.m}</span><div><span class="small muted">${esc(x.p)}</span><br><b>${esc(x.t)}</b></div></li>`).join("")}</ul>
+        <div class="endnote"><span aria-hidden="true">🕛</span><div>Das Spiel endet um <b>24 Uhr</b>. Danach geht nichts mehr: Wer den Link dann öffnet, landet direkt bei der finalen Rangliste.</div></div>
+      </div>
+    </section>
+    <section class="slide" aria-label="4 von ${N}">
       <div class="mission">
         <p class="eyebrow">So läuft's</p>
         <ol class="steps">
-          <li><span class="n">1</span><div><b>Name eingeben</b><br><span class="muted">Damit ist das Abo abgeschlossen und die Uhr läuft.</span></div></li>
-          <li><span class="n">2</span><div><b>Kündigung durchboxen</b><br><span class="muted">Das Marketingteam wird alles versuchen, dich zu halten.</span></div></li>
-          <li><span class="n">3</span><div><b>Schneller sein als alle anderen</b><br><span class="muted">Die schnellste Kündigung des Abends gewinnt.</span></div></li>
+          <li><span class="n">1</span><div><b>PIN eingeben</b><br><span class="muted">Sie steht auf der letzten GoldClub-Karte. Noch läuft keine Uhr.</span></div></li>
+          <li><span class="n">2</span><div><b>Name eingeben</b><br><span class="muted">Damit ist das Abo abgeschlossen und die Uhr läuft.</span></div></li>
+          <li><span class="n">3</span><div><b>Kündigung durchboxen</b><br><span class="muted">Das Marketing-Team wird alles versuchen, dich zu halten.</span></div></li>
+          <li><span class="n">4</span><div><b>Schneller sein als alle anderen</b><br><span class="muted">Die drei schnellsten Kündigungen bis 24 Uhr gewinnen.</span></div></li>
         </ol>
       </div>
     </section>
-    <section class="slide" aria-label="4 von 4">
+    <section class="slide" aria-label="5 von ${N}">
       <form class="card" id="f">
-        <p class="eyebrow" style="color:var(--gold);font-family:var(--f-mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase">Bereit?</p>
-        <h2>Die Uhr startet erst, wenn du deinen Namen eingibst. Also: tief durchatmen.</h2>
-        <div class="field"><label for="pin">PIN (versteckt auf der GoldClub-Karte)</label><input type="text" id="pin" inputmode="numeric" autocomplete="off" maxlength="12"></div>
+        <p class="eyebrow" style="color:var(--gold-lo);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700">Bereit?</p>
+        <h2>Gleich startet die Uhr.</h2>
+        <p>Zuerst brauchst du die <b>PIN von der GoldClub-Karte</b>. Danach gibst du deinen Namen ein, und <b>ab dann läuft die Zeit</b>. Also: tief durchatmen.</p>
+        <div class="field"><label for="pin">PIN (steht auf der GoldClub-Karte)</label><input type="text" id="pin" inputmode="numeric" autocomplete="off" maxlength="12"></div>
         <p class="err" id="err"></p>
-        <button class="btn-gold" type="submit">Mission annehmen</button>
+        <button class="btn-gold" type="submit">PIN bestätigen</button>
       </form>
     </section>
   </div>
   <div class="intro-nav">
     <button class="btn-tiny" id="skipIntro" type="button">Überspringen</button>
-    <div class="dots" id="dots">${[0,1,2,3].map(i => `<button type="button" class="dot" data-i="${i}" aria-label="Seite ${i + 1}"></button>`).join("")}</div>
+    <div class="dots" id="dots">${Array.from({ length: N }, (_, i) => `<button type="button" class="dot" data-i="${i}" aria-label="Seite ${i + 1}"></button>`).join("")}</div>
     <button class="btn-gold btn-next" id="next" type="button">Weiter</button>
   </div>`;
   const intro = $("#intro"), slides = [...intro.children], dots = [...$("#dots").children];
@@ -355,7 +456,7 @@ views.pin = () => {
   $("#f").onsubmit = async e => {
     e.preventDefault();
     try { await api("/login", { pin: $("#pin").value.trim() }); await boot(); }
-    catch (x) { $("#err").textContent = x.message === "auth" ? "" : x.message; shake($("#f")); }
+    catch (x) { if (x.message === "phase") return; $("#err").textContent = x.message === "auth" ? "" : x.message; shake($("#f")); }
   };
 };
 
@@ -363,9 +464,8 @@ views.ticket = () => {
   app.innerHTML = `
   <div class="mission-strip" role="note">⏱ Mit Klick auf „Jetzt gratis testen" startet die Uhr. Dann heißt es: Kündigung durchbekommen!</div>
   <section class="ticket">
-    <p class="eyebrow">Exponat Nr. 024 · Weihnachtsfeier-Edition</p>
     <h1>Glückwunsch! Du wurdest ausgewählt.</h1>
-    <p style="margin-top:10px">Teste <b>Smily Level 4</b> jetzt kostenlos und sichere dir exklusive Vorteile für den ganzen Abend.</p>
+    <p style="margin-top:10px">Teste <b>GoldClub Level 4</b> jetzt kostenlos und sichere dir exklusive Vorteile für den ganzen Abend.</p>
   </section>
   <form class="card" id="f">
     <div class="field">
@@ -374,8 +474,7 @@ views.ticket = () => {
     </div>
     <p class="err" id="err"></p>
     <button class="btn-gold" type="submit">Jetzt gratis testen</button>
-    <p class="small" style="color:var(--gold)">💡 Tipp vom Insider: Die letzte existierende GoldClub-Karte hilft dir. Schau sie dir genau an.</p>
-    <p class="fine">Mit Klick auf „Jetzt gratis testen" schließt du ein Abonnement „Smily Level 4" zu 49,99 € pro Monat (zzgl. 4,99 € Checkito-Pauschale) mit einer Mindestlaufzeit von 24 Monaten ab. Die Testphase endet sofort. Die Kündigung ist jederzeit möglich, sofern sie gelingt. Die Zeit bis zur erfolgreichen Kündigung wird gemessen und in einer Rangliste veröffentlicht. Gespeichert werden nur dein Name und deine Zeit, nach der Feier wird alles gelöscht.</p>
+    <p class="fine">Mit Klick auf „Jetzt gratis testen" schließt du ein Abonnement „GoldClub Level 4" zu 49,99 € pro Monat (zzgl. 4,99 € Checkito-Pauschale) mit einer Mindestlaufzeit von 24 Monaten ab. Die Testphase endet sofort. Die Kündigung ist jederzeit möglich, sofern sie gelingt. Die Zeit bis zur erfolgreichen Kündigung wird gemessen und in einer Rangliste veröffentlicht. Gespeichert werden nur dein Name, deine Zeit und welche Stationen du erreicht hast. Nach der Feier wird alles gelöscht.</p>
   </form>`;
   $("#f").onsubmit = async e => {
     e.preventDefault();
@@ -384,8 +483,9 @@ views.ticket = () => {
     try {
       const r = await api("/start", { name: n });
       Object.assign(S, { name: n, startedAt: r.startedAt, offset: r.now - Date.now(), endedAt: null, lastMs: null });
+      resetRun();
       go("dash");
-    } catch (x) { if (x.message !== "auth") $("#err").textContent = x.message; }
+    } catch (x) { if (x.message !== "auth" && x.message !== "phase") $("#err").textContent = x.message; }
   };
 };
 
@@ -394,7 +494,7 @@ const BENEFITS = [
   "Cuba Libre Flat (all night long)",
   "Neuer Filter für die Hotelsuche: „Privatjet-Parkplatz vorhanden“",
   "Zugang zu 0 neuen Features pro Quartal",
-  "Kostenloser Zugang zu allen Vorteilen von Smily Level 1, 2 und 3",
+  "Kostenloser Zugang zu allen Vorteilen von GoldClub Level 1, 2 und 3",
   "Stammplatz im neuen FIFA Dome",
   "„Fast Lane“ bei Merlin (im Fall von IT-Problemen)",
   "Lola-Zugang unter 23"
@@ -417,12 +517,12 @@ views.dash = () => {
   </section>
   <section class="card">
     <h2>Deine Ersparnis heute</h2>
-    <p class="muted">Du hast mit Smily Level 4 bereits <b style="color:var(--gold)">0,00 €</b> gespart. Weiter so!</p>
+    <p class="muted">Du hast mit GoldClub Level 4 bereits <b style="color:var(--gold)">0,00 €</b> gespart. Weiter so!</p>
   </section>
   <footer class="legal">
     <a href="#" data-x="imp">Impressum</a><a href="#" data-x="ds">Datenschutz</a><a href="#" data-x="agb">AGB</a>
     <a href="#" data-x="ck">Cookie-Einstellungen</a><a href="#" data-x="kd" class="cancel">Vertrag hier kündigen</a><a href="#" data-x="pr">Presse</a>
-    <span>© Smily Premium Services · Weihnachtsfeier-Parodie</span>
+    <span>© GoldClub Premium Services · Weihnachtsfeier-Parodie</span>
   </footer>`;
   const ben = $("#ben");
   const draw = () => ben.innerHTML = BENEFITS.slice(0, shown).map(b => `<li>${esc(b)}</li>`).join("");
@@ -438,6 +538,7 @@ views.dash = () => {
     el.textContent = `00:${String(dealT).padStart(2, "0")}`;
     $("#dealbox").classList.toggle("hot", dealT < 10);
   }, 1000);
+  scheduleBotTip();
   app.querySelectorAll("footer a").forEach(a => a.onclick = e => {
     e.preventDefault();
     const x = a.dataset.x;
@@ -457,15 +558,18 @@ function modal(html, buttons){
 }
 
 async function retention(){
-  let r = await modal(`<div class="big-emoji">🎁</div><h2>Warte! Exklusiv für dich:</h2><p>Bleib bei Smily Level 4 und zahle die nächsten 3 Monate nur <b>49,98 €</b> statt 49,99 €.</p>`,
+  track("retention1");
+  let r = await modal(`<div class="big-emoji">🎁</div><h2>Warte! Exklusiv für dich:</h2><p>Bleib bei GoldClub Level 4 und zahle die nächsten 3 Monate nur <b>49,98 €</b> statt 49,99 €.</p>`,
     [{ label: "Angebot sichern", cls: "btn-gold" }, { label: "Nein danke, ich zahle lieber gar nichts", cls: "btn-tiny" }]);
   if (r === 0) { toast("Super Entscheidung! Dein Abo bleibt aktiv. 🎉"); return; }
   go("wheel");
 }
 async function retention2(){
-  let r = await modal(`<div class="big-emoji">🐛</div><h2>Bist du dir sicher?</h2><p>Ohne Smily Level 4 übernimmst du ab Montag <b>alle Buggys deines Teams</b>.</p>`,
-    [{ label: "Kündigung trotzdem fortsetzen", cls: "btn-tiny" }, { label: "Abo behalten, Buggys bleiben beim Team", cls: "btn-red" }]);
-  if (r === 1) { toast("Kluge Wahl. Die Buggys bleiben bei den anderen. Dein Abo bleibt aktiv."); return; }
+  track("retention2");
+  let r = await modal(`<div class="big-emoji">🐛</div><h2>Bist du dir sicher?</h2><p>Ohne GoldClub Level 4 übernimmst du ab Montag <b>alle Buggys des Marketing-Teams</b>.</p>`,
+    [{ label: "Kündigung trotzdem fortsetzen", cls: "btn-tiny" }, { label: "Abo behalten, Buggys bleiben beim Marketing-Team", cls: "btn-red" }]);
+  if (r === 1) { toast("Kluge Wahl. Die Buggys bleiben beim Marketing-Team. Dein Abo bleibt aktiv."); return; }
+  track("fangfrage");
   r = await modal(`<div class="big-emoji">🤔</div><h2>Letzte Rückfrage</h2><p>Möchtest du auf deine Kündigung <b>nicht</b> verzichten?</p>`,
     [{ label: "Nein", cls: "btn-gold" }, { label: "Ja", cls: "btn-ghost" }]);
   if (r === 0) { toast("Alles klar, du verzichtest auf die Kündigung. Dein Abo bleibt aktiv!"); return; }
@@ -474,15 +578,15 @@ async function retention2(){
 
 /* ===== Glücksrad ===== */
 const WHEEL = [
-  { t: "iPhone Duo", c: "#B39656", ink: "#ffffff" },
-  { t: "Fast gewonnen", c: "#022D94", ink: "#ffffff" },
-  { t: "Cuba Libre Flat", c: "#E30613", ink: "#ffffff" },
-  { t: "+12 Monate Abo", c: "#e8edf8", ink: "#022D94" },
-  { t: "Genius-Vorteile|bei Booking", c: "#B39656", ink: "#ffffff" },
-  { t: "Smily Level 5", c: "#022D94", ink: "#ffffff" },
-  { t: "Niete", c: "#e8edf8", ink: "#022D94" },
-  { t: "Tayibat|Mo–Fr", c: "#B39656", ink: "#ffffff" },
-  { t: "Lola-VIP", c: "#E30613", ink: "#ffffff" }
+  { t: "iPhone Duo", c: "#c99a3c", ink: "#1d1406" },
+  { t: "Fast gewonnen", c: "#0b1a33", ink: "#f3d68a" },
+  { t: "Cuba Libre Flat", c: "#b3261e", ink: "#ffffff" },
+  { t: "+12 Monate Abo", c: "#f7f2e7", ink: "#0b1a33" },
+  { t: "Genius-Vorteile|bei Booking", c: "#c99a3c", ink: "#1d1406" },
+  { t: "Kaffeerunde|mit dem|Marketing-Team", c: "#0b1a33", ink: "#f3d68a" },
+  { t: "Niete", c: "#f7f2e7", ink: "#0b1a33" },
+  { t: "Tayibat|Mo–Fr", c: "#c99a3c", ink: "#1d1406" },
+  { t: "Kuchen backen|für das|Marketing-Team", c: "#b3261e", ink: "#ffffff" }
 ];
 const WHEEL_SEQ = [1, 3, 6, 1, 6, 3];
 const WHEEL_MSG = {
@@ -497,12 +601,12 @@ function wheelSVG(){
   let out = "";
   WHEEL.forEach((w, i) => {
     const a0 = i * seg, a1 = a0 + seg, [x0, y0] = pt(a0, R), [x1, y1] = pt(a1, R), mid = a0 + seg / 2, [tx, ty] = pt(mid, R * .6);
-    out += `<path d="M${cx},${cy} L${x0.toFixed(2)},${y0.toFixed(2)} A${R},${R} 0 0 1 ${x1.toFixed(2)},${y1.toFixed(2)} Z" fill="${w.c}" stroke="#ffffff" stroke-width="2"/>`;
-    const lines = w.t.split("|"), fs = lines.some(l => l.length > 13) ? 10.5 : 12;
+    out += `<path d="M${cx},${cy} L${x0.toFixed(2)},${y0.toFixed(2)} A${R},${R} 0 0 1 ${x1.toFixed(2)},${y1.toFixed(2)} Z" fill="${w.c}" stroke="#fffdf8" stroke-width="2"/>`;
+    const lines = w.t.split("|"), fs = lines.length > 2 ? 9.5 : lines.some(l => l.length > 13) ? 10.5 : 12;
     const tsp = lines.map((l, k) => `<tspan x="${tx.toFixed(2)}" dy="${k === 0 ? (-(lines.length - 1) * fs * .55).toFixed(1) : (fs * 1.1).toFixed(1)}">${esc(l)}</tspan>`).join("");
-    out += `<text x="${tx.toFixed(2)}" y="${ty.toFixed(2)}" fill="${w.ink}" font-size="${fs}" font-weight="700" text-anchor="middle" dominant-baseline="middle" transform="rotate(${mid - 90} ${tx.toFixed(2)} ${ty.toFixed(2)})" font-family="Manrope, system-ui, sans-serif">${tsp}</text>`;
+    out += `<text x="${tx.toFixed(2)}" y="${ty.toFixed(2)}" fill="${w.ink}" font-size="${fs}" font-weight="700" text-anchor="middle" dominant-baseline="middle" transform="rotate(${mid - 90} ${tx.toFixed(2)} ${ty.toFixed(2)})" font-family="Inter, system-ui, sans-serif">${tsp}</text>`;
   });
-  out += `<circle cx="${cx}" cy="${cy}" r="${R}" fill="none" stroke="#B39656" stroke-width="5"/><circle cx="${cx}" cy="${cy}" r="18" fill="#ffffff" stroke="#B39656" stroke-width="3"/><text x="${cx}" y="${cy + 1}" text-anchor="middle" dominant-baseline="middle" font-size="16">😃</text>`;
+  out += `<circle cx="${cx}" cy="${cy}" r="${R}" fill="none" stroke="#c99a3c" stroke-width="5"/><circle cx="${cx}" cy="${cy}" r="19" fill="#0b1a33" stroke="#e8c060" stroke-width="3"/><text x="${cx}" y="${cy + 1}" text-anchor="middle" dominant-baseline="middle" font-size="18" font-weight="900" fill="#f3d68a" font-family="Playfair Display, Georgia, serif">G</text>`;
   return `<svg viewBox="0 0 300 300" role="img" aria-label="Glücksrad">${out}</svg>`;
 }
 views.wheel = () => {
@@ -510,7 +614,7 @@ views.wheel = () => {
   <section class="card" style="text-align:center">
     <p class="small muted">Exklusiv für Kündigungswillige</p>
     <h1>Moment! Du hast einen Gratis-Dreh gewonnen 🎡</h1>
-    <p>Dreh am Smily-Glücksrad und sichere dir einen Preis, bevor du gehst.</p>
+    <p>Dreh am GoldClub-Glücksrad und sichere dir einen Preis, bevor du gehst.</p>
     <div class="wheel-box">
       <div class="wheel-pointer" aria-hidden="true"></div>
       <div class="wheel" id="wheel" style="transform:rotate(${wheelRot}deg)">${wheelSVG()}</div>
@@ -523,7 +627,7 @@ views.wheel = () => {
   const wheel = $("#wheel"), spin = $("#spin"), res = $("#wres");
   wheelProof();
   spin.onclick = () => {
-    spin.disabled = true; $("#wskip").disabled = true; res.textContent = "";
+    spin.disabled = true; $("#wskip").disabled = true; res.textContent = ""; track("wheel_spin");
     const target = WHEEL_SEQ[wheelSpins % WHEEL_SEQ.length]; wheelSpins++;
     const seg = 360 / WHEEL.length;
     const off = target === 1 ? -seg * .42 : (Math.random() - .5) * seg * .6;   // „Fast gewonnen“ landet knapp neben dem iPhone
@@ -540,30 +644,6 @@ views.wheel = () => {
     }, reduce ? 100 : 4100);
   };
   $("#wskip").onclick = () => retention2();
-};
-
-views.kdnr = () => {
-  app.innerHTML = `
-  <form class="card" id="f">
-    <p class="small muted">Kündigung · Schritt 2 von 5</p>
-    <h2>Identität bestätigen</h2>
-    <p>Bitte gib deine Kundennummer ein. Du findest sie auf der letzten existierenden GoldClub-Karte.</p>
-    <div class="field"><label for="kn">Kundennummer</label><input type="text" id="kn" autocomplete="off" autocapitalize="characters" placeholder="SL4-…"></div>
-    <p class="err" id="err"></p>
-    <button class="btn-gold" type="submit">Weiter</button>
-  </form>`;
-  let tries = 0;
-  $("#f").onsubmit = async e => {
-    e.preventDefault();
-    try {
-      const r = await api("/kdnr", { code: $("#kn").value });
-      if (r.ok) { await sheetPush(); return go("reason"); }
-    } catch (x) { if (x.message === "auth") return; if (x.status === 409) return go("ticket"); }
-    tries++;
-    const hints = ["Kundennummer unbekannt. Bitte prüfe deine Eingabe.", "Kundennummer unbekannt. Hast du dir die GoldClub-Karte schon genau angesehen?", "Tipp: Die Karte dreht sich. Etwas Geduld hilft."];
-    $("#err").textContent = hints[Math.min(tries - 1, hints.length - 1)];
-    shake($("#f"));
-  };
 };
 
 const LEITLINIEN = [
@@ -587,7 +667,7 @@ views.reason = async () => {
   const question = photo ? esc(captchaCfg.frage) : "Wähle alle 5 echten CHECK24-Leitlinien.";
   app.innerHTML = `
   <form class="card" id="f">
-    <p class="small muted">Kündigung · Schritt 3 von 5</p>
+    <p class="small muted">Kündigung · Schritt 2 von 4</p>
     <h2>Warum möchtest du kündigen?</h2>
     <div class="field"><label for="why">Kündigungsgrund</label>
       <select id="why">
@@ -599,7 +679,7 @@ views.reason = async () => {
       </select></div>
     <div class="field"><label for="txt">Was können wir besser machen? (mind. 20 Zeichen)</label>
       <textarea id="txt" maxlength="200"></textarea><span class="small muted" id="cnt">0 / 20</span></div>
-    <label style="display:flex;gap:8px;font-weight:400;font-size:.85rem"><input type="checkbox" id="nl" checked> Ja, ich möchte den Smily-Level-4-Newsletter weiterhin 3× täglich erhalten.</label>
+    <label style="display:flex;gap:8px;font-weight:400;font-size:.85rem"><input type="checkbox" id="nl" checked> Ja, ich möchte den GoldClub-Level-4-Newsletter weiterhin 3× täglich erhalten.</label>
     <div class="field"><label>Sicherheitsprüfung: ${question}</label>
       <div class="captcha" id="cap">${tiles.join("")}</div></div>
     <p class="err" id="err"></p>
@@ -644,20 +724,44 @@ views.queue = () => {
   let total = QUEUE_SECONDS, left = QUEUE_SECONDS, skips = 0;
   app.innerHTML = `
   <section class="card" style="text-align:center">
-    <p class="small muted">Kündigung · Schritt 4 von 5</p>
+    <p class="small muted">Kündigung · Schritt 3 von 4</p>
     <h2>Du wirst mit der Kündigungsabteilung verbunden</h2>
     <p class="muted">Du bist aktuell auf</p>
     <div class="queue-num" id="pos">Platz 247</div>
     <div class="progress"><div id="prog"></div></div>
     <p class="small muted" id="left">Geschätzte Wartezeit: ${left} s</p>
-    <button class="btn-gold" id="skip">⚡ Premium-Skip</button>
+    <div class="skipzone" id="skipzone"><button class="btn-gold" id="skip" style="width:100%">⚡ Premium-Skip</button></div>
     <button class="btn-tiny" id="mute">Wartemusik</button>
     <p class="fine">Premium-Skip ist im Level-4-Abo enthalten und verlängert die Wartezeit um ${SKIP_PENALTY} Sekunden.</p>
   </section>`;
   const label = () => $("#mute").textContent = audio ? "Wartemusik aus" : "Wartemusik an";
   startMusic(); label();
   $("#mute").onclick = () => { audio ? stopMusic() : startMusic(); label(); };
-  $("#skip").onclick = () => { skips++; left += SKIP_PENALTY; total += SKIP_PENALTY; toast(`Premium-Skip aktiviert${skips > 1 ? ` (${skips}×)` : "!"} +${SKIP_PENALTY} s`); };
+  api("/queue", {}).catch(() => {});
+  // Premium-Skip: Der erste Klick kostet 10 s, danach flüchtet der Button und versteckt sich
+  const zone = $("#skipzone"), skip = $("#skip");
+  let dodges = 0, lastFlee = 0;
+  const flee = e => {
+    if (!skips) return;
+    if (e) { e.preventDefault(); e.stopPropagation(); }
+    if (Date.now() - lastFlee < 400) return;   // Tippen löst pointerdown und click aus: nur einmal zählen
+    lastFlee = Date.now();
+    dodges++;
+    if (dodges > 4) { zone.innerHTML = `<p class="small muted" style="padding:16px 0">⚡ Premium-Skip ist gerade nicht verfügbar. Bitte versuche es in 24 Monaten erneut.</p>`; return; }
+    const w = zone.clientWidth, bw = skip.offsetWidth;
+    skip.classList.add("flee"); skip.style.width = "auto";
+    const x = Math.random() * Math.max(0, w - skip.offsetWidth), y = (Math.random() - .5) * 60;
+    skip.style.transform = `translate(${x.toFixed(0)}px, ${y.toFixed(0)}px) rotate(${((Math.random() - .5) * 16).toFixed(0)}deg) scale(${(1 - dodges * .14).toFixed(2)})`;
+    skip.style.opacity = String(1 - dodges * .15);
+  };
+  skip.addEventListener("pointerdown", e => { if (skips) flee(e); });
+  skip.addEventListener("pointerenter", e => { if (skips && e.pointerType === "mouse") flee(); });
+  skip.onclick = e => {
+    if (skips) return flee(e);
+    skips++; left += SKIP_PENALTY; total += SKIP_PENALTY; track("skip");
+    toast(`Premium-Skip aktiviert! +${SKIP_PENALTY} s`);
+    skip.style.opacity = ".9";
+  };
   const iv = setInterval(() => {
     if (S.step !== "queue") return clearInterval(iv);
     left--;
@@ -674,7 +778,7 @@ views.sign = () => {
   let attempts = 0;
   app.innerHTML = `
   <section class="card">
-    <p class="small muted">Kündigung · Schritt 5 von 5</p>
+    <p class="small muted">Kündigung · Schritt 4 von 4</p>
     <h2>Kündigung nur schriftlich</h2>
     <p>Bitte unterschreibe hier mit dem Finger, so wie in deinem Ausweis.</p>
     <canvas class="sig" id="sig" aria-label="Unterschriftsfeld"></canvas>
@@ -708,7 +812,9 @@ views.sign = () => {
     } catch (x) {
       if (x.message === "auth") return;
       err.textContent = x.message;
-      if (/Kundennummer|Abo/.test(x.message)) setTimeout(() => go("kdnr"), 1800);
+      if (x.message === "phase") return;
+      if (/Warteschleife/.test(x.message)) setTimeout(() => go("queue"), 1800);
+      else if (/Abo/.test(x.message)) setTimeout(() => go("ticket"), 1800);
     }
   };
 };
@@ -719,7 +825,7 @@ views.done = () => {
   <section class="card" style="text-align:center">
     <div class="stamp">Gekündigt</div>
     <h1>Kündigung bestätigt.</h1>
-    <p>Dein Abo endet fristgerecht zum <b>31.12.2099</b>. Bis dahin wünschen wir dir weiterhin viel Freude mit Smily Level 4.</p>
+    <p>Dein Abo endet fristgerecht zum <b>31.12.2099</b>. Bis dahin wünschen wir dir weiterhin viel Freude mit GoldClub Level 4.</p>
     <p class="muted small">Deine Zeit</p>
     <div class="queue-num" style="font-size:2.6rem">${fmt(S.lastMs)}</div>
     ${S.bestMs != null && S.bestMs < S.lastMs ? `<p class="small muted">Deine Bestzeit: ${fmt(S.bestMs)}</p>` : ""}
@@ -731,7 +837,7 @@ views.done = () => {
     <div id="board"><p class="muted small">Rangliste wird geladen …</p></div>
   </section>
   <button class="btn-ghost" id="again">Nochmal abschließen und schneller kündigen</button>`;
-  $("#again").onclick = () => { Object.assign(S, { startedAt: null, endedAt: null }); go("ticket"); };
+  $("#again").onclick = () => { Object.assign(S, { startedAt: null, endedAt: null }); resetRun(); go("ticket"); };
   if (lastBoard) renderBoard(lastBoard);
   const load = async () => { if (S.step !== "done") return clearInterval(boardTimer); try { renderBoard(await api("/board")); } catch {} };
   clearInterval(boardTimer); load(); boardTimer = setInterval(() => { if (!document.hidden) load(); }, 10000);
@@ -749,7 +855,9 @@ function renderBoard(b){
 }
 
 function render(){
-  pill.hidden = !S.startedAt;
+  document.body.classList.toggle("locked", S.step === "lock");
+  timerEl.hidden = ["lock","ended","monitor"].includes(S.step);
+  pill.hidden = !S.startedAt || ["lock","ended","monitor"].includes(S.step);
   pill.className = "pill " + (S.endedAt ? "off" : "on");
   pill.textContent = S.endedAt ? "Gekündigt" : "Abo aktiv";
   if (S.step !== "queue") stopMusic();
@@ -760,18 +868,18 @@ function render(){
 }
 
 /* ===== Gemeinsame Helfer für Dark Patterns ===== */
-const ACTIVE_STEPS = ["dash","wheel","agb","kdnr","reason","queue","sign"];
+const ACTIVE_STEPS = ["dash","wheel","agb","reason","queue","sign"];
 
 /* Fake Social Proof */
-// from = ab welchem Schritt die Meldung erscheinen darf (0 Dashboard, 1 Glücksrad, 4 Kündigungsgrund)
+// from = ab welchem Schritt die Meldung erscheinen darf (0 Dashboard, 1 Glücksrad, 3 Kündigungsgrund)
 const PROOF = [
-  { w: "E", m: "Ecki hat gerade auf Smily Level 5 verlängert 🎉", from: 0 },
+  { w: "E", m: "Ecki hat gerade auf GoldClub Level 5 verlängert 🎉", from: 0 },
   { w: "H", m: "Henner hat soeben das Jahresabo abgeschlossen. Kluger Mann.", from: 0 },
   { w: "👀", m: "17 Kolleg:innen sehen sich gerade dieses Abo an.", from: 0 },
   { w: "H", m: "Henner hat am Glücksrad ein iPhone Duo gewonnen. Angeblich.", from: 1 },
   { w: "E", m: "Ecki hat seine Kündigung abgebrochen und wirkt sehr glücklich.", from: 0 },
   { w: "H", m: "Henner sagt: „Kündigen? Wozu? Ich hab doch Cuba Libre Flat.“", from: 0 },
-  { w: "E", m: "Ecki hat Smily Level 4 mit 5 Sternen bewertet ⭐⭐⭐⭐⭐", from: 4 },
+  { w: "E", m: "Ecki hat GoldClub Level 4 mit 5 Sternen bewertet ⭐⭐⭐⭐⭐", from: 3 },
   { w: "EH", m: "Ecki und Henner teilen sich jetzt ein Familien-Abo 💛", from: 0 }
 ];
 const PROOF_FIRST_DELAY = 6000, PROOF_VISIBLE = 7000, PROOF_GAP = 15000;
@@ -807,7 +915,7 @@ let ratingDone = false;
 function nag(){
   if (ratingDone || overlayRoot.innerHTML || !ACTIVE_STEPS.includes(S.step)) return;
   overlayRoot.innerHTML = `<div class="overlay" role="dialog" aria-modal="true"><div class="modal">
-    <h2>Wie gefällt dir Smily Level 4?</h2>
+    <h2>Wie gefällt dir GoldClub Level 4?</h2>
     <p class="muted">Dein Feedback hilft uns, die Kündigung noch besser zu machen.</p>
     <div class="stars" id="stars">${[1,2,3,4,5].map(n => `<button type="button" data-n="${n}" aria-label="${n} von 5 Sternen">★</button>`).join("")}</div>
     <p class="err" id="serr"></p>
@@ -817,7 +925,7 @@ function nag(){
     const n = +b.dataset.n;
     const no = { 1: "1 Stern ist leider ausverkauft.", 2: "2 Sterne sind nur im Level-5-Abo verfügbar.", 3: "3 Sterne? Das war bestimmt ein Versehen. Bitte nochmal." };
     if (no[n]) { $("#serr").textContent = no[n]; shake(b); return; }
-    ratingDone = true; overlayRoot.innerHTML = "";
+    ratingDone = true; overlayRoot.innerHTML = ""; track("rating");
     toast(n === 4 ? "Danke! Wir haben auf 5 Sterne aufgerundet. ⭐⭐⭐⭐⭐" : "Danke für 5 Sterne! Ecki und Henner freuen sich. ⭐");
   };
   $("#later").onclick = () => { overlayRoot.innerHTML = ""; toast("Alles klar, wir erinnern dich gleich nochmal."); setTimeout(nag, 20000); };
@@ -826,21 +934,21 @@ function nag(){
 /* Kündigungs-AGB mit Scrollzwang */
 const AGB = [
   "Geltungsbereich. Diese Bedingungen gelten für alle Kündigungen, Kündigungsversuche, Kündigungsgedanken und das bloße Hovern über einem Kündigungsbutton.",
-  "Vertragsgegenstand. Gegenstand des Vertrages ist die dauerhafte Freude an Smily Level 4. Freude ist nicht kündbar, sondern lediglich pausierbar (Pausengebühr 4,99 € pro Tag).",
+  "Vertragsgegenstand. Gegenstand des Vertrages ist die dauerhafte Freude an GoldClub Level 4. Freude ist nicht kündbar, sondern lediglich pausierbar (Pausengebühr 4,99 € pro Tag).",
   "Laufzeit. Die Mindestlaufzeit beträgt 24 Monate. Sie verlängert sich automatisch um weitere 24 Monate, sobald jemand im Raum „Glühwein“ sagt.",
   "Kündigungsfrist. Die Kündigung muss spätestens 3 Monate vor Vertragsbeginn eingehen. Verspätete Kündigungen werden gerne als Feedback entgegengenommen.",
   "Form der Kündigung. Kündigungen sind ausschließlich schriftlich, digital, mündlich und gleichzeitig per Brieftaube einzureichen.",
   "Checkito-Pauschale. Die Checkito-Pauschale fällt unabhängig von der Nutzung an. Sie dient der Finanzierung der Checkito-Pauschale.",
   "Cuba Libre Flat. Die Flatrate gilt für alle Getränke, die als Cuba Libre bezeichnet werden. Die Bezeichnung obliegt der Bar.",
   "Fast Lane bei Merlin. Die Fast Lane gilt ausschließlich bei IT-Problemen, die vor ihrem Auftreten angemeldet wurden.",
-  "Kundennummer. Die Kundennummer ist nicht Bestandteil dieser Bedingungen. Wer sie hier sucht, sucht an der falschen Stelle.",
-  "Buggys. Bei vorzeitiger Kündigung gehen sämtliche offenen Buggys des Teams auf die kündigende Person über. Dies gilt rückwirkend.",
-  "Haftung. Smily haftet nicht für Schäden durch übermäßige Zufriedenheit, insbesondere nicht für Muskelkater vom Dauerlächeln.",
+  "GoldClub-Karte. Die GoldClub-Karte bleibt Eigentum des Marketing-Teams. Anfassen erlaubt, Mitnehmen nicht.",
+  "Buggys. Bei vorzeitiger Kündigung gehen sämtliche offenen Buggys des Marketing-Teams auf die kündigende Person über. Dies gilt rückwirkend.",
+  "Haftung. GoldClub haftet nicht für Schäden durch übermäßige Zufriedenheit, insbesondere nicht für Muskelkater vom Dauerlächeln.",
   "Glücksrad. Gewinne am Glücksrad sind symbolischer Natur. Das iPhone Duo existiert ausschließlich als Motivation.",
   "Datenschutz. Wir speichern nur, was nötig ist. Nötig ist alles.",
   "Bewertungen. Mit der Abgabe einer Bewertung von weniger als 4 Sternen erklärst du dich bereit, die Bewertung zu wiederholen.",
   "Familien-Abo. Ecki und Henner sind von dieser Regelung ausgenommen. Warum, wissen nur Ecki und Henner.",
-  "Upgrade-Pflicht. Wer den Smily-Bot um Hilfe bittet, stimmt einem Upgrade-Angebot zu. Und noch einem.",
+  "Upgrade-Pflicht. Wer den GoldClub-Bot um Hilfe bittet, stimmt einem Upgrade-Angebot zu. Und noch einem.",
   "Salvatorische Klausel. Sollte eine Bestimmung unwirksam sein, gilt automatisch die für dich ungünstigere Variante.",
   "Gerichtsstand. Gerichtsstand ist die Tanzfläche. Verhandelt wird nach dem dritten Lied.",
   "Änderungen. Wir behalten uns vor, diese Bedingungen jederzeit zu ändern, insbesondere während du sie liest.",
@@ -848,7 +956,7 @@ const AGB = [
 ];
 /* Füllparagraphen, damit die AGB richtig lang werden */
 const AGB_TITLES = ["Allgemeines","Begriffsbestimmungen","Vertragsschluss","Mitwirkungspflichten","Zahlungsmodalitäten","Fälligkeit","Verzug","Pausenregelung","Rabattbedingungen","Laufzeitverlängerung","Sonderkündigungsrecht (entfällt)","Leistungsänderungen","Zufriedenheitsgarantie","Treuepunkte","Upgrade-Bedingungen","Downgrade-Bedingungen (gestrichen)","Kommunikation","Erreichbarkeit","Schriftform","Fristen","Bearbeitungszeiten","Gebühren","Pauschalen","Sonderpauschalen","Gewährleistung","Mängelanzeige","Höhere Gewalt","Abtretung","Aufrechnung","Vertraulichkeit","Nutzungsrechte","Bewertungen","Empfehlungsprogramm","Familien-Abo","Glücksrad","Getränke","Buffet","Tanzfläche","Garderobe","Nachweispflichten"];
-const AGB_SUBJ = ["Die kündigende Person","Der Kunde","Smily","Der Smily-Bot","Das Marketingteam","Die Kündigungsabteilung","Der Vertragspartner","Jede natürliche Person auf der Weihnachtsfeier","Der Abonnent","Die zuständige Stelle"];
+const AGB_SUBJ = ["Die kündigende Person","Der Kunde","GoldClub","Der GoldClub-Bot","Das Marketingteam","Die Kündigungsabteilung","Der Vertragspartner","Jede natürliche Person auf der Weihnachtsfeier","Der Abonnent","Die zuständige Stelle"];
 const AGB_PRED = [
   "ist verpflichtet, sämtliche Änderungen unverzüglich, spätestens jedoch vorgestern, schriftlich mitzuteilen",
   "erkennt an, dass diese Regelung auch dann gilt, wenn sie nicht gelesen wurde",
@@ -859,9 +967,9 @@ const AGB_PRED = [
   "kann diese Bestimmung jederzeit anfechten, sofern die Anfechtung in dreifacher Ausfertigung erfolgt",
   "ist nicht berechtigt, sich auf frühere Fassungen dieser Bedingungen zu berufen",
   "stimmt zu, dass Schweigen als Zustimmung zur Verlängerung gewertet wird",
-  "muss Rückfragen ausschließlich über den Smily-Bot stellen",
+  "muss Rückfragen ausschließlich über den GoldClub-Bot stellen",
   "verzichtet auf die Geltendmachung von Ansprüchen, die ihr oder ihm zustehen könnten",
-  "akzeptiert, dass Fristen in Smily-Tagen berechnet werden (ein Smily-Tag entspricht 72 Stunden)"
+  "akzeptiert, dass Fristen in GoldClub-Tagen berechnet werden (ein GoldClub-Tag entspricht 72 Stunden)"
 ];
 const AGB_COND = [
   "Dies gilt entsprechend für Wochenenden, Feiertage und Weihnachtsfeiern.",
@@ -869,7 +977,7 @@ const AGB_COND = [
   "Die Regelung des vorstehenden Absatzes bleibt hiervon unberührt.",
   "Näheres regelt die Anlage 7b, die derzeit überarbeitet wird.",
   "Eine Erstattung bereits gezahlter Pauschalen ist ausgeschlossen.",
-  "Im Zweifel gilt die für Smily günstigere Auslegung.",
+  "Im Zweifel gilt die für GoldClub günstigere Auslegung.",
   "Maßgeblich ist der Zeitpunkt des Eingangs bei der zuständigen Stelle.",
   "Die zuständige Stelle ist nicht zuständig.",
   "Dies wurde gemeinsam mit Ecki und Henner so beschlossen.",
@@ -891,7 +999,7 @@ function buildAgb(){
 views.agb = () => {
   app.innerHTML = `
   <section class="card">
-    <p class="small muted">Kündigung · Schritt 1 von 5</p>
+    <p class="small muted">Kündigung · Schritt 1 von 4</p>
     <h2>Kündigungsbedingungen</h2>
     <p>Bitte lies die Kündigungsbedingungen vollständig. Der Button wird freigeschaltet, sobald du alles gelesen hast.</p>
     <div class="agb" id="agb" tabindex="0" aria-label="Kündigungsbedingungen">${buildAgb().map(x => `<p><b>§ ${x.n}</b> ${x.html}</p>`).join("")}</div>
@@ -905,14 +1013,14 @@ views.agb = () => {
     else $("#agbhint").textContent = `Gelesen: ${pct} %`;
   };
   box.addEventListener("scroll", check, { passive: true }); check();
-  btn.onclick = async () => { await sheetApp(); go("kdnr"); };
+  btn.onclick = async () => { await sheetApp(); await sheetPush(); go("reason"); };
 };
 
-/* Smily-Bot */
+/* GoldClub-Bot */
 const BOT_REPLIES = [
-  "Gute Frage! Die beste Antwort darauf ist Smily Level 5. Soll ich upgraden? 🚀",
+  "Gute Frage! Die beste Antwort darauf ist GoldClub Level 5. Soll ich upgraden? 🚀",
   "Kündigen? Das Wort kenne ich leider nicht. Meintest du „verlängern“?",
-  "Dafür gibt es eine Lösung: Smily Level 4 Plus, nur 9,99 € mehr im Monat.",
+  "Dafür gibt es eine Lösung: GoldClub Level 4 Plus, nur 9,99 € mehr im Monat.",
   "Ich verstehe dich. Wirklich. Deshalb schenke ich dir 3 Monate Verlängerung. 🎁",
   "Ich bin leider nur für Upgrades zuständig. Für Kündigungen wende dich bitte an mich.",
   "Ich verbinde dich mit einem Menschen … Leider sind gerade alle Menschen auf der Weihnachtsfeier. 🎄",
@@ -927,11 +1035,11 @@ function botSay(text, me){
 }
 function botAnswer(q){
   botSay(q, true);
-  const t = document.createElement("div"); t.className = "msg bot-m typing"; t.textContent = "Smily-Bot tippt …";
+  const t = document.createElement("div"); t.className = "msg bot-m typing"; t.textContent = "GoldClub-Bot tippt …";
   botMsgs.append(t); botMsgs.scrollTop = botMsgs.scrollHeight;
   setTimeout(() => {
     t.remove();
-    if (/kundennummer/i.test(q)) botSay("Die steht auf der letzten GoldClub-Karte. Aber mit Level 5 bräuchtest du gar keine Kundennummer! 😉");
+    if (/k(ü|ue)ndig|raus/i.test(q) && S.step === "dash" && botTipGiven) botSay("Psst, ich hab dir doch schon einen Tipp gegeben: ganz unten, im Kleingedruckten. 🤫 Aber das hast du nicht von mir.");
     else botSay(BOT_REPLIES[botIdx++ % BOT_REPLIES.length]);
   }, 900 + Math.random() * 700);
 }
@@ -939,8 +1047,8 @@ function openBot(){
   $("#bot").hidden = false; $("#botfab").hidden = true;
   if (!botStarted) {
     botStarted = true;
-    botSay("Hi, ich bin Smily-Bot 🤖 Wie kann ich dir heute beim Upgraden helfen?");
-    $("#botquick").innerHTML = ["Wie kündige ich?", "Wo finde ich meine Kundennummer?", "Ich will hier raus!"].map(q => `<button type="button">${esc(q)}</button>`).join("");
+    botSay("Hi, ich bin GoldClub-Bot 🤖 Wie kann ich dir heute beim Upgraden helfen?");
+    $("#botquick").innerHTML = ["Wie kündige ich?", "Was kostet Level 5?", "Ich will hier raus!"].map(q => `<button type="button">${esc(q)}</button>`).join("");
   }
   $("#botin").focus();
 }
@@ -974,6 +1082,47 @@ function fakeProgress(body, label, ms){
     const iv = setInterval(() => { const k = Math.min(1, (Date.now() - t0) / ms); const el = $("#pp"); if (el) el.style.width = (k * 100) + "%"; if (k >= 1) { clearInterval(iv); r(); } }, 100);
   });
 }
+/* Hässliche Hunde für die Fehlerseite (à la Amazon). Eigene Fotos in app/hunde/ haben Vorrang. */
+const DOGS = [
+  { n: "Rüdiger", job: "Er leitet die Kündigungsabteilung und hat diesen Fehler persönlich verursacht.", fur: "#d9c3a5", spot: "#8a6a48", tuft: "#f2f2f2", eyes: [16, 9], tongue: 1, teeth: 3, ear: "flop", bald: true },
+  { n: "Hildegard", job: "Sie ist für Upselling zuständig und schaut dich gerade enttäuscht an.", fur: "#3b3330", spot: "#6e5d55", tuft: "#cfc6c0", eyes: [11, 14], tongue: -1, teeth: 2, ear: "bat", bald: false },
+  { n: "Klaus-Peter", job: "Er hat die AGB geschrieben. Alle 161 Paragraphen.", fur: "#efe3cf", spot: "#c9a77a", tuft: "#ffffff", eyes: [14, 14], tongue: 0, teeth: 4, ear: "mixed", bald: true },
+  { n: "Uschi", job: "Sie betreut den GoldClub-Bot. Beschwerden bitte direkt an Uschi.", fur: "#b07a4f", spot: "#5e3b22", tuft: "#e8d9c8", eyes: [8, 17], tongue: 1, teeth: 1, ear: "bat", bald: false }
+];
+let dogPhotos = null, dogIdx = Math.floor(Math.random() * DOGS.length);
+function dogSVG(d){
+  const [l, r] = d.eyes;
+  const ears = {
+    flop: `<path d="M58 70 C30 75 22 120 40 135 C55 120 62 100 70 88Z" fill="${d.spot}"/><path d="M182 66 C215 60 225 105 205 128 C192 112 185 95 172 86Z" fill="${d.spot}"/>`,
+    bat: `<path d="M62 78 L40 18 L92 58Z" fill="${d.fur}" stroke="${d.spot}" stroke-width="3"/><path d="M178 74 L214 12 L150 56Z" fill="${d.fur}" stroke="${d.spot}" stroke-width="3"/><path d="M60 66 L48 32 L80 58Z" fill="#e9a7a0"/>`,
+    mixed: `<path d="M64 76 L44 22 L94 58Z" fill="${d.fur}" stroke="${d.spot}" stroke-width="3"/><path d="M180 70 C214 66 222 112 200 132 C190 112 184 96 170 84Z" fill="${d.spot}"/>`
+  }[d.ear];
+  const tufts = Array.from({ length: 9 }, (_, i) => { const x = 78 + i * 11, h = 18 + (i * 37 % 23); return `<path d="M${x} 62 q${(i % 2 ? 6 : -6)} ${-h} ${(i % 3) * 4 - 2} ${-h - 8}" stroke="${d.tuft}" stroke-width="3" fill="none" stroke-linecap="round"/>`; }).join("");
+  const teeth = Array.from({ length: d.teeth }, (_, i) => `<path d="M${104 + i * 11} 168 l4 -13 l4 13Z" fill="#fffbe8" stroke="#8d7f5c" stroke-width="1"/>`).join("");
+  const tongue = d.tongue ? `<path d="M${d.tongue > 0 ? 132 : 98} 170 c${d.tongue * 6} 22 ${d.tongue * 22} 30 ${d.tongue * 30} 18 c${d.tongue * -4} -10 ${d.tongue * -12} -16 ${d.tongue * -20} -20Z" fill="#e5737b" stroke="#a94450" stroke-width="2"/>` : "";
+  return `<svg viewBox="0 0 240 230" role="img" aria-label="Ein sehr hässlicher Hund namens ${esc(d.n)}">
+    <rect width="240" height="230" fill="#f3ecdc"/>
+    ${ears}
+    <ellipse cx="120" cy="112" rx="70" ry="66" fill="${d.fur}"/>
+    ${d.bald ? `<ellipse cx="96" cy="88" rx="22" ry="14" fill="#e8b9a8" opacity=".75"/><circle cx="150" cy="128" r="5" fill="#c98f7c"/><circle cx="84" cy="132" r="3" fill="#c98f7c"/>` : `<ellipse cx="150" cy="96" rx="24" ry="20" fill="${d.spot}" opacity=".8"/>`}
+    ${tufts}
+    <circle cx="92" cy="104" r="${l + 6}" fill="#fff" stroke="#3a2c20" stroke-width="2"/><circle cx="${92 + (l > 12 ? -3 : 4)}" cy="${104 + 3}" r="${Math.max(4, l - 4)}" fill="#1a1410"/><circle cx="${90 + (l > 12 ? -3 : 4)}" cy="101" r="2.5" fill="#fff"/>
+    <circle cx="152" cy="100" r="${r + 6}" fill="#fff" stroke="#3a2c20" stroke-width="2"/><circle cx="${152 + (r > 12 ? 4 : -2)}" cy="${100 - 2}" r="${Math.max(4, r - 5)}" fill="#1a1410"/><circle cx="${150 + (r > 12 ? 4 : -2)}" cy="96" r="2.5" fill="#fff"/>
+    <path d="M${78} ${86 - l} q14 -${6 + l / 3} 28 2" stroke="#3a2c20" stroke-width="3" fill="none"/>
+    <ellipse cx="122" cy="150" rx="40" ry="28" fill="${d.tuft}" opacity=".9"/>
+    <ellipse cx="122" cy="138" rx="15" ry="10" fill="#2b211a"/><ellipse cx="117" cy="135" rx="4" ry="2.5" fill="#6b5a4c"/>
+    <path d="M92 164 q30 14 62 -4" stroke="#3a2c20" stroke-width="3" fill="none"/>
+    ${teeth}${tongue}
+    <path d="M70 150 l-22 -4 M70 156 l-22 4 M172 148 l24 -6 M172 154 l22 4" stroke="#3a2c20" stroke-width="1.5"/>
+  </svg>`;
+}
+async function dogHTML(){
+  if (dogPhotos === null) { try { dogPhotos = (await (await fetch(API + "/hunde", { credentials: "same-origin" })).json()).bilder || []; } catch { dogPhotos = []; } }
+  const d = DOGS[dogIdx++ % DOGS.length];
+  const pic = dogPhotos.length ? `<img src="${esc(dogPhotos[Math.floor(Math.random() * dogPhotos.length)])}" alt="Ein sehr hässlicher Hund">` : dogSVG(d);
+  return `<div class="dogpic">${pic}</div><p class="dogcap"><b>Lerne die Hunde vom GoldClub kennen:</b> Das ist ${esc(d.n)}. ${esc(d.job)}</p>`;
+}
+
 /* Dead End: Ladespinner, dann Fehlerseite – raus nur über Zurück */
 function deadEnd(label){
   return new Promise(res => {
@@ -984,24 +1133,29 @@ function deadEnd(label){
     let done = false;
     const close = () => { if (done) return; done = true; removeEventListener("popstate", close); el.remove(); res(); };
     addEventListener("popstate", close);
-    setTimeout(() => {
+    const dogP = dogHTML();
+    setTimeout(async () => {
+      if (done) return;
+      const dog = await dogP;
       if (done) return;
       el.innerHTML = `<button class="dead-back" id="deadback" type="button" aria-label="Zurück">‹ zurück</button>
-        <div class="dead-in"><div class="big-emoji">🙈</div><h1>Huppsala, Mensch!</h1><p>Da ist was schiefgelaufen.</p>
-        <p class="small muted">Fehlercode: SMILY-404-UPSELL<br>Bitte versuche es später erneut oder wende dich an den Smily-Bot.</p></div>`;
+        <div class="dead-in"><h1>Huppsala, Mensch!</h1><p>Da ist was schiefgelaufen.</p>${dog}
+        <p class="small muted">Fehlercode: GOLDCLUB-404-UPSELL<br>Bitte versuche es später erneut oder wende dich an den GoldClub-Bot.</p></div>`;
       $("#deadback").onclick = () => { try { history.back(); } catch {} setTimeout(close, 300); };
     }, 4500);
   });
 }
 async function sheetApp(){
+  track("app_sheet");
   for (;;) {
     const yes = await sheet({
-      emoji: "📱", title: "Smily Level 4 gibt's jetzt als App!",
+      emoji: "📱", title: "GoldClub Level 4 gibt's jetzt als App!",
       text: "Kündige ab sofort ganz bequem in der App.<br><span class=\"fine\">Kündigung in der App nicht verfügbar.</span>",
       primary: "App installieren", secondary: "Weiter im Browser"
     });
     if (!yes) return;
-    await deadEnd("Smily-App wird heruntergeladen …");
+    track("app_deadend");
+    await deadEnd("GoldClub-App wird heruntergeladen …");
   }
 }
 const sheetPush = () => sheet({
@@ -1010,13 +1164,14 @@ const sheetPush = () => sheet({
   primary: "Aktivieren", secondary: "Später",
   onPrimary: async () => { toast("Push aktiviert! Deine erste Mitteilung: „Hast du schon an ein Upgrade gedacht?“"); await wait(600); }
 });
-const sheetAdvent = () => sheet({
+const sheetAdvent = () => (track("advent_sheet"), sheet({
   emoji: "🎄", title: "Warte! Kennst du schon unseren Adventskalender?",
-  text: "24 Türchen voller Smily-Vorteile. Nur für Level-4-Kund:innen.",
+  text: "24 Türchen voller GoldClub-Vorteile. Nur für Level-4-Kund:innen.",
   primary: "Türchen öffnen", secondary: "Nein, ich will nur kündigen",
   onPrimary: async b => { await fakeProgress(b, "Türchen klemmt … wird geöffnet …", 3500); toast("Hinter Türchen 1: ein weiterer Vorteil. Herzlichen Glückwunsch! 🎁"); }
-});
+}));
 async function sheetSurvey(){
+  track("survey_sheet");
   for (;;) {
     const yes = await sheet({
       emoji: "📝", title: "Hast du 2 Minuten für uns?",
@@ -1024,6 +1179,7 @@ async function sheetSurvey(){
       primary: "Klar, gerne!", secondary: "Nein, Kündigung abschicken"
     });
     if (!yes) return;
+    track("survey_deadend");
     await deadEnd("Fragebogen wird geladen …");
   }
 }
@@ -1047,7 +1203,7 @@ async function ending(){
   await wait(2500);
   if (S.step !== "done") return;
   const box = document.createElement("div"); box.className = "pushes"; document.body.append(box);
-  const msgs = [["S", "Smily Level 4", "Wir vermissen dich jetzt schon 😢"], ["S", "Smily Level 4", "Komm zurück: 1 Monat gratis!*"], ["H", "Henner", "Komm zurück, ich geb dir einen Cuba Libre aus 🍹"]];
+  const msgs = [["G", "GoldClub Level 4", "Wir vermissen dich jetzt schon 😢"], ["G", "GoldClub Level 4", "Komm zurück: 1 Monat gratis!*"], ["H", "Henner", "Komm zurück, ich geb dir einen Cuba Libre aus 🍹"]];
   for (const [a, t, m] of msgs) {
     if (S.step !== "done") break;
     const el = document.createElement("div"); el.className = "push";
@@ -1058,7 +1214,7 @@ async function ending(){
   if (S.step !== "done") { box.remove(); return; }
   const back = await sheet({
     emoji: "💔", title: "Wir vermissen dich!",
-    text: "Reaktiviere Smily Level 4 jetzt und erhalte 1 Monat gratis.*<br><span class=\"fine\">*bei 24 Monaten Mindestlaufzeit, zzgl. Checkito-Pauschale</span>",
+    text: "Reaktiviere GoldClub Level 4 jetzt und erhalte 1 Monat gratis.*<br><span class=\"fine\">*bei 24 Monaten Mindestlaufzeit, zzgl. Checkito-Pauschale</span>",
     primary: "Jetzt reaktivieren", secondary: "Nein! Ich bin endlich frei!"
   });
   box.remove();
@@ -1067,26 +1223,277 @@ async function ending(){
   confetti();
 }
 
+/* ===== Chatbot-Tipp auf dem Dashboard (spätestens nach 2 Minuten) ===== */
+let dashSince = null, botTipGiven = false, botTipTimer = null;
+function resetRun(){ dashSince = null; botTipGiven = false; clearTimeout(botTipTimer); }
+function scheduleBotTip(){
+  if (botTipGiven) return;
+  if (!dashSince) dashSince = Date.now();
+  clearTimeout(botTipTimer);
+  botTipTimer = setTimeout(giveBotTip, Math.max(0, BOT_TIP_AFTER - (Date.now() - dashSince)));
+}
+function giveBotTip(){
+  if (botTipGiven || S.step !== "dash") return;
+  if (overlayRoot.innerHTML) { botTipTimer = setTimeout(giveBotTip, 3000); return; }
+  botTipGiven = true; track("bot_tip");
+  openBot();
+  setTimeout(() => {
+    const m = document.createElement("div"); m.className = "msg bot-m tip";
+    m.textContent = "Psst … ich sollte das eigentlich nicht sagen. 🤫 Schau mal ganz nach unten, ins Kleingedruckte unter den Vorteilen. Dort soll es einen Link geben, über den schon Leute entkommen sind.";
+    botMsgs.append(m); botMsgs.scrollTop = botMsgs.scrollHeight;
+  }, 700);
+}
+
+/* ===== Live-Meldungen: „Marlon hat soeben gekündigt“ ===== */
+let feedSince = null, feedQueue = [];
+async function pollFeed(force){
+  if (!force && (document.hidden || !["ticket","done",...ACTIVE_STEPS].includes(S.step))) return;
+  try {
+    const r = await api("/feed" + (feedSince ? "?since=" + feedSince : ""));
+    if (feedSince) feedQueue.push(...r.items);
+    feedSince = r.items.length ? Math.max(r.now, ...r.items.map(i => i.at)) : r.now;
+  } catch {}
+}
+setInterval(pollFeed, 10000);
+setInterval(() => {
+  if (!feedQueue.length || document.querySelector(".proof.live") || $("#deadend")) return;
+  const it = feedQueue.shift();
+  document.querySelectorAll(".proof").forEach(x => x.remove());
+  const el = document.createElement("div"); el.className = "proof live"; el.setAttribute("role", "status");
+  el.innerHTML = `<span class="av">${esc(it.name.slice(0, 1).toUpperCase())}</span><span>${esc(it.name)} hat soeben gekündigt! 🏃 ${it.ms ? `(${fmt(it.ms)})` : ""}</span><span class="ago">live</span>`;
+  document.body.append(el);
+  setTimeout(() => el.classList.add("out"), 6000); setTimeout(() => el.remove(), 6500);
+  nextProofAt = Math.max(nextProofAt, Date.now() + 9000);
+}, 700);
+
+/* ===== Phasen: Sperrseite / läuft / vorbei ===== */
+function applyPhase(st){
+  const prev = PHASE.phase;
+  PHASE = { ...PHASE, ...st };
+  if (st.now) PHASE.offset = st.now - Date.now();
+  let badge = $("#simbadge");
+  if (PHASE.sim) { if (!badge) { badge = document.createElement("button"); badge.id = "simbadge"; badge.className = "simbadge"; badge.onclick = openAdmin; document.body.append(badge); } badge.textContent = "Vorschau: " + ({ before: "Sperrseite", live: "Spiel läuft", ended: "Spiel vorbei" })[PHASE.sim]; }
+  else if (badge) badge.remove();
+  if (IS_MONITOR) return;
+  if (PHASE.phase === "before" && S.step !== "lock") return go("lock");
+  if (PHASE.phase === "ended" && S.step !== "ended") return go("ended");
+  if (PHASE.phase === "live" && prev !== "live" && ["lock","ended"].includes(S.step)) { go("loading"); boot(); }
+}
+async function pollState(){
+  try { const st = await (await fetch(API + "/state", { credentials: "same-origin", cache: "no-store" })).json(); if (st.board) endBoard = st.board; applyPhase(st); return st; } catch { return null; }
+}
+setInterval(() => { if (!document.hidden) pollState(); }, 20000);
+document.addEventListener("visibilitychange", () => { if (!document.hidden) pollState(); });
+
+const DOOR_SVG = `<svg viewBox="0 0 300 330" aria-hidden="true">
+  <defs>
+    <linearGradient id="dg" x1="0" x2="1"><stop offset="0" stop-color="#b8862f"/><stop offset=".35" stop-color="#f3d68a"/><stop offset=".6" stop-color="#e2b75a"/><stop offset="1" stop-color="#a87a2a"/></linearGradient>
+    <linearGradient id="dp" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f6dc8e"/><stop offset="1" stop-color="#c99a3c"/></linearGradient>
+  </defs>
+  <path d="M40 300 V130 A110 110 0 0 1 260 130 V300 Z" fill="#7a5418"/>
+  <path d="M52 300 V132 A98 98 0 0 1 248 132 V300 Z" fill="url(#dg)"/>
+  <g stroke="#8a6220" stroke-width="2.5" opacity=".75">${Array.from({ length: 9 }, (_, i) => { const a = Math.PI * (i + 1) / 10; return `<line x1="150" y1="108" x2="${(150 - Math.cos(a) * 80).toFixed(1)}" y2="${(108 - Math.sin(a) * 66).toFixed(1)}"/>`; }).join("")}</g>
+  <line x1="62" y1="112" x2="238" y2="112" stroke="#8a6220" stroke-width="4"/>
+  <line x1="150" y1="40" x2="150" y2="300" stroke="#8a6220" stroke-width="3"/>
+  <rect x="74" y="132" width="64" height="72" rx="3" fill="url(#dp)" stroke="#8a6220" stroke-width="3"/><rect x="162" y="132" width="64" height="72" rx="3" fill="url(#dp)" stroke="#8a6220" stroke-width="3"/>
+  <rect x="74" y="216" width="64" height="74" rx="3" fill="url(#dp)" stroke="#8a6220" stroke-width="3"/><rect x="162" y="216" width="64" height="74" rx="3" fill="url(#dp)" stroke="#8a6220" stroke-width="3"/>
+  <rect x="84" y="155" width="132" height="24" rx="2" fill="#0b1a33" stroke="#e8c060" stroke-width="1.5"/>
+  <text x="150" y="171" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" font-weight="800" letter-spacing=".4" fill="#f3d68a">NUR FÜR MITGLIEDER</text>
+  <path d="M136 200 q14 -26 28 0" stroke="#7a5418" stroke-width="5" fill="none"/>
+  <rect x="132" y="198" width="36" height="30" rx="5" fill="#e2b75a" stroke="#7a5418" stroke-width="2.5"/>
+  <circle cx="150" cy="210" r="4" fill="#1d1406"/><path d="M148 212 h4 l1 9 h-6Z" fill="#1d1406"/>
+  <g class="medal" id="medal"><circle cx="150" cy="108" r="17" fill="#e2b75a" stroke="#7a5418" stroke-width="3"/><text x="150" y="114.5" text-anchor="middle" font-family="Playfair Display, Georgia, serif" font-weight="900" font-size="18" fill="#5c3d0e">G</text></g>
+  <path d="M30 292 q120 46 240 0" stroke="#8e1b2a" stroke-width="9" fill="none" stroke-linecap="round"/>
+  <g fill="url(#dg)"><rect x="24" y="250" width="10" height="70" rx="3"/><circle cx="29" cy="248" r="8"/><ellipse cx="29" cy="322" rx="20" ry="6"/>
+  <rect x="266" y="250" width="10" height="70" rx="3"/><circle cx="271" cy="248" r="8"/><ellipse cx="271" cy="322" rx="20" ry="6"/></g>
+</svg>`;
+views.lock = () => {
+  app.innerHTML = `
+  <section class="lock">
+    <p class="eyebrow">Ein Escape Game vom Marketing-Team</p>
+    <h1 class="gold-h">GoldClub<br>Level 4</h1>
+    <p class="lead">Hinter dieser Tür wartet das exklusivste Abo des Abends. Und der schwierigste Ausgang.</p>
+    <div class="door">${DOOR_SVG}</div>
+    <p class="cd-label">Die Tür öffnet sich in</p>
+    <div class="cd" aria-live="off"><div><b id="cd-d">--</b><span>Tage</span></div><div><b id="cd-h">--</b><span>Std.</span></div><div><b id="cd-m">--</b><span>Min.</span></div><div><b id="cd-s">--</b><span>Sek.</span></div></div>
+    <p class="when">Am <b>27. November 2026 um 18:30 Uhr</b> beim Winterfest</p>
+    <div class="plaque"><b>GoldClub Level 4</b><br><span class="small">Künstlerkollektiv Marketing, 2026</span><i>Zurzeit im Aufbau. Bitte nicht kündigen. (Noch nicht.)</i></div>
+    <p class="foot">Ein Escape Game des Marketing-Teams · Diese Seite speichert keine Daten.</p>
+  </section>`;
+  const tick = () => {
+    if (S.step !== "lock") return clearInterval(iv);
+    const left = Math.max(0, PHASE.start - (Date.now() + PHASE.offset));
+    const s = Math.floor(left / 1000), p2 = n => String(n).padStart(2, "0");
+    $("#cd-d").textContent = p2(Math.floor(s / 86400)); $("#cd-h").textContent = p2(Math.floor(s / 3600) % 24);
+    $("#cd-m").textContent = p2(Math.floor(s / 60) % 60); $("#cd-s").textContent = p2(s % 60);
+    if (left <= 0 && !PHASE.sim) { clearInterval(iv); setTimeout(pollState, 1500); }
+  };
+  const iv = setInterval(tick, 1000); tick();
+  secretTaps($("#medal"));
+};
+
+let endBoard = null;
+views.ended = () => {
+  app.innerHTML = `
+  <section class="lock" style="padding-bottom:0">
+    <p class="eyebrow">GoldClub Level 4 · Das Spiel ist vorbei</p>
+    <h1 class="gold-h" style="font-size:clamp(2rem,9vw,2.8rem)">Die Tür ist zu.</h1>
+    <p class="lead">Um Mitternacht hat der GoldClub seine Pforten geschlossen. Das hier ist die finale Rangliste.</p>
+  </section>
+  <section class="card">
+    <h2>Die Gewinner:innen</h2>
+    <ul class="prizes" id="winners"></ul>
+  </section>
+  <section class="card">
+    <h2>Finale Rangliste</h2>
+    <div id="board"><p class="muted small">Rangliste wird geladen …</p></div>
+  </section>
+  <p class="small muted-dark" style="text-align:center">Gewinner:innen melden sich beim Marketing-Team. Danke fürs Mitspielen! ✨</p>`;
+  const draw = b => {
+    const top = b?.top || [];
+    $("#winners").innerHTML = PRIZES.map((x, i) => { const w = top[i]; return `<li><span class="m" aria-hidden="true">${x.m}</span><div><span class="small muted">${esc(x.p)} · ${esc(x.t)}</span><br><b>${w ? esc(w.name) + ` <span class="small muted" style="font-family:var(--f-body);font-weight:400">${fmt(w.bestMs)}</span>` : "–"}</b></div></li>`; }).join("");
+    if (b) renderBoard(b);
+  };
+  draw(endBoard);
+  pollState().then(() => S.step === "ended" && draw(endBoard));
+  secretTaps($("#brand"));
+};
+
+/* ===== Verstecktes Menü: 5× schnell auf das „G“ der Tür (oder das Logo oben) tippen ===== */
+function secretTaps(el){
+  if (!el || el.dataset.taps) return; el.dataset.taps = "1";
+  let n = 0, t0 = 0;
+  el.addEventListener("click", () => { const t = Date.now(); if (t - t0 > 2500) n = 0; t0 = t; if (++n >= 5) { n = 0; openAdmin(); } });
+}
+const adminKey = { get(){ try { return sessionStorage.getItem("gc-admin") || ""; } catch { return ""; } }, set(v){ try { sessionStorage.setItem("gc-admin", v); } catch {} } };
+async function adminApi(route, body){
+  const r = await fetch(API + "/admin" + route, { method: body === undefined ? "GET" : "POST", credentials: "same-origin", headers: { "Content-Type": "application/json", "x-admin-key": adminKey.get() }, body: body === undefined ? undefined : JSON.stringify(body) });
+  const j = await r.json().catch(() => ({}));
+  if (!r.ok) throw new Error(j.error || "Fehler");
+  return j;
+}
+function openAdmin(){
+  const close = () => { overlayRoot.innerHTML = ""; };
+  const askKey = () => {
+    overlayRoot.innerHTML = `<div class="overlay admin" role="dialog" aria-modal="true"><form class="modal" id="ak">
+      <h2>🔑 Team-Zugang</h2><p class="small muted">Nur fürs Marketing-Team. Admin-Key eingeben:</p>
+      <input type="password" id="akin" autocomplete="off" style="width:100%;font:inherit;padding:12px;border-radius:10px;border:1px solid #b9ad92">
+      <p class="err" id="akerr"></p>
+      <div class="grid"><button type="button" class="btn-ghost" id="akx">Abbrechen</button><button class="btn-gold" type="submit">Weiter</button></div></form></div>`;
+    $("#akin").focus(); $("#akx").onclick = close;
+    $("#ak").onsubmit = async e => { e.preventDefault(); adminKey.set($("#akin").value.trim()); try { await adminApi("/check"); menu(); } catch (x) { $("#akerr").textContent = x.message; } };
+  };
+  const menu = () => {
+    const P = { before: "Sperrseite", live: "Spiel läuft", ended: "Spiel vorbei" };
+    overlayRoot.innerHTML = `<div class="overlay admin" role="dialog" aria-modal="true"><div class="modal">
+      <h2>🛠 Team-Menü</h2>
+      <p class="small muted">Aktuell: <b>${P[PHASE.phase]}</b>${PHASE.sim ? " (Vorschau auf diesem Gerät)" : ""}</p>
+      <h3>Vorschau nur auf diesem Gerät</h3>
+      <p class="small muted">Für Tests. Andere sehen weiter den Zeitplan. Testläufe erscheinen nicht in der echten Rangliste.</p>
+      <div class="grid">
+        <button class="btn-gold" data-sim="live">Spiel läuft</button><button class="btn-ghost" data-sim="ended">Spiel vorbei</button>
+        <button class="btn-ghost" data-sim="before">Sperrseite</button><button class="btn-ghost" data-sim="">Vorschau beenden</button>
+      </div>
+      <h3>Für alle (wirkt sofort)</h3>
+      <div class="grid">
+        <button class="btn-ghost" data-all="live">Jetzt freischalten</button><button class="btn-ghost" data-all="ended">Jetzt beenden</button>
+        <button class="btn-ghost" data-all="before">Wieder sperren</button><button class="btn-ghost" data-all="auto">Zeitplan (automatisch)</button>
+      </div>
+      <p class="err" id="amerr"></p>
+      <div class="grid"><a class="btn-ghost" href="${BASEPATH}/monitor" style="text-align:center;text-decoration:none;padding:10px;border-radius:50px;font-weight:600;font-size:.85rem">📊 Monitoring</a><button class="btn-tiny" id="amx">Schließen</button></div>
+    </div></div>`;
+    $("#amx").onclick = close;
+    overlayRoot.querySelectorAll("[data-sim]").forEach(b => b.onclick = async () => {
+      try { await adminApi("/sim", { phase: b.dataset.sim || null }); close(); local.set(""); location.reload(); } catch (x) { $("#amerr").textContent = x.message; }
+    });
+    overlayRoot.querySelectorAll("[data-all]").forEach(b => b.onclick = async () => {
+      try { await adminApi("/phase", { phase: b.dataset.all }); close(); toast("Gespeichert: gilt jetzt für alle."); setTimeout(() => location.reload(), 800); } catch (x) { $("#amerr").textContent = x.message; }
+    });
+  };
+  adminKey.get() ? adminApi("/check").then(menu, askKey) : askKey();
+}
+secretTaps($("#brand"));
+
+/* ===== Monitoring (/monitor, nur mit Admin-Key) ===== */
+const EV_LABEL = { ticket: "Name-Seite", dash: "Dashboard", bot_tip: "Chatbot-Tipp erhalten", retention1: "Halteangebot 1", wheel: "Glücksrad", wheel_spin: "Glücksrad gedreht", retention2: "Halteangebot 2 (Buggys)", fangfrage: "Fangfrage", agb: "Kündigungs-AGB", app_sheet: "Bottom Sheet App", app_deadend: "Sackgasse App", reason: "Kündigungsgrund + Captcha", rating: "Bewertung abgegeben", advent_sheet: "Adventskalender", queue: "Warteschleife", skip: "Premium-Skip geklickt", sign: "Unterschrift", survey_sheet: "Umfrage-Sheet", survey_deadend: "Sackgasse Umfrage", done: "Gekündigt" };
+const FUNNEL = ["dash","bot_tip","retention1","wheel","retention2","fangfrage","agb","app_sheet","app_deadend","reason","advent_sheet","queue","sign","survey_sheet","survey_deadend","done"];
+let monTimer = null;
+views.monitor = async () => {
+  document.body.classList.add("mon");
+  if (!adminKey.get()) { app.innerHTML = `<section class="card"><h2>Monitoring</h2><p class="muted">Bitte Admin-Key eingeben.</p><button class="btn-gold" id="mk">Admin-Key eingeben</button></section>`; $("#mk").onclick = openAdmin; return; }
+  app.innerHTML = `<section class="card"><p class="muted">Monitoring wird geladen …</p></section>`;
+  const load = async () => {
+    if (S.step !== "monitor") return clearInterval(monTimer);
+    let d; try { d = await adminApi("/stats"); } catch (x) { app.innerHTML = `<section class="card"><h2>Monitoring</h2><p class="err">${esc(x.message)}</p><button class="btn-gold" id="mk">Admin-Key eingeben</button></section>`; $("#mk").onclick = openAdmin; return clearInterval(monTimer); }
+    const showTests = $("#mt")?.checked ?? false;
+    const ps = d.players.filter(p => showTests || !p.test);
+    const ranked = ps.filter(p => typeof p.bestMs === "number").sort((a, b) => a.bestMs - b.bestMs);
+    const rankOf = new Map(ranked.map((p, i) => [p.id, i + 1]));
+    const now = Date.now() + PHASE.offset;
+    const P = { before: "Sperrseite", live: "Spiel läuft", ended: "Spiel vorbei" };
+    const ago = t => { if (!t) return "–"; const s = Math.round((now - t) / 1000); return s < 60 ? `vor ${s} s` : s < 3600 ? `vor ${Math.round(s / 60)} min` : new Date(t).toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" }); };
+    const rows = [...ps].sort((a, b) => (rankOf.get(a.id) || 999) - (rankOf.get(b.id) || 999) || (b.startedAt || 0) - (a.startedAt || 0)).map(p => {
+      const rk = rankOf.get(p.id), prize = rk && rk <= 3 ? PRIZES[rk - 1] : null;
+      const st = p.test ? `<span class="tag test">Test</span> ` : "";
+      const status = p.status === "gekündigt" ? `<span class="tag ok">gekündigt</span>` : `<span class="tag act">drin</span>`;
+      return `<tr><td class="num">${rk || ""}</td><td>${st}<b>${esc(p.name)}</b></td><td>${status}</td><td>${esc(EV_LABEL[p.cur?.step] || p.cur?.step || "–")}<br><span class="small muted">${ago(p.cur?.at)}</span></td>
+        <td class="num">${fmt(p.bestMs)}</td><td class="num">${p.runs || 0}</td><td class="num">${p.counts?.wheel_spin || 0}</td><td class="num">${(p.counts?.app_deadend || 0) + (p.counts?.survey_deadend || 0)}</td><td>${prize ? prize.m + " " + esc(prize.t) : "–"}</td></tr>`;
+    }).join("");
+    const reachedCount = ev => ps.filter(p => p.reached?.[ev]).length;
+    const maxN = Math.max(1, ps.length);
+    app.innerHTML = `
+    <section class="card">
+      <div class="row" style="align-items:center"><h1 style="flex:2 1 260px">Monitoring</h1>
+        <label class="small" style="display:flex;gap:6px;align-items:center;font-weight:400;flex:0 0 auto"><input type="checkbox" id="mt" ${showTests ? "checked" : ""}> Testläufe zeigen</label>
+        <button class="btn-ghost" id="mm" style="flex:0 0 auto">🛠 Team-Menü</button></div>
+      <p class="small muted">Status: <b>${P[d.phase]}</b> · Zeitplan: ${new Date(d.start).toLocaleString("de-DE")} bis ${new Date(d.end).toLocaleString("de-DE")}${d.override ? ` · <b>manuell gesetzt: ${P[d.override]}</b>` : " · automatisch"} · Speicher: ${esc(d.storage)} · aktualisiert sich alle 10 s</p>
+      <div class="mon-kpis">
+        <div><b>${ps.length}</b><span>Teilnehmende</span></div>
+        <div><b>${ps.filter(p => p.status === "aktiv").length}</b><span>gerade drin (Abo aktiv)</span></div>
+        <div><b>${ranked.length}</b><span>haben gekündigt</span></div>
+        <div><b>${ranked[0] ? fmt(ranked[0].bestMs) : "–"}</b><span>Bestzeit${ranked[0] ? " · " + esc(ranked[0].name) : ""}</span></div>
+      </div>
+    </section>
+    <section class="card"><h2>Teilnehmende</h2>
+      <div class="tblwrap"><table class="tbl"><thead><tr><th>Platz</th><th>Name</th><th>Status</th><th>Aktuelle Station</th><th class="num">Bestzeit</th><th class="num">Läufe</th><th class="num">Rad-Drehs</th><th class="num">Sackgassen</th><th>Gewinn</th></tr></thead>
+      <tbody>${rows || `<tr><td colspan="9" class="muted">Noch niemand dabei.</td></tr>`}</tbody></table></div></section>
+    <section class="card"><h2>Wer kam wie weit?</h2><p class="small muted">Anzahl Teilnehmende, die die Station mindestens einmal erreicht haben.</p>
+      <div class="funnel">${FUNNEL.map(ev => { const n = reachedCount(ev); return `<div><span>${esc(EV_LABEL[ev])}</span><i style="width:${(n / maxN * 100).toFixed(1)}%"></i><span>${n}</span></div>`; }).join("")}</div></section>
+    <section class="card"><h2>Rangliste leeren</h2><p class="small muted">Löscht alle Teilnehmenden, Zeiten und Auswertungen. Nicht rückgängig zu machen.</p>
+      <button class="btn-ghost" id="mr">Rangliste leeren …</button></section>`;
+    $("#mt").onchange = load; $("#mm").onclick = openAdmin;
+    let armed = false;
+    $("#mr").onclick = async () => {
+      if (!armed) { armed = true; $("#mr").textContent = "Wirklich alles löschen? Nochmal klicken."; $("#mr").classList.add("btn-red"); return; }
+      try { await adminApi("/reset", {}); toast("Rangliste geleert."); load(); } catch (x) { toast(x.message); }
+    };
+  };
+  clearInterval(monTimer); await load(); monTimer = setInterval(() => { if (!document.hidden && !overlayRoot.innerHTML) load(); }, 10000);
+};
+
 /* ===== Start: Status vom Server holen ===== */
 async function boot(){
+  if (IS_MONITOR) { await pollState(); return go("monitor"); }
+  const st = await pollState();
+  if (st && st.phase !== "live") return;
   try {
     const r = await api("/me");
     const p = r.player;
     S.offset = r.now - Date.now();
     if (r.queueSeconds) QUEUE_SECONDS = Math.max(25, r.queueSeconds);
+    pollFeed(true);
     if (!p) return go("ticket");
     Object.assign(S, { name: p.name, lastMs: p.lastMs, bestMs: p.bestMs });
     if (p.status === "aktiv") {
       S.startedAt = p.startedAt; S.endedAt = null;
       let step = local.get();
-      const ok = ["dash","wheel","agb","kdnr","reason","queue","sign"];
-      if (!ok.includes(step)) step = "dash";
-      if (["reason","queue","sign"].includes(step) && !p.kdnrOk) step = "kdnr";
+      if (!ACTIVE_STEPS.includes(step)) step = "dash";
+      if (step === "sign" && !p.queueOk) step = "queue";
       return go(step);
     }
     if (p.status === "gekündigt") { S.startedAt = p.startedAt; S.endedAt = Date.now(); return go("done"); }
     go("ticket");
-  } catch (x) { if (x.message !== "auth") { app.innerHTML = `<section class="card"><p class="err">${esc(x.status ? x.message : "Verbindung fehlgeschlagen. Bitte Seite neu laden.")}</p></section>`; } }
+  } catch (x) { if (!["auth","phase"].includes(x.message)) { app.innerHTML = `<section class="card"><p class="err">${esc(x.status ? x.message : "Verbindung fehlgeschlagen. Bitte Seite neu laden.")}</p></section>`; } }
 }
 render(); boot();
 </script>

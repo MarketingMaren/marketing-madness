@@ -1,79 +1,77 @@
-# Smily Level 4 – Weihnachtsfeier-App
+# GoldClub Level 4 – Weihnachtsfeier-App
 
-Ein Escape Game vom Marketing-Team: Gäste scannen den QR-Code auf dem Poster, geben die PIN von der GoldClub-Karte und ihren Namen ein (die Uhr startet) und müssen das Abo „Smily Level 4" so schnell wie möglich wieder kündigen. Die schnellsten Kündigungen landen in der Rangliste.
+Ein Escape Game vom Marketing-Team: Gäste scannen den QR-Code auf dem Poster, geben die PIN von der GoldClub-Karte und ihren Namen ein (ab dann läuft die Uhr) und müssen das Abo „GoldClub Level 4" so schnell wie möglich wieder kündigen. Die drei schnellsten Kündigungen bis 24 Uhr gewinnen.
 
 Die Lösungen stehen in [`LOESUNGEN.md`](LOESUNGEN.md). Diese Datei nicht in ein Repo legen, das Gäste vor der Feier sehen können.
+
+## Ablauf und Zeitplan
+| Zeitraum (Berlin) | Was Gäste sehen |
+|---|---|
+| vor 27.11.2026, 18:30 | Sperrseite mit Tür und Countdown |
+| 27.11.2026, 18:30 bis 23:59:59 | Spiel läuft |
+| ab 28.11.2026, 00:00 | Nur noch die finale Rangliste mit den Gewinner:innen |
+
+Preise: 1. Platz 100 € Gutschein · 2. Platz Süße GoldClub-Karte · 3. Platz Goldenes Schreibtisch-Upgrade (in `app/index.html` unter `PRIZES`).
+
+## Team-Menü (versteckt)
+**5× schnell auf das „G“ der Tür** (Sperrseite) oder auf das Logo „GoldClub Level 4" oben tippen und den `ADMIN_KEY` eingeben.
+
+- **Vorschau nur auf diesem Gerät:** „Spiel läuft", „Spiel vorbei", „Sperrseite", „Vorschau beenden". Zum Testen vor dem Start. Testläufe sind als „Test" markiert und erscheinen nicht in der echten Rangliste und nicht in den Live-Meldungen echter Gäste. Ein roter Hinweis unten links zeigt, dass die Vorschau aktiv ist.
+- **Für alle:** „Jetzt freischalten", „Jetzt beenden", „Wieder sperren", „Zeitplan (automatisch)". Wirkt sofort für alle Gäste.
+- **Monitoring:** `https://<vercel-adresse>/<TICKET_TOKEN>/monitor` (fragt nach dem Admin-Key). Zeigt alle Teilnehmenden mit Status (drin / gekündigt), aktueller Station, Bestzeit, Läufen, Glücksrad-Drehs, Sackgassen und Gewinn, dazu eine Auswertung, wer welche Station erreicht hat. Dort lässt sich auch die Rangliste leeren.
 
 ## Ordner
 | Datei/Ordner | Inhalt |
 |---|---|
 | `app/index.html` | Die komplette Oberfläche, alle Texte zum Anpassen |
+| `app/hunde/` | Optional: eigene Fotos hässlicher Hunde für die Fehlerseiten (sonst gezeichnete Hunde) |
 | `app/captcha/` | Optional: Fotos + `captcha.json` für das Foto-Captcha |
-| `lib/core.js` | Server-Logik (PIN, Zeitmessung, Rangliste) |
-| `lib/assets.js` | Automatisch erzeugt aus `app/` (`npm run embed`), nicht von Hand bearbeiten |
+| `lib/core.js` | Server-Logik (PIN, Zeitfenster, Zeitmessung, Rangliste, Live-Meldungen, Monitoring) |
+| `lib/assets.js` | Automatisch erzeugt (`npm run embed`), nur für Deploy ohne GitHub |
 | `server.js` | Start auf dem eigenen Rechner |
 | `api/index.js` + `vercel.json` | Start auf Vercel |
-| `scripts/embed.js` | Packt die Oberfläche für Vercel in `lib/assets.js` |
-| `setup-vercel.sh` | Einmalige Einrichtung auf Vercel |
 
 ## Was nicht ins Repo gehört
-Diese Dateien entstehen lokal und sind per `.gitignore` ausgeschlossen:
-
-- `zugangsdaten.txt` – geheimer Link-Teil, Admin-Key, PIN (nur lokal bzw. im Passwortmanager, nie hochladen)
-- `.env.local` – von Vercel erzeugt, enthält Zugangstoken
-- `.vercel/` – Verknüpfung mit dem Vercel-Projekt
-- `data.json` – lokale Testrangliste
-
-Wichtig: Beim Hochladen über die GitHub-Weboberfläche („Upload files") greift die `.gitignore` nicht. Dann diese Dateien nicht mit hineinziehen.
+Per `.gitignore` ausgeschlossen: `zugangsdaten.txt`, `.env*`, `.vercel/`, `data.json`. Beim Hochladen über die GitHub-Weboberfläche greift die `.gitignore` nicht, dann diese Dateien nicht mit hineinziehen.
 
 ## Schutz
-- **Geheimer Link:** Die App ist nur unter `/<TICKET_TOKEN>` erreichbar, alles andere liefert 404. Der Link steckt im QR-Code auf dem Poster.
-- **Event-PIN** auf der GoldClub-Karte, max. 10 Fehlversuche pro 10 Minuten.
-- Zeiten misst der Server. Kundennummer und Foto-Captcha-Lösung kennt nur der Server.
+- **Geheimer Link:** Die App ist nur unter `/<TICKET_TOKEN>` erreichbar, alle anderen Adressen ergeben 404 (dafür sorgt `vercel.json`).
+- **Zeitfenster** und **PIN** prüft der Server, nicht nur die Oberfläche. Max. 10 falsche PINs pro 10 Minuten.
+- Zeiten misst der Server, die Warteschleife lässt sich nicht abkürzen.
 
-## Einstellungen (Umgebungsvariablen)
+## Einstellungen (Umgebungsvariablen in Vercel)
 | Variable | Bedeutung | Standard |
 |---|---|---|
-| `TICKET_TOKEN` | Geheimer Teil der URL (lang und zufällig wählen) | `goldenes-ticket-BITTE-AENDERN` |
-| `EVENT_PIN` | PIN auf der GoldClub-Karte | `2412` |
-| `KUNDENNUMMER` | Steht auf der GoldClub-Karte (Leerzeichen/Bindestriche bei der Eingabe egal) | `SL4-2412` |
+| `TICKET_TOKEN` | Geheimer Teil der URL (lang und zufällig) | `goldenes-ticket-BITTE-AENDERN` |
+| `EVENT_PIN` | PIN auf der GoldClub-Karte | `6767` |
+| `ADMIN_KEY` | Schlüssel für Team-Menü, Monitoring und Reset (leer = aus) | leer |
+| `GAME_START` | Spielbeginn | `2026-11-27T18:30:00+01:00` |
+| `GAME_END` | Spielende | `2026-11-27T23:59:59+01:00` |
 | `QUEUE_SECONDS` | Länge der Warteschleife (mind. 25) | `60` |
-| `ADMIN_KEY` | Schlüssel für den Reset der Rangliste (leer = aus) | leer |
 | `SESSION_SECRET` | Optional, sonst aus Token und PIN abgeleitet | – |
 
-Die echten Werte stehen nur in den Vercel-Einstellungen und in `zugangsdaten.txt`, nie im Code.
+Änderungen an Variablen greifen erst mit dem nächsten Deploy (Commit oder „Redeploy").
 
-## A) Lokal testen
+## Lokal testen
 ```bash
-TICKET_TOKEN=test node server.js
+TICKET_TOKEN=test ADMIN_KEY=test node server.js
 ```
-Dann http://localhost:3000/test öffnen (PIN `2412`, Kundennummer `SL4-2412`). Die Rangliste liegt in `data.json`.
+Dann http://localhost:3000/test öffnen. Vor dem 27.11. erscheint die Sperrseite: 5× aufs „G“ tippen, Admin-Key `test`, „Spiel läuft". PIN `6767`. Daten liegen in `data.json`.
 
-## B) Online mit Vercel (über GitHub)
-Das Repo ist mit einem Vercel-Projekt verbunden. **Jeder Commit auf `main` wird automatisch veröffentlicht**, auch Änderungen direkt in der GitHub-Weboberfläche. `app/index.html` wird dabei direkt verwendet, ein Zwischenschritt ist nicht nötig.
+## Online mit Vercel (über GitHub)
+Jeder Commit auf `main` wird automatisch veröffentlicht. Einmalig im Vercel-Projekt: Umgebungsvariablen setzen, unter **Storage** „Upstash for Redis" (Free, Frankfurt) verbinden.
 
-Der Link lautet `https://<vercel-adresse>/<TICKET_TOKEN>`. Nur dieser Link liefert die App aus, alle anderen Adressen ergeben 404 (dafür sorgt `vercel.json`).
+Wechsel auf das GoldClub-Repo später: im Vercel-Projekt unter **Settings → Git** das Repo umstellen. Adresse, Einstellungen und Rangliste bleiben erhalten.
 
-Einmalige Einrichtung im Vercel-Projekt:
-1. **Settings → Environment Variables:** `TICKET_TOKEN`, `EVENT_PIN`, `KUNDENNUMMER`, `ADMIN_KEY` eintragen (Werte nur dort und im Passwortmanager ablegen, nie im Repo).
-2. **Storage:** „Upstash for Redis" (kostenloser Tarif, Region Frankfurt) anlegen und mit dem Projekt verbinden.
-3. **Deployments:** letzten Eintrag → „…" → **Redeploy**, damit die Einstellungen greifen.
+Hinweis: Der Hobby-Tarif von Vercel ist laut Vercel für nicht-kommerzielle Nutzung gedacht; für eine interne Feier ggf. kurz klären.
 
-Wechsel auf das GoldClub-Repo später: im Vercel-Projekt unter **Settings → Git** das Repo umstellen. Adresse, Einstellungen und Rangliste bleiben dabei erhalten.
-
-`npm run deploy` und `setup-vercel.sh` sind nur noch für einen Deploy ohne GitHub gedacht und werden normalerweise nicht gebraucht.
-
-Hinweis: Der Hobby-Tarif von Vercel ist laut Vercel für nicht-kommerzielle Nutzung gedacht; für eine interne Feier ggf. kurz klären. Ohne verbundene Datenbank zeigt die App auf Vercel „Rangliste nicht eingerichtet".
-
-## Foto-Captcha (optional)
-Neun Fotos in `app/captcha/` legen, `captcha.beispiel.json` zu `captcha.json` kopieren und bei den richtigen Fotos `"richtig": true` setzen. Ohne `captcha.json` erscheint das Leitlinien-Captcha. Danach neu deployen.
-
-## Rangliste leeren (nach dem Testen und nach der Feier)
+## Rangliste leeren
+Im Monitoring unten „Rangliste leeren" (zweimal klicken). Alternativ:
 ```bash
 curl -X POST -H "x-admin-key: <ADMIN_KEY>" https://<vercel-adresse>/<TICKET_TOKEN>/api/admin/reset
 ```
-Lokal reicht es, `data.json` zu löschen. Nach der Feier zusätzlich die Upstash-Datenbank im Vercel-Dashboard löschen. Gespeichert sind nur Spitznamen und Zeiten.
+Nach der Feier zusätzlich die Upstash-Datenbank im Vercel-Dashboard löschen. Gespeichert sind nur Spitznamen, Zeiten und erreichte Stationen.
 
 ## Vor Ort
 - **Poster:** QR-Code mit dem geheimen Link.
-- **GoldClub-Karte:** Kundennummer (`SL4-2412`) und PIN aufdrucken. Beide müssen mit den Vercel-Einstellungen übereinstimmen.
+- **GoldClub-Karte:** PIN aufdrucken (muss `EVENT_PIN` entsprechen).

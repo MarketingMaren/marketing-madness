@@ -1,0 +1,3 @@
+Optional: Fotos (jpg, png, webp, gif) hier ablegen.
+Sie erscheinen dann statt der gezeichneten Hunde auf den Fehlerseiten.
+Nur Bilder verwenden, die ihr nutzen dürft (eigene Fotos oder freie Lizenz).
