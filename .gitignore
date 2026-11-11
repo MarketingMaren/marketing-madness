@@ -1,0 +1,14 @@
+   # Vercel
+   .vercel
+   .env*
+
+   # Zugangsdaten und Testdaten – nie ins Repo
+   zugangsdaten.txt
+   data.json
+   data.json.tmp
+
+   # Sonstiges
+   node_modules
+   .DS_Store
+   __MACOSX
+   ._*
