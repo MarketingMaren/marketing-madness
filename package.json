@@ -1,0 +1,15 @@
+{
+  "name": "smily-level4",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Weihnachtsfeier-App: Abo-Falle als Zeitrennen mit Rangliste",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "embed": "node scripts/embed.js",
+    "deploy": "node scripts/embed.js && npx --yes vercel@65 --prod"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

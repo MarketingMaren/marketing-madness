@@ -1,0 +1,1094 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Smily Level 4</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,800&display=swap">
+<style>
+/* Layout: one narrow phone column, sticky timer bar on top, a single card per step; overlays for retention offers. Deliberately single-theme (evergreen + gold "premium" look). */
+:root{
+  /* CHECK24 / Smily: Blau #022D94, Smily-Gold #B39656, Inter, weiße Karten */
+  --bg:#f4f5f7; --bg2:#022D94; --card:#ffffff; --line:#dcdcdc;
+  --gold:#B39656; --gold-ink:#ffffff; --fg:#181818; --muted:#5f6368;
+  --red:#E30613; --ok:#1b8a4c; --ghost:#eef1f8; --blue:#022D94; --blue-soft:#e8edf8;
+  --f-display:"Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --f-body:"Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --f-mono:"Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  color-scheme:light;
+}
+html,body{background:var(--bg);color:var(--fg)}
+body{font-family:var(--f-body);font-size:16px;line-height:1.5;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 96px;
+  background:radial-gradient(120% 60% at 50% 0%, var(--bg2), var(--bg) 70%) fixed}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+*{box-sizing:border-box}
+.wrap{max-width:460px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+h1,h2{font-family:var(--f-display);text-wrap:balance;margin:0;line-height:1.15}
+h1{font-size:1.65rem;font-weight:800}
+h2{font-size:1.25rem;font-weight:700}
+p{margin:0}
+.muted{color:var(--muted)}
+.small{font-size:.8rem}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;margin:0 calc(-1 * max(16px,env(safe-area-inset-left,0px)));
+  padding:10px max(16px,env(safe-area-inset-left,0px));background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+.bar-in{max-width:460px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{font-family:var(--f-display);font-weight:800;font-size:.85rem;letter-spacing:.02em}
+.brand b{color:var(--gold)}
+.timer{font-family:var(--f-mono);font-variant-numeric:tabular-nums;font-weight:700;font-size:1.1rem;color:var(--gold)}
+.pill{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;padding:3px 8px;border-radius:99px;border:1px solid currentColor}
+.pill.on{color:var(--red)} .pill.off{color:var(--ok)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:14px}
+.ticket{position:relative;border-radius:14px;padding:22px 20px;color:var(--gold-ink);
+  background:linear-gradient(135deg,#f6d77a,#e3b23c 45%,#b9831c 80%,#f0c75a);box-shadow:0 10px 40px -12px #e3b23c88;overflow:hidden}
+.ticket::after{content:"";position:absolute;inset:8px;border:2px dashed #2b1f0566;border-radius:9px;pointer-events:none}
+.ticket h1{color:var(--gold-ink)}
+.ticket .eyebrow{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase}
+label{font-weight:700;font-size:.9rem}
+input[type=text],select,textarea{width:100%;font:inherit;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:12px}
+textarea{min-height:90px;resize:vertical}
+input:focus-visible,select:focus-visible,textarea:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.field{display:flex;flex-direction:column;gap:6px}
+button{font:inherit;cursor:pointer;border:0;border-radius:12px;padding:14px 16px;font-weight:700}
+.btn-gold{background:var(--gold);color:var(--gold-ink);font-family:var(--f-display);font-size:1rem}
+.btn-red{background:var(--red);color:#fff;font-family:var(--f-display);font-size:1.05rem;padding:18px}
+.btn-ghost{background:var(--ghost);color:var(--fg);border:1px solid var(--line)}
+.btn-tiny{background:none;color:var(--muted);padding:6px;font-weight:400;font-size:.72rem;text-decoration:underline}
+.err{color:#ff9aa1;font-weight:700;font-size:.9rem;min-height:1.2em}
+.benefits{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px}
+.benefits li{display:flex;gap:10px;align-items:flex-start}
+.benefits li::before{content:"★";color:var(--gold);flex:none}
+.fine{font-size:.68rem;line-height:1.4;color:#6f8f87}
+footer.legal{display:flex;flex-wrap:wrap;gap:4px 10px;font-size:.62rem;color:#4f736b;padding-top:20px;border-top:1px solid var(--ghost)}
+footer.legal a{color:inherit;text-decoration:none}
+footer.legal a.cancel{color:#24504a}
+.overlay{position:fixed;inset:0;z-index:20;background:#000a;display:flex;align-items:center;justify-content:center;
+  padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.modal{max-width:400px;width:100%;background:var(--card);border:2px solid var(--gold);border-radius:16px;padding:22px;display:flex;flex-direction:column;gap:14px;text-align:center}
+.big-emoji{font-size:3rem;line-height:1}
+.captcha{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.captcha button{aspect-ratio:1;font-size:2rem;background:var(--bg);border:2px solid var(--line);padding:0}
+.captcha button[aria-pressed=true]{border-color:var(--gold);background:#3a3410}
+.captcha button.txt{aspect-ratio:auto;min-height:84px;font-size:.78rem;font-weight:700;line-height:1.25;padding:8px 6px;color:var(--fg);hyphens:auto;overflow-wrap:anywhere}
+.captcha button.ph{position:relative;overflow:hidden;background:var(--bg)}
+.captcha button.ph img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .15s}
+.captcha button.ph[aria-pressed=true] img{transform:scale(.86);border-radius:6px}
+.captcha button.ph[aria-pressed=true]::after{content:"✓";position:absolute;top:4px;left:4px;width:22px;height:22px;border-radius:50%;background:var(--gold);color:var(--gold-ink);font-size:.8rem;font-weight:800;display:grid;place-items:center}
+.queue-num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;font-size:3.4rem;font-weight:700;color:var(--gold);text-align:center;line-height:1}
+.progress{height:8px;background:var(--bg);border-radius:99px;overflow:hidden}
+.progress>div{height:100%;background:var(--gold);width:0;transition:width .3s}
+canvas.sig{width:100%;height:160px;background:#f2efe4;border-radius:10px;touch-action:none;display:block}
+.board{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.board li{display:grid;grid-template-columns:2.2em 1fr auto;gap:8px;padding:9px 0;border-bottom:1px solid var(--line);align-items:center}
+.board li.me{color:var(--gold);font-weight:700}
+.board .t{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.board .r{font-family:var(--f-mono);color:var(--muted)}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:30;background:var(--fg);color:var(--bg);padding:10px 16px;border-radius:10px;font-weight:700;max-width:calc(100% - 32px);text-align:center}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+.row>*{flex:1 1 140px}
+.stamp{font-family:var(--f-display);font-weight:800;color:var(--ok);border:3px solid var(--ok);border-radius:10px;padding:8px 12px;transform:rotate(-4deg);align-self:center;text-transform:uppercase;letter-spacing:.06em}
+.mission{background:var(--bg);border:2px solid var(--gold);border-radius:14px;padding:18px 18px;display:flex;flex-direction:column;gap:10px}
+.mission .eyebrow{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+.mission ol{margin:0;padding-left:1.3em;display:flex;flex-direction:column;gap:6px}
+.mission ol li::marker{color:var(--gold);font-weight:700}
+.mission-strip{display:flex;gap:10px;align-items:center;background:#3a1d22;border:1px solid var(--red);border-radius:12px;padding:10px 14px;font-weight:700;font-size:.9rem}
+.intro{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+.intro::-webkit-scrollbar{display:none}
+.slide{flex:0 0 100%;min-width:0;scroll-snap-align:start;scroll-snap-stop:always;min-height:min(540px,calc(100dvh - 190px));display:flex;flex-direction:column;justify-content:center;padding:4px 2px}
+.slide-ticket{display:flex;flex-direction:column;gap:12px;padding:32px 24px}
+.slide-emoji{font-size:4rem;line-height:1}
+.slide-h{font-size:1.9rem}
+.steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:18px}
+.steps li{display:flex;gap:14px;align-items:flex-start}
+.steps .n{flex:none;width:2.2rem;height:2.2rem;border-radius:50%;background:var(--gold);color:var(--gold-ink);font-family:var(--f-display);font-weight:800;display:grid;place-items:center}
+.intro-nav{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.intro-nav .btn-next{padding:12px 22px}
+.dots{display:flex;gap:6px}
+.dot{width:9px;height:9px;padding:0;border-radius:99px;background:var(--line);transition:width .25s,background .25s}
+.dot.on{width:24px;background:var(--gold)}
+.wheel-box{position:relative;width:min(300px,100%);aspect-ratio:1;max-width:100%;margin:6px auto 0}
+.wheel{width:100%;height:100%}
+.wheel svg{width:100%;height:100%;display:block}
+.wheel-pointer{position:absolute;top:-6px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:14px solid transparent;border-right:14px solid transparent;border-top:26px solid var(--fg);z-index:2;filter:drop-shadow(0 2px 2px #0008)}
+.wheel-result{min-height:3em}
+button:disabled{opacity:.5;cursor:default}
+.deal{display:flex;justify-content:space-between;align-items:center;gap:12px;background:var(--gold);color:var(--gold-ink);border-radius:12px;padding:12px 14px;font-weight:700;font-size:.9rem}
+.deal-t{font-family:var(--f-mono);font-variant-numeric:tabular-nums;font-size:1.15rem;background:var(--gold-ink);color:var(--gold);border-radius:8px;padding:4px 8px;flex:none}
+.deal.hot .deal-t{background:var(--red);color:#fff}
+.proof{position:fixed;z-index:15;top:calc(env(safe-area-inset-top,0px) + 58px);left:50%;transform:translateX(-50%);width:min(460px,calc(100% - 32px));display:flex;gap:10px;align-items:center;background:var(--fg);color:var(--bg);border-radius:12px;padding:10px 12px;font-size:.85rem;font-weight:700;box-shadow:0 8px 24px #0008;animation:pin .35s ease-out}
+.proof .av{flex:none;width:30px;height:30px;border-radius:50%;background:var(--gold);color:var(--gold-ink);display:grid;place-items:center;font-family:var(--f-display);font-size:.8rem}
+.proof .ago{margin-left:auto;flex:none;font-weight:400;font-size:.7rem;opacity:.6}
+.proof.out{opacity:0;transition:opacity .4s}
+@keyframes pin{from{transform:translate(-50%,-12px);opacity:0}to{transform:translate(-50%,0);opacity:1}}
+.agb{height:260px;overflow-y:auto;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:.78rem;line-height:1.5;color:var(--muted);display:flex;flex-direction:column;gap:10px}
+.agb b{color:var(--fg)}
+.stars{display:flex;justify-content:center;gap:6px}
+.stars button{background:none;font-size:2.2rem;color:var(--gold);padding:2px 4px;line-height:1}
+.bot-fab{position:fixed;z-index:12;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));width:56px;height:56px;border-radius:50%;padding:0;font-size:1.6rem;background:var(--gold);color:var(--gold-ink);box-shadow:0 8px 24px #0009}
+.bot{position:fixed;z-index:25;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));width:min(360px,calc(100% - 32px));height:min(460px,70vh);display:flex;flex-direction:column;background:var(--card);border:2px solid var(--gold);border-radius:16px;overflow:hidden;box-shadow:0 16px 40px #000a}
+.bot-head{display:flex;align-items:center;gap:10px;padding:12px 14px;background:var(--bg);border-bottom:1px solid var(--line)}
+.bot-head b{font-family:var(--f-display);font-size:.9rem}
+.bot-head .on{font-size:.72rem;color:var(--ok)}
+.bot-head button{margin-left:auto;background:none;color:var(--fg);padding:4px 8px;font-size:1.2rem}
+.bot-msgs{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:8px}
+.msg{max-width:85%;padding:9px 12px;border-radius:12px;font-size:.88rem;line-height:1.4}
+.msg.bot-m{background:var(--bg);align-self:flex-start;border-bottom-left-radius:4px}
+.msg.me-m{background:var(--gold);color:var(--gold-ink);align-self:flex-end;border-bottom-right-radius:4px;font-weight:700}
+.msg.typing{color:var(--muted);font-style:italic}
+.bot-quick{display:flex;gap:6px;flex-wrap:wrap;padding:0 12px 8px}
+.bot-quick button{background:var(--ghost);color:var(--fg);border:1px solid var(--line);padding:6px 10px;font-size:.78rem;font-weight:500;border-radius:99px}
+.bot-form{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--line)}
+.bot-form input{flex:1;min-width:0;padding:10px}
+.bot-form button{padding:10px 14px}
+.overlay.sheet-ov{align-items:flex-end;padding:0}
+.sheet{width:100%;max-width:520px;background:var(--card);border-top:2px solid var(--gold);border-radius:20px 20px 0 0;padding:12px max(20px,env(safe-area-inset-left,0px)) calc(20px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:12px;text-align:center;animation:up .3s ease-out}
+.grab{width:44px;height:5px;border-radius:9px;background:var(--line);align-self:center}
+@keyframes up{from{transform:translateY(100%)}to{transform:none}}
+.pushes{position:fixed;z-index:16;top:calc(env(safe-area-inset-top,0px) + 58px);left:50%;transform:translateX(-50%);width:min(460px,calc(100% - 32px));display:flex;flex-direction:column;gap:8px;pointer-events:none}
+.push{display:flex;gap:10px;align-items:flex-start;background:var(--fg);color:var(--bg);border-radius:14px;padding:10px 12px;font-size:.85rem;box-shadow:0 8px 24px #0008;animation:pdown .35s ease-out}
+.push .av{flex:none;width:30px;height:30px;border-radius:8px;background:var(--gold);color:var(--gold-ink);display:grid;place-items:center;font-family:var(--f-display);font-size:.8rem}
+.push .ago{font-size:.7rem;opacity:.6}
+@keyframes pdown{from{transform:translateY(-12px);opacity:0}to{transform:none;opacity:1}}
+.freedom{background:var(--ok);color:#06231a;border-radius:14px;padding:16px;text-align:center;font-family:var(--f-display);font-weight:800;font-size:1.15rem}
+canvas.confetti{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:40}
+.deadend{position:fixed;inset:0;z-index:4;background:var(--bg);display:flex;align-items:center;justify-content:center;padding:calc(env(safe-area-inset-top,0px) + 70px) max(16px,env(safe-area-inset-right,0px)) 40px max(16px,env(safe-area-inset-left,0px))}
+.dead-in{max-width:360px;display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center}
+.spinner{width:54px;height:54px;border-radius:50%;border:5px solid var(--line);border-top-color:var(--gold);animation:spin .9s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.dead-back{position:absolute;top:calc(env(safe-area-inset-top,0px) + 60px);left:max(10px,env(safe-area-inset-left,0px));background:none;color:#4f736b;font-size:.75rem;font-weight:500;padding:6px}
+/* ===== CHECK24-/Smily-Theme (überschreibt die Basis oben) ===== */
+body{background:linear-gradient(180deg,var(--blue) 0,var(--blue) 150px,#c9d3ea 260px,var(--bg) 380px) no-repeat,var(--bg)}
+body::before{background:var(--blue)}
+h1,h2{letter-spacing:-.01em;font-weight:800}
+.bar{background:var(--blue);border-bottom:0;backdrop-filter:none;color:#fff}
+.brand{font-style:italic;font-weight:800;font-size:1rem;letter-spacing:-.01em;color:#fff}
+.brand b{color:var(--gold)}
+.timer{color:#fff;background:rgba(255,255,255,.14);border-radius:99px;padding:3px 10px;font-weight:700}
+.pill{background:#fff;border:0}
+.pill.on{color:var(--red)} .pill.off{color:var(--ok)}
+.card{background:var(--card);border:0;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,.16)}
+.ticket{color:#fff;background:linear-gradient(135deg,#d6c08c,#B39656 45%,#8e7542 85%,#c9b07a);box-shadow:0 2px 8px rgba(0,0,0,.16);border-radius:10px}
+.ticket::after{border-color:rgba(255,255,255,.55)}
+.ticket h1{color:#fff}
+.ticket .eyebrow{letter-spacing:.08em;font-weight:600}
+input[type=text],select,textarea{background:#fff;border:1px solid #949494;border-radius:8px;color:var(--fg)}
+input:focus-visible,select:focus-visible,textarea:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid var(--blue)}
+button{border-radius:50px}
+.btn-gold{background:var(--gold);color:#fff;font-size:1.05rem;font-weight:600}
+.btn-gold:hover{background:#a3864a}
+.btn-red{background:var(--red);font-weight:600;border-radius:50px}
+.btn-ghost{background:#fff;color:var(--blue);border:1px solid var(--blue);font-weight:600}
+.btn-tiny{color:var(--muted);border-radius:6px}
+.err{color:#c4000f}
+.fine{color:#8a8f98}
+.benefits li::before{color:var(--gold)}
+footer.legal{color:#9aa0a8;border-top-color:var(--line)}
+footer.legal a.cancel{color:#d3d6dc}
+.modal{border:0;border-radius:12px;box-shadow:0 10px 40px rgba(0,0,0,.25)}
+.captcha button{background:#fff;border:1px solid #949494;border-radius:10px}
+.captcha button[aria-pressed=true]{border:2px solid var(--gold);background:#f6f0e2}
+.captcha button.ph{background:#fff}
+.queue-num{color:var(--blue)}
+.progress{background:var(--ghost)}
+canvas.sig{background:#fff;border:1px dashed #949494}
+.board li{border-bottom-color:var(--line)}
+.board li.me{color:var(--blue)}
+.toast{background:#181818;color:#fff;border-radius:10px}
+.mission{background:#fff;border:0;border-left:3px solid var(--blue);border-radius:4px 10px 10px 4px;box-shadow:0 2px 8px rgba(0,0,0,.16)}
+.mission .eyebrow{color:var(--blue);font-weight:700;letter-spacing:.06em}
+.mission-strip{background:#fdecee;border:1px solid #f5b5ba;color:#9b0610;border-radius:10px}
+.steps .n{background:var(--blue);color:#fff}
+.dot{background:#c3c8d2}
+.dot.on{background:var(--blue)}
+.deal{background:#fff;color:var(--fg);border:2px solid var(--gold);border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,.12)}
+.deal-t{background:var(--gold);color:#fff}
+.deal.hot .deal-t{background:var(--red)}
+.proof,.push{background:#fff;color:var(--fg);border-left:3px solid var(--blue);border-radius:10px;box-shadow:0 4px 18px rgba(0,0,0,.2)}
+.proof .av,.push .av{background:var(--blue);color:#fff}
+.agb{background:#fafbfc;border-color:var(--line)}
+.stars button{color:var(--gold);border-radius:6px}
+.bot-fab{background:var(--blue);color:#fff;box-shadow:0 4px 16px rgba(2,45,148,.4)}
+.bot{border:0;border-radius:12px;box-shadow:0 10px 40px rgba(0,0,0,.25)}
+.bot-head{background:var(--blue);color:#fff;border-bottom:0}
+.bot-head .on{color:#bfe8cf}
+.bot-head button{color:#fff}
+.msg.bot-m{background:var(--ghost);color:var(--fg)}
+.msg.me-m{background:var(--gold);color:#fff}
+.bot-quick button{background:#fff;color:var(--blue);border:1px solid var(--blue)}
+.bot-form{border-top-color:var(--line)}
+.sheet{background:#fff;border-top:0;border-radius:16px 16px 0 0;box-shadow:0 -6px 30px rgba(0,0,0,.2)}
+.grab{background:#c3c8d2}
+.freedom{background:var(--ok);color:#fff;border-radius:10px}
+.deadend{background:var(--bg)}
+.spinner{border-color:#d8deeb;border-top-color:var(--blue)}
+.dead-back{color:#b6bac1}
+.stamp{color:var(--ok);border-color:var(--ok)}
+.wheel-pointer{border-top-color:var(--blue)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@keyframes wob{0%,100%{transform:rotate(0)}25%{transform:rotate(-2deg)}75%{transform:rotate(2deg)}}
+.wobble{animation:wob .4s 2}
+</style>
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}[hidden]{display:none!important}</style>
+</head>
+<body>
+
+<header class="bar"><div class="bar-in">
+  <span class="brand">Smily <b>Level 4</b></span>
+  <span class="pill on" id="abo-pill" hidden>Abo aktiv</span>
+  <span class="timer" id="timer">00:00.0</span>
+</div></header>
+
+<main class="wrap" id="app" style="padding-top:18px"></main>
+<div id="overlay-root"></div>
+<button class="bot-fab" id="botfab" type="button" aria-label="Smily-Bot öffnen" hidden>💬</button>
+<section class="bot" id="bot" aria-label="Smily-Bot Chat" hidden>
+  <div class="bot-head"><span aria-hidden="true">🤖</span><div><b>Smily-Bot</b><br><span class="on">● online · antwortet sofort</span></div><button type="button" id="botclose" aria-label="Chat schließen">✕</button></div>
+  <div class="bot-msgs" id="botmsgs" aria-live="polite"></div>
+  <div class="bot-quick" id="botquick"></div>
+  <form class="bot-form" id="botform"><input type="text" id="botin" placeholder="Deine Frage …" autocomplete="off" maxlength="120"><button class="btn-gold" type="submit">Senden</button></form>
+</section>
+
+<script>
+let QUEUE_SECONDS = 60;
+const SKIP_PENALTY = 10;
+const API = location.pathname.replace(/\/+$/, "") + "/api";
+
+const $ = (s, r = document) => r.querySelector(s);
+const app = $("#app"), overlayRoot = $("#overlay-root");
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const fmt = ms => { if (ms == null) return "–"; const t = Math.max(0, ms) / 1000, m = Math.floor(t / 60), s = (t % 60).toFixed(1).padStart(4, "0"); return `${String(m).padStart(2,"0")}:${s}`; };
+
+async function api(route, body){
+  const r = await fetch(API + route, body === undefined ? { credentials: "same-origin" } :
+    { method: "POST", credentials: "same-origin", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+  let j = {}; try { j = await r.json(); } catch {}
+  if (r.status === 401 && route !== "/login") { go("pin"); throw new Error("auth"); }
+  if (!r.ok) { const e = new Error(j.error || "Fehler"); e.status = r.status; throw e; }
+  return j;
+}
+
+/* ===== Zustand ===== */
+const local = {
+  get(){ try { return localStorage.getItem("sl4-step"); } catch { return null; } },
+  set(v){ try { localStorage.setItem("sl4-step", v); } catch {} }
+};
+let S = { step: "loading", name: "", startedAt: null, endedAt: null, offset: 0, lastMs: null, bestMs: null };
+
+/* ===== Timer ===== */
+const timerEl = $("#timer"), pill = $("#abo-pill");
+(function tick(){
+  timerEl.textContent = S.startedAt ? fmt(S.endedAt ? S.lastMs : (Date.now() + S.offset) - S.startedAt) : "00:00.0";
+  requestAnimationFrame(tick);
+})();
+
+function toast(msg){
+  const t = document.createElement("div"); t.className = "toast"; t.setAttribute("role", "status"); t.textContent = msg; document.body.append(t);
+  setTimeout(() => t.remove(), 2600);
+}
+function go(step){ S.step = step; if (!["loading","pin"].includes(step)) local.set(step); render(); window.scrollTo(0, 0); }
+function shake(el){ el.classList.remove("wobble"); void el.offsetWidth; el.classList.add("wobble"); }
+
+const views = {};
+views.loading = () => { app.innerHTML = `<section class="card"><p class="muted">Smily Level 4 wird geladen …</p></section>`; };
+
+views.pin = () => {
+  app.innerHTML = `
+  <div class="intro" id="intro" aria-roledescription="Karussell">
+    <section class="slide" aria-label="1 von 4">
+      <div class="ticket slide-ticket">
+        <p class="eyebrow">Exponat Nr. 024 · Weihnachtsfeier-Edition</p>
+        <div class="slide-emoji" aria-hidden="true">🎫</div>
+        <h1 class="slide-h">Willkommen in der Abo-Falle.</h1>
+        <p>Du hast den Code gescannt. Herzlichen Glückwunsch! Oder auch nicht.</p>
+      </div>
+    </section>
+    <section class="slide" aria-label="2 von 4">
+      <div class="mission">
+        <p class="eyebrow">Deine Mission</p>
+        <h1 class="slide-h">Befreie dich aus der Abo-Falle des Marketingteams!</h1>
+        <p>Das Marketingteam hat sich ein „unwiderstehliches" Premium-Abo ausgedacht. Du schließt es gleich ab, ob du willst oder nicht.</p>
+        <p><b>Deine Aufgabe: Kündige es so schnell wie möglich.</b></p>
+      </div>
+    </section>
+    <section class="slide" aria-label="3 von 4">
+      <div class="mission">
+        <p class="eyebrow">So läuft's</p>
+        <ol class="steps">
+          <li><span class="n">1</span><div><b>Name eingeben</b><br><span class="muted">Damit ist das Abo abgeschlossen und die Uhr läuft.</span></div></li>
+          <li><span class="n">2</span><div><b>Kündigung durchboxen</b><br><span class="muted">Das Marketingteam wird alles versuchen, dich zu halten.</span></div></li>
+          <li><span class="n">3</span><div><b>Schneller sein als alle anderen</b><br><span class="muted">Die schnellste Kündigung des Abends gewinnt.</span></div></li>
+        </ol>
+      </div>
+    </section>
+    <section class="slide" aria-label="4 von 4">
+      <form class="card" id="f">
+        <p class="eyebrow" style="color:var(--gold);font-family:var(--f-mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase">Bereit?</p>
+        <h2>Die Uhr startet erst, wenn du deinen Namen eingibst. Also: tief durchatmen.</h2>
+        <div class="field"><label for="pin">PIN (versteckt auf der GoldClub-Karte)</label><input type="text" id="pin" inputmode="numeric" autocomplete="off" maxlength="12"></div>
+        <p class="err" id="err"></p>
+        <button class="btn-gold" type="submit">Mission annehmen</button>
+      </form>
+    </section>
+  </div>
+  <div class="intro-nav">
+    <button class="btn-tiny" id="skipIntro" type="button">Überspringen</button>
+    <div class="dots" id="dots">${[0,1,2,3].map(i => `<button type="button" class="dot" data-i="${i}" aria-label="Seite ${i + 1}"></button>`).join("")}</div>
+    <button class="btn-gold btn-next" id="next" type="button">Weiter</button>
+  </div>`;
+  const intro = $("#intro"), slides = [...intro.children], dots = [...$("#dots").children];
+  let idx = 0;
+  const show = i => { intro.scrollTo({ left: slides[i].offsetLeft - intro.offsetLeft, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" }); };
+  const update = () => {
+    idx = Math.round(intro.scrollLeft / intro.clientWidth);
+    dots.forEach((d, i) => d.classList.toggle("on", i === idx));
+    const last = idx === slides.length - 1;
+    $("#next").style.visibility = last ? "hidden" : "visible";
+    $("#skipIntro").style.visibility = last ? "hidden" : "visible";
+  };
+  intro.addEventListener("scroll", () => requestAnimationFrame(update), { passive: true });
+  $("#next").onclick = () => show(Math.min(idx + 1, slides.length - 1));
+  $("#skipIntro").onclick = () => show(slides.length - 1);
+  dots.forEach(d => d.onclick = () => show(+d.dataset.i));
+  update();
+  $("#f").onsubmit = async e => {
+    e.preventDefault();
+    try { await api("/login", { pin: $("#pin").value.trim() }); await boot(); }
+    catch (x) { $("#err").textContent = x.message === "auth" ? "" : x.message; shake($("#f")); }
+  };
+};
+
+views.ticket = () => {
+  app.innerHTML = `
+  <div class="mission-strip" role="note">⏱ Mit Klick auf „Jetzt gratis testen" startet die Uhr. Dann heißt es: Kündigung durchbekommen!</div>
+  <section class="ticket">
+    <p class="eyebrow">Exponat Nr. 024 · Weihnachtsfeier-Edition</p>
+    <h1>Glückwunsch! Du wurdest ausgewählt.</h1>
+    <p style="margin-top:10px">Teste <b>Smily Level 4</b> jetzt kostenlos und sichere dir exklusive Vorteile für den ganzen Abend.</p>
+  </section>
+  <form class="card" id="f">
+    <div class="field">
+      <label for="name">Dein Name</label>
+      <input type="text" id="name" maxlength="30" autocomplete="nickname" placeholder="Vorname oder Spitzname" value="${esc(S.name)}">
+    </div>
+    <p class="err" id="err"></p>
+    <button class="btn-gold" type="submit">Jetzt gratis testen</button>
+    <p class="small" style="color:var(--gold)">💡 Tipp vom Insider: Die letzte existierende GoldClub-Karte hilft dir. Schau sie dir genau an.</p>
+    <p class="fine">Mit Klick auf „Jetzt gratis testen" schließt du ein Abonnement „Smily Level 4" zu 49,99 € pro Monat (zzgl. 4,99 € Checkito-Pauschale) mit einer Mindestlaufzeit von 24 Monaten ab. Die Testphase endet sofort. Die Kündigung ist jederzeit möglich, sofern sie gelingt. Die Zeit bis zur erfolgreichen Kündigung wird gemessen und in einer Rangliste veröffentlicht. Gespeichert werden nur dein Name und deine Zeit, nach der Feier wird alles gelöscht.</p>
+  </form>`;
+  $("#f").onsubmit = async e => {
+    e.preventDefault();
+    const n = $("#name").value.trim();
+    if (n.length < 2) { $("#err").textContent = "Bitte gib deinen Namen ein, damit wir dir die Rechnung zuordnen können."; return; }
+    try {
+      const r = await api("/start", { name: n });
+      Object.assign(S, { name: n, startedAt: r.startedAt, offset: r.now - Date.now(), endedAt: null, lastMs: null });
+      go("dash");
+    } catch (x) { if (x.message !== "auth") $("#err").textContent = x.message; }
+  };
+};
+
+const BENEFITS = [
+  "Priorisierter Zugang zum Buffet (direkt nach der Geschäftsführung)",
+  "Cuba Libre Flat (all night long)",
+  "Neuer Filter für die Hotelsuche: „Privatjet-Parkplatz vorhanden“",
+  "Zugang zu 0 neuen Features pro Quartal",
+  "Kostenloser Zugang zu allen Vorteilen von Smily Level 1, 2 und 3",
+  "Stammplatz im neuen FIFA Dome",
+  "„Fast Lane“ bei Merlin (im Fall von IT-Problemen)",
+  "Lola-Zugang unter 23"
+];
+views.dash = () => {
+  let shown = 3;
+  app.innerHTML = `
+  <div class="mission-strip" role="note">⏱ Die Uhr läuft! Mission: Kündige dieses Abo. Irgendwo hier muss es doch gehen …</div>
+  <div class="deal" id="dealbox"><span>🔥 Nur jetzt: <b>−0,01 €</b> auf deinen nächsten Monat. Angebot endet in</span><span class="deal-t" id="deal">00:59</span></div>
+  <section class="card">
+    <p class="small muted">Willkommen im Premium-Club,</p>
+    <h1>${esc(S.name)} 🎉</h1>
+    <p>Dein Abo ist aktiv. Das sind deine Vorteile:</p>
+    <ul class="benefits" id="ben"></ul>
+    <button class="btn-gold" id="more">Weitere Vorteile entdecken</button>
+    <div class="row">
+      <button class="btn-ghost" id="up">Auf Level 5 upgraden</button>
+      <button class="btn-ghost" id="help">Hilfe</button>
+    </div>
+  </section>
+  <section class="card">
+    <h2>Deine Ersparnis heute</h2>
+    <p class="muted">Du hast mit Smily Level 4 bereits <b style="color:var(--gold)">0,00 €</b> gespart. Weiter so!</p>
+  </section>
+  <footer class="legal">
+    <a href="#" data-x="imp">Impressum</a><a href="#" data-x="ds">Datenschutz</a><a href="#" data-x="agb">AGB</a>
+    <a href="#" data-x="ck">Cookie-Einstellungen</a><a href="#" data-x="kd" class="cancel">Vertrag hier kündigen</a><a href="#" data-x="pr">Presse</a>
+    <span>© Smily Premium Services · Weihnachtsfeier-Parodie</span>
+  </footer>`;
+  const ben = $("#ben");
+  const draw = () => ben.innerHTML = BENEFITS.slice(0, shown).map(b => `<li>${esc(b)}</li>`).join("");
+  draw();
+  $("#more").onclick = () => { shown = Math.min(BENEFITS.length, shown + 1); draw(); if (shown === BENEFITS.length) toast("Du kennst jetzt alle Vorteile. Glückwunsch!"); };
+  $("#up").onclick = () => toast("Level 5 ist leider nur für Level-5-Kunden verfügbar.");
+  $("#help").onclick = () => openBot();
+  let dealT = 59;
+  const dealIv = setInterval(() => {
+    const el = $("#deal"); if (S.step !== "dash" || !el) return clearInterval(dealIv);
+    dealT--;
+    if (dealT < 0) { dealT = 59; toast("Gute Nachricht: Wir haben das Angebot verlängert. Nur für dich!"); }
+    el.textContent = `00:${String(dealT).padStart(2, "0")}`;
+    $("#dealbox").classList.toggle("hot", dealT < 10);
+  }, 1000);
+  app.querySelectorAll("footer a").forEach(a => a.onclick = e => {
+    e.preventDefault();
+    const x = a.dataset.x;
+    if (x === "kd") return retention();
+    const msgs = { imp: "Impressum wird geladen … (voraussichtlich 2027)", ds: "Deine Daten sind bei uns sicher. Und bei 412 Partnern.", agb: "Die AGB umfassen 96 Seiten. Viel Spaß!", ck: "Alle Cookies wurden zu deinem Vorteil akzeptiert.", pr: "Keine Presse, bitte." };
+    toast(msgs[x]);
+  });
+};
+
+function modal(html, buttons){
+  return new Promise(res => {
+    overlayRoot.innerHTML = `<div class="overlay" role="dialog" aria-modal="true"><div class="modal">${html}<div class="btns" style="display:flex;flex-direction:column;gap:8px"></div></div></div>`;
+    const box = $(".btns", overlayRoot);
+    buttons.forEach((b, i) => { const el = document.createElement("button"); el.className = b.cls; el.textContent = b.label; el.onclick = () => { overlayRoot.innerHTML = ""; res(i); }; box.append(el); });
+    box.querySelector("button")?.focus();
+  });
+}
+
+async function retention(){
+  let r = await modal(`<div class="big-emoji">🎁</div><h2>Warte! Exklusiv für dich:</h2><p>Bleib bei Smily Level 4 und zahle die nächsten 3 Monate nur <b>49,98 €</b> statt 49,99 €.</p>`,
+    [{ label: "Angebot sichern", cls: "btn-gold" }, { label: "Nein danke, ich zahle lieber gar nichts", cls: "btn-tiny" }]);
+  if (r === 0) { toast("Super Entscheidung! Dein Abo bleibt aktiv. 🎉"); return; }
+  go("wheel");
+}
+async function retention2(){
+  let r = await modal(`<div class="big-emoji">🐛</div><h2>Bist du dir sicher?</h2><p>Ohne Smily Level 4 übernimmst du ab Montag <b>alle Buggys deines Teams</b>.</p>`,
+    [{ label: "Kündigung trotzdem fortsetzen", cls: "btn-tiny" }, { label: "Abo behalten, Buggys bleiben beim Team", cls: "btn-red" }]);
+  if (r === 1) { toast("Kluge Wahl. Die Buggys bleiben bei den anderen. Dein Abo bleibt aktiv."); return; }
+  r = await modal(`<div class="big-emoji">🤔</div><h2>Letzte Rückfrage</h2><p>Möchtest du auf deine Kündigung <b>nicht</b> verzichten?</p>`,
+    [{ label: "Nein", cls: "btn-gold" }, { label: "Ja", cls: "btn-ghost" }]);
+  if (r === 0) { toast("Alles klar, du verzichtest auf die Kündigung. Dein Abo bleibt aktiv!"); return; }
+  go("agb");
+}
+
+/* ===== Glücksrad ===== */
+const WHEEL = [
+  { t: "iPhone Duo", c: "#B39656", ink: "#ffffff" },
+  { t: "Fast gewonnen", c: "#022D94", ink: "#ffffff" },
+  { t: "Cuba Libre Flat", c: "#E30613", ink: "#ffffff" },
+  { t: "+12 Monate Abo", c: "#e8edf8", ink: "#022D94" },
+  { t: "Genius-Vorteile|bei Booking", c: "#B39656", ink: "#ffffff" },
+  { t: "Smily Level 5", c: "#022D94", ink: "#ffffff" },
+  { t: "Niete", c: "#e8edf8", ink: "#022D94" },
+  { t: "Tayibat|Mo–Fr", c: "#B39656", ink: "#ffffff" },
+  { t: "Lola-VIP", c: "#E30613", ink: "#ffffff" }
+];
+const WHEEL_SEQ = [1, 3, 6, 1, 6, 3];
+const WHEEL_MSG = {
+  1: ["Fast gewonnen!", "Du warst sooo nah am iPhone Duo. Beim nächsten Dreh klappt's bestimmt."],
+  3: ["Glückwunsch! 🎉", "Deine Mindestlaufzeit verlängert sich um 12 Monate. Gratis!"],
+  6: ["Niete.", "Aber hey: Das Glück ist mit den Hartnäckigen. Einfach nochmal drehen!"]
+};
+let wheelRot = 0, wheelSpins = 0;
+function wheelSVG(){
+  const n = WHEEL.length, R = 140, cx = 150, cy = 150, seg = 360 / n;
+  const pt = (a, r) => [cx + r * Math.sin(a * Math.PI / 180), cy - r * Math.cos(a * Math.PI / 180)];
+  let out = "";
+  WHEEL.forEach((w, i) => {
+    const a0 = i * seg, a1 = a0 + seg, [x0, y0] = pt(a0, R), [x1, y1] = pt(a1, R), mid = a0 + seg / 2, [tx, ty] = pt(mid, R * .6);
+    out += `<path d="M${cx},${cy} L${x0.toFixed(2)},${y0.toFixed(2)} A${R},${R} 0 0 1 ${x1.toFixed(2)},${y1.toFixed(2)} Z" fill="${w.c}" stroke="#ffffff" stroke-width="2"/>`;
+    const lines = w.t.split("|"), fs = lines.some(l => l.length > 13) ? 10.5 : 12;
+    const tsp = lines.map((l, k) => `<tspan x="${tx.toFixed(2)}" dy="${k === 0 ? (-(lines.length - 1) * fs * .55).toFixed(1) : (fs * 1.1).toFixed(1)}">${esc(l)}</tspan>`).join("");
+    out += `<text x="${tx.toFixed(2)}" y="${ty.toFixed(2)}" fill="${w.ink}" font-size="${fs}" font-weight="700" text-anchor="middle" dominant-baseline="middle" transform="rotate(${mid - 90} ${tx.toFixed(2)} ${ty.toFixed(2)})" font-family="Manrope, system-ui, sans-serif">${tsp}</text>`;
+  });
+  out += `<circle cx="${cx}" cy="${cy}" r="${R}" fill="none" stroke="#B39656" stroke-width="5"/><circle cx="${cx}" cy="${cy}" r="18" fill="#ffffff" stroke="#B39656" stroke-width="3"/><text x="${cx}" y="${cy + 1}" text-anchor="middle" dominant-baseline="middle" font-size="16">😃</text>`;
+  return `<svg viewBox="0 0 300 300" role="img" aria-label="Glücksrad">${out}</svg>`;
+}
+views.wheel = () => {
+  app.innerHTML = `
+  <section class="card" style="text-align:center">
+    <p class="small muted">Exklusiv für Kündigungswillige</p>
+    <h1>Moment! Du hast einen Gratis-Dreh gewonnen 🎡</h1>
+    <p>Dreh am Smily-Glücksrad und sichere dir einen Preis, bevor du gehst.</p>
+    <div class="wheel-box">
+      <div class="wheel-pointer" aria-hidden="true"></div>
+      <div class="wheel" id="wheel" style="transform:rotate(${wheelRot}deg)">${wheelSVG()}</div>
+    </div>
+    <div id="wres" class="wheel-result" aria-live="polite"></div>
+    <button class="btn-gold" id="spin">🎡 Rad drehen</button>
+    <button class="btn-tiny" id="wskip">Ich bin stärker als meine Impulse. Weiter zur Kündigung.</button>
+    <p class="fine">Nach einem Beinahe-Gewinn nochmal drehen? Völlig menschlich. 97 % deiner Kolleg:innen tun es auch. Drehen ist kostenlos, es kostet nur ein paar Sekunden deiner Zeit.</p>
+  </section>`;
+  const wheel = $("#wheel"), spin = $("#spin"), res = $("#wres");
+  wheelProof();
+  spin.onclick = () => {
+    spin.disabled = true; $("#wskip").disabled = true; res.textContent = "";
+    const target = WHEEL_SEQ[wheelSpins % WHEEL_SEQ.length]; wheelSpins++;
+    const seg = 360 / WHEEL.length;
+    const off = target === 1 ? -seg * .42 : (Math.random() - .5) * seg * .6;   // „Fast gewonnen“ landet knapp neben dem iPhone
+    const angle = target * seg + seg / 2 + off;
+    const cur = ((wheelRot % 360) + 360) % 360;
+    wheelRot += 360 * 5 + ((360 - angle - cur) % 360 + 360) % 360;
+    const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    wheel.style.transition = reduce ? "none" : "transform 4s cubic-bezier(.17,.67,.2,1)";
+    wheel.style.transform = `rotate(${wheelRot}deg)`;
+    setTimeout(() => {
+      const [h, t] = WHEEL_MSG[target];
+      res.innerHTML = `<b>${esc(h)}</b><br><span class="muted">${esc(t)}</span>`;
+      spin.textContent = "🎡 Nochmal drehen"; spin.disabled = false; $("#wskip").disabled = false;
+    }, reduce ? 100 : 4100);
+  };
+  $("#wskip").onclick = () => retention2();
+};
+
+views.kdnr = () => {
+  app.innerHTML = `
+  <form class="card" id="f">
+    <p class="small muted">Kündigung · Schritt 2 von 5</p>
+    <h2>Identität bestätigen</h2>
+    <p>Bitte gib deine Kundennummer ein. Du findest sie auf der letzten existierenden GoldClub-Karte.</p>
+    <div class="field"><label for="kn">Kundennummer</label><input type="text" id="kn" autocomplete="off" autocapitalize="characters" placeholder="SL4-…"></div>
+    <p class="err" id="err"></p>
+    <button class="btn-gold" type="submit">Weiter</button>
+  </form>`;
+  let tries = 0;
+  $("#f").onsubmit = async e => {
+    e.preventDefault();
+    try {
+      const r = await api("/kdnr", { code: $("#kn").value });
+      if (r.ok) { await sheetPush(); return go("reason"); }
+    } catch (x) { if (x.message === "auth") return; if (x.status === 409) return go("ticket"); }
+    tries++;
+    const hints = ["Kundennummer unbekannt. Bitte prüfe deine Eingabe.", "Kundennummer unbekannt. Hast du dir die GoldClub-Karte schon genau angesehen?", "Tipp: Die Karte dreht sich. Etwas Geduld hilft."];
+    $("#err").textContent = hints[Math.min(tries - 1, hints.length - 1)];
+    shake($("#f"));
+  };
+};
+
+const LEITLINIEN = [
+  { t: "Bedingungslose Kundenorientierung", ok: true },
+  { t: "Wendige Schnellboote", ok: true },
+  { t: "Zielgerichtete Diskussionskultur", ok: true },
+  { t: "Offenheit & Lernbereitschaft", ok: true },
+  { t: "CHECKito Spirit", ok: true },
+  { t: "Bedingungslose Kundenbindung", ok: false },
+  { t: "Wendige Tanker", ok: false },
+  { t: "Zielgerichtete Diskussions­vermeidung", ok: false },
+  { t: "Offenheit & Leerlauf­bereitschaft", ok: false }
+];
+let captchaCfg = null;
+views.reason = async () => {
+  if (captchaCfg === null) { try { captchaCfg = await api("/captcha"); } catch { captchaCfg = { aktiv: false }; } }
+  const photo = captchaCfg.aktiv;
+  const tiles = photo
+    ? [...captchaCfg.bilder].sort(() => Math.random() - .5).map(b => `<button type="button" class="ph" aria-pressed="false" data-f="${esc(b.id)}" aria-label="Bild auswählen"><img src="${esc(b.src)}" alt="" loading="eager"></button>`)
+    : LEITLINIEN.map((l, i) => ({ ...l, i })).sort(() => Math.random() - .5).map(l => `<button type="button" class="txt" aria-pressed="false" data-f="${l.i}">${esc(l.t)}</button>`);
+  const question = photo ? esc(captchaCfg.frage) : "Wähle alle 5 echten CHECK24-Leitlinien.";
+  app.innerHTML = `
+  <form class="card" id="f">
+    <p class="small muted">Kündigung · Schritt 3 von 5</p>
+    <h2>Warum möchtest du kündigen?</h2>
+    <div class="field"><label for="why">Kündigungsgrund</label>
+      <select id="why">
+        <option value="">Bitte wählen …</option>
+        <option>Ich bin einfach zu zufrieden</option>
+        <option>Zu viele Vorteile, ich komme nicht hinterher</option>
+        <option>Zu viele Cocktails inklusive</option>
+        <option>Ich möchte kein Geld sparen</option>
+      </select></div>
+    <div class="field"><label for="txt">Was können wir besser machen? (mind. 20 Zeichen)</label>
+      <textarea id="txt" maxlength="200"></textarea><span class="small muted" id="cnt">0 / 20</span></div>
+    <label style="display:flex;gap:8px;font-weight:400;font-size:.85rem"><input type="checkbox" id="nl" checked> Ja, ich möchte den Smily-Level-4-Newsletter weiterhin 3× täglich erhalten.</label>
+    <div class="field"><label>Sicherheitsprüfung: ${question}</label>
+      <div class="captcha" id="cap">${tiles.join("")}</div></div>
+    <p class="err" id="err"></p>
+    <button class="btn-gold" type="submit">Kündigungsgrund absenden</button>
+  </form>`;
+  setTimeout(() => { if (S.step === "reason") nag(); }, 2500);
+  $("#txt").oninput = () => $("#cnt").textContent = `${$("#txt").value.trim().length} / 20`;
+  $("#cap").onclick = e => { const b = e.target.closest("button"); if (b) b.setAttribute("aria-pressed", b.getAttribute("aria-pressed") !== "true"); };
+  $("#f").onsubmit = async e => {
+    e.preventDefault();
+    const err = $("#err");
+    if (!$("#why").value) return err.textContent = "Bitte wähle einen Kündigungsgrund.";
+    if ($("#txt").value.trim().length < 20) return err.textContent = "Dein Feedback ist uns wichtig. Bitte schreib mindestens 20 Zeichen.";
+    const picked = [...$("#cap").querySelectorAll("[aria-pressed=true]")].map(b => b.dataset.f);
+    let ok;
+    if (photo) { try { ok = (await api("/captcha", { auswahl: picked })).ok; } catch { return; } }
+    else { const right = LEITLINIEN.map((l, i) => l.ok ? String(i) : null).filter(Boolean); ok = picked.length === right.length && picked.every(f => right.includes(f)); }
+    if (!ok) { err.textContent = "Sicherheitsprüfung fehlgeschlagen. Bist du ein Roboter oder nur unzufrieden?"; $("#cap").querySelectorAll("button").forEach(b => b.setAttribute("aria-pressed", "false")); return; }
+    if ($("#nl").checked) toast("Danke! Du erhältst weiterhin unseren Newsletter. 📬");
+    await sheetAdvent();
+    go("queue");
+  };
+};
+
+let audio = null;
+function startMusic(){
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const N = { C:523.25, D:587.33, E:659.25, F:698.46, G:783.99 };
+    const tune = "E1 E1 E2 E1 E1 E2 E1 G1 C1.5 D.5 E4 F1 F1 F1.5 F.5 F1 E1 E1 E.5 E.5 E1 D1 D1 E1 D2 G2".split(" ");
+    const beat = .28; let total = 0;
+    tune.forEach(n => total += parseFloat(n.slice(1)) * beat);
+    const g = ctx.createGain(); g.gain.value = .05; g.connect(ctx.destination);
+    const schedule = start => { let tt = start; tune.forEach(n => { const d = parseFloat(n.slice(1)) * beat; const o = ctx.createOscillator(); o.type = "square"; o.frequency.value = N[n[0]]; const e = ctx.createGain(); e.gain.setValueAtTime(1, tt); e.gain.exponentialRampToValueAtTime(.01, tt + d * .9); o.connect(e).connect(g); o.start(tt); o.stop(tt + d); tt += d; }); };
+    for (let i = 0; i < 8; i++) schedule(ctx.currentTime + .1 + i * total);
+    audio = ctx;
+  } catch { audio = null; }
+}
+function stopMusic(){ try { audio && audio.close(); } catch {} audio = null; }
+
+views.queue = () => {
+  let total = QUEUE_SECONDS, left = QUEUE_SECONDS, skips = 0;
+  app.innerHTML = `
+  <section class="card" style="text-align:center">
+    <p class="small muted">Kündigung · Schritt 4 von 5</p>
+    <h2>Du wirst mit der Kündigungsabteilung verbunden</h2>
+    <p class="muted">Du bist aktuell auf</p>
+    <div class="queue-num" id="pos">Platz 247</div>
+    <div class="progress"><div id="prog"></div></div>
+    <p class="small muted" id="left">Geschätzte Wartezeit: ${left} s</p>
+    <button class="btn-gold" id="skip">⚡ Premium-Skip</button>
+    <button class="btn-tiny" id="mute">Wartemusik</button>
+    <p class="fine">Premium-Skip ist im Level-4-Abo enthalten und verlängert die Wartezeit um ${SKIP_PENALTY} Sekunden.</p>
+  </section>`;
+  const label = () => $("#mute").textContent = audio ? "Wartemusik aus" : "Wartemusik an";
+  startMusic(); label();
+  $("#mute").onclick = () => { audio ? stopMusic() : startMusic(); label(); };
+  $("#skip").onclick = () => { skips++; left += SKIP_PENALTY; total += SKIP_PENALTY; toast(`Premium-Skip aktiviert${skips > 1 ? ` (${skips}×)` : "!"} +${SKIP_PENALTY} s`); };
+  const iv = setInterval(() => {
+    if (S.step !== "queue") return clearInterval(iv);
+    left--;
+    const target = Math.max(1, Math.round(247 * left / total));
+    const pos = left <= 0 ? 1 : Math.max(2, target + (Math.random() < .15 ? Math.round(Math.random() * 40) : Math.round(Math.random() * 6 - 3)));
+    $("#pos").textContent = `Platz ${pos}`;
+    $("#prog").style.width = `${Math.min(100, (1 - left / total) * 100)}%`;
+    $("#left").textContent = left > 0 ? `Geschätzte Wartezeit: ${left} s` : "Du wirst verbunden …";
+    if (left <= 0) { clearInterval(iv); setTimeout(() => { stopMusic(); go("sign"); }, 1500); }
+  }, 1000);
+};
+
+views.sign = () => {
+  let attempts = 0;
+  app.innerHTML = `
+  <section class="card">
+    <p class="small muted">Kündigung · Schritt 5 von 5</p>
+    <h2>Kündigung nur schriftlich</h2>
+    <p>Bitte unterschreibe hier mit dem Finger, so wie in deinem Ausweis.</p>
+    <canvas class="sig" id="sig" aria-label="Unterschriftsfeld"></canvas>
+    <p class="err" id="err"></p>
+    <div class="row"><button class="btn-ghost" id="clr">Löschen</button><button class="btn-gold" id="ok">Unterschrift einreichen</button></div>
+  </section>`;
+  const c = $("#sig"), ctx = c.getContext("2d");
+  const r0 = c.getBoundingClientRect(), d = devicePixelRatio || 1;
+  c.width = r0.width * d; c.height = r0.height * d; ctx.scale(d, d);
+  ctx.lineWidth = 2.5; ctx.lineCap = "round"; ctx.strokeStyle = "#14302b";
+  let drawing = false, len = 0, last = null;
+  const pt = e => { const r = c.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; };
+  c.onpointerdown = e => { drawing = true; last = pt(e); c.setPointerCapture(e.pointerId); };
+  c.onpointermove = e => { if (!drawing) return; const q = pt(e); ctx.beginPath(); ctx.moveTo(...last); ctx.lineTo(...q); ctx.stroke(); len += Math.hypot(q[0]-last[0], q[1]-last[1]); last = q; };
+  c.onpointerup = c.onpointercancel = () => drawing = false;
+  const clear = () => { ctx.clearRect(0, 0, c.width, c.height); len = 0; };
+  $("#clr").onclick = clear;
+  $("#ok").onclick = async () => {
+    const err = $("#err");
+    if (len < 120) return err.textContent = "Das sieht nicht nach einer Unterschrift aus. Bitte unterschreibe vollständig.";
+    attempts++;
+    if (attempts === 1) { err.textContent = "Die Unterschrift stimmt nicht mit unseren Unterlagen überein. Bitte erneut versuchen."; return clear(); }
+    if (attempts === 2) { err.textContent = "Diese Unterschrift wirkt zu bemüht. Bitte natürlicher unterschreiben."; return clear(); }
+    try {
+      await sheetSurvey();
+      const r = await api("/finish", {});
+      Object.assign(S, { lastMs: r.ms, bestMs: r.bestMs, endedAt: Date.now() });
+      lastBoard = r;
+      justFinished = true;
+      go("done");
+    } catch (x) {
+      if (x.message === "auth") return;
+      err.textContent = x.message;
+      if (/Kundennummer|Abo/.test(x.message)) setTimeout(() => go("kdnr"), 1800);
+    }
+  };
+};
+
+let lastBoard = null, boardTimer = null;
+views.done = () => {
+  app.innerHTML = `
+  <section class="card" style="text-align:center">
+    <div class="stamp">Gekündigt</div>
+    <h1>Kündigung bestätigt.</h1>
+    <p>Dein Abo endet fristgerecht zum <b>31.12.2099</b>. Bis dahin wünschen wir dir weiterhin viel Freude mit Smily Level 4.</p>
+    <p class="muted small">Deine Zeit</p>
+    <div class="queue-num" style="font-size:2.6rem">${fmt(S.lastMs)}</div>
+    ${S.bestMs != null && S.bestMs < S.lastMs ? `<p class="small muted">Deine Bestzeit: ${fmt(S.bestMs)}</p>` : ""}
+    <p class="fine">Deine Kündigung wird innerhalb von 7–10 Werktagen bearbeitet. Bis dahin läuft dein Abo wie gewohnt weiter.</p>
+  </section>
+  <div class="freedom" id="freedom" ${justFinished ? "hidden" : ""}>🎉 Du bist frei! Ab an die Bar.</div>
+  <section class="card">
+    <h2>Rangliste</h2>
+    <div id="board"><p class="muted small">Rangliste wird geladen …</p></div>
+  </section>
+  <button class="btn-ghost" id="again">Nochmal abschließen und schneller kündigen</button>`;
+  $("#again").onclick = () => { Object.assign(S, { startedAt: null, endedAt: null }); go("ticket"); };
+  if (lastBoard) renderBoard(lastBoard);
+  const load = async () => { if (S.step !== "done") return clearInterval(boardTimer); try { renderBoard(await api("/board")); } catch {} };
+  clearInterval(boardTimer); load(); boardTimer = setInterval(() => { if (!document.hidden) load(); }, 10000);
+  if (justFinished) { justFinished = false; ending(); }
+};
+
+function renderBoard(b){
+  const el = $("#board"); if (!el) return;
+  const row = r => `<li class="${r.me ? "me" : ""}"><span class="r">${r.rank}.</span><span>${esc(r.name)}</span><span class="t">${fmt(r.bestMs)}</span></li>`;
+  const meInTop = b.top.some(r => r.me);
+  el.innerHTML = `
+    ${b.top.length ? `<ol class="board">${b.top.map(row).join("")}${!meInTop && b.myRank ? row({ rank: b.myRank, name: S.name, bestMs: b.myBest, me: true }) : ""}</ol>` : `<p class="muted small">Noch hat niemand gekündigt.</p>`}
+    <p class="small muted" style="margin-top:12px">Erfolgreich gekündigt: <b>${b.doneCount}</b> · Treue Level-4-Kunden (Abo noch aktiv): <b>${b.activeCount}</b></p>
+    ${b.activeNames.length ? `<p class="small muted">${b.activeNames.map(esc).join(", ")}${b.activeCount > b.activeNames.length ? " …" : ""}</p>` : ""}`;
+}
+
+function render(){
+  pill.hidden = !S.startedAt;
+  pill.className = "pill " + (S.endedAt ? "off" : "on");
+  pill.textContent = S.endedAt ? "Gekündigt" : "Abo aktiv";
+  if (S.step !== "queue") stopMusic();
+  const active = ACTIVE_STEPS.includes(S.step);
+  $("#botfab").hidden = !active || !$("#bot").hidden;
+  if (!active) $("#bot").hidden = true;
+  (views[S.step] || views.ticket)();
+}
+
+/* ===== Gemeinsame Helfer für Dark Patterns ===== */
+const ACTIVE_STEPS = ["dash","wheel","agb","kdnr","reason","queue","sign"];
+
+/* Fake Social Proof */
+// from = ab welchem Schritt die Meldung erscheinen darf (0 Dashboard, 1 Glücksrad, 4 Kündigungsgrund)
+const PROOF = [
+  { w: "E", m: "Ecki hat gerade auf Smily Level 5 verlängert 🎉", from: 0 },
+  { w: "H", m: "Henner hat soeben das Jahresabo abgeschlossen. Kluger Mann.", from: 0 },
+  { w: "👀", m: "17 Kolleg:innen sehen sich gerade dieses Abo an.", from: 0 },
+  { w: "H", m: "Henner hat am Glücksrad ein iPhone Duo gewonnen. Angeblich.", from: 1 },
+  { w: "E", m: "Ecki hat seine Kündigung abgebrochen und wirkt sehr glücklich.", from: 0 },
+  { w: "H", m: "Henner sagt: „Kündigen? Wozu? Ich hab doch Cuba Libre Flat.“", from: 0 },
+  { w: "E", m: "Ecki hat Smily Level 4 mit 5 Sternen bewertet ⭐⭐⭐⭐⭐", from: 4 },
+  { w: "EH", m: "Ecki und Henner teilen sich jetzt ein Familien-Abo 💛", from: 0 }
+];
+const PROOF_FIRST_DELAY = 6000, PROOF_VISIBLE = 7000, PROOF_GAP = 15000;
+let proofPtr = 0, nextProofAt = 0, wheelProofDone = false;
+function showProof(p){
+  document.querySelectorAll(".proof").forEach(x => x.remove());
+  const el = document.createElement("div"); el.className = "proof"; el.setAttribute("role", "status");
+  el.innerHTML = `<span class="av">${esc(p.w)}</span><span>${esc(p.m)}</span><span class="ago">gerade eben</span>`;
+  document.body.append(el);
+  setTimeout(() => el.classList.add("out"), PROOF_VISIBLE); setTimeout(() => el.remove(), PROOF_VISIBLE + 500);
+  nextProofAt = Date.now() + PROOF_GAP;
+}
+setInterval(() => {
+  const si = ACTIVE_STEPS.indexOf(S.step);
+  if (si < 0) { nextProofAt = 0; return; }
+  if (!nextProofAt) nextProofAt = Date.now() + PROOF_FIRST_DELAY;
+  if (Date.now() < nextProofAt || document.hidden || overlayRoot.innerHTML || !$("#bot").hidden || document.querySelector(".proof") || $("#deadend")) return;
+  for (let k = 0; k < PROOF.length; k++) {
+    const i = (proofPtr + k) % PROOF.length;
+    if (PROOF[i].from <= si && !(i === 3 && !wheelProofDone && si === 1)) { proofPtr = i + 1; showProof(PROOF[i]); return; }
+  }
+}, 500);
+function wheelProof(){
+  setTimeout(() => {
+    if (S.step !== "wheel" || wheelProofDone) return;
+    wheelProofDone = true; showProof(PROOF[3]);
+    if (proofPtr <= 3) proofPtr = 4;
+  }, 3000);
+}
+
+/* Nagging: Bewertung */
+let ratingDone = false;
+function nag(){
+  if (ratingDone || overlayRoot.innerHTML || !ACTIVE_STEPS.includes(S.step)) return;
+  overlayRoot.innerHTML = `<div class="overlay" role="dialog" aria-modal="true"><div class="modal">
+    <h2>Wie gefällt dir Smily Level 4?</h2>
+    <p class="muted">Dein Feedback hilft uns, die Kündigung noch besser zu machen.</p>
+    <div class="stars" id="stars">${[1,2,3,4,5].map(n => `<button type="button" data-n="${n}" aria-label="${n} von 5 Sternen">★</button>`).join("")}</div>
+    <p class="err" id="serr"></p>
+    <button class="btn-tiny" id="later" type="button">Später erinnern</button></div></div>`;
+  $("#stars").onclick = e => {
+    const b = e.target.closest("button"); if (!b) return;
+    const n = +b.dataset.n;
+    const no = { 1: "1 Stern ist leider ausverkauft.", 2: "2 Sterne sind nur im Level-5-Abo verfügbar.", 3: "3 Sterne? Das war bestimmt ein Versehen. Bitte nochmal." };
+    if (no[n]) { $("#serr").textContent = no[n]; shake(b); return; }
+    ratingDone = true; overlayRoot.innerHTML = "";
+    toast(n === 4 ? "Danke! Wir haben auf 5 Sterne aufgerundet. ⭐⭐⭐⭐⭐" : "Danke für 5 Sterne! Ecki und Henner freuen sich. ⭐");
+  };
+  $("#later").onclick = () => { overlayRoot.innerHTML = ""; toast("Alles klar, wir erinnern dich gleich nochmal."); setTimeout(nag, 20000); };
+}
+
+/* Kündigungs-AGB mit Scrollzwang */
+const AGB = [
+  "Geltungsbereich. Diese Bedingungen gelten für alle Kündigungen, Kündigungsversuche, Kündigungsgedanken und das bloße Hovern über einem Kündigungsbutton.",
+  "Vertragsgegenstand. Gegenstand des Vertrages ist die dauerhafte Freude an Smily Level 4. Freude ist nicht kündbar, sondern lediglich pausierbar (Pausengebühr 4,99 € pro Tag).",
+  "Laufzeit. Die Mindestlaufzeit beträgt 24 Monate. Sie verlängert sich automatisch um weitere 24 Monate, sobald jemand im Raum „Glühwein“ sagt.",
+  "Kündigungsfrist. Die Kündigung muss spätestens 3 Monate vor Vertragsbeginn eingehen. Verspätete Kündigungen werden gerne als Feedback entgegengenommen.",
+  "Form der Kündigung. Kündigungen sind ausschließlich schriftlich, digital, mündlich und gleichzeitig per Brieftaube einzureichen.",
+  "Checkito-Pauschale. Die Checkito-Pauschale fällt unabhängig von der Nutzung an. Sie dient der Finanzierung der Checkito-Pauschale.",
+  "Cuba Libre Flat. Die Flatrate gilt für alle Getränke, die als Cuba Libre bezeichnet werden. Die Bezeichnung obliegt der Bar.",
+  "Fast Lane bei Merlin. Die Fast Lane gilt ausschließlich bei IT-Problemen, die vor ihrem Auftreten angemeldet wurden.",
+  "Kundennummer. Die Kundennummer ist nicht Bestandteil dieser Bedingungen. Wer sie hier sucht, sucht an der falschen Stelle.",
+  "Buggys. Bei vorzeitiger Kündigung gehen sämtliche offenen Buggys des Teams auf die kündigende Person über. Dies gilt rückwirkend.",
+  "Haftung. Smily haftet nicht für Schäden durch übermäßige Zufriedenheit, insbesondere nicht für Muskelkater vom Dauerlächeln.",
+  "Glücksrad. Gewinne am Glücksrad sind symbolischer Natur. Das iPhone Duo existiert ausschließlich als Motivation.",
+  "Datenschutz. Wir speichern nur, was nötig ist. Nötig ist alles.",
+  "Bewertungen. Mit der Abgabe einer Bewertung von weniger als 4 Sternen erklärst du dich bereit, die Bewertung zu wiederholen.",
+  "Familien-Abo. Ecki und Henner sind von dieser Regelung ausgenommen. Warum, wissen nur Ecki und Henner.",
+  "Upgrade-Pflicht. Wer den Smily-Bot um Hilfe bittet, stimmt einem Upgrade-Angebot zu. Und noch einem.",
+  "Salvatorische Klausel. Sollte eine Bestimmung unwirksam sein, gilt automatisch die für dich ungünstigere Variante.",
+  "Gerichtsstand. Gerichtsstand ist die Tanzfläche. Verhandelt wird nach dem dritten Lied.",
+  "Änderungen. Wir behalten uns vor, diese Bedingungen jederzeit zu ändern, insbesondere während du sie liest.",
+  "Zwischenstand. Du hast schon einiges geschafft. Leider ist das hier nicht das Ende."
+];
+/* Füllparagraphen, damit die AGB richtig lang werden */
+const AGB_TITLES = ["Allgemeines","Begriffsbestimmungen","Vertragsschluss","Mitwirkungspflichten","Zahlungsmodalitäten","Fälligkeit","Verzug","Pausenregelung","Rabattbedingungen","Laufzeitverlängerung","Sonderkündigungsrecht (entfällt)","Leistungsänderungen","Zufriedenheitsgarantie","Treuepunkte","Upgrade-Bedingungen","Downgrade-Bedingungen (gestrichen)","Kommunikation","Erreichbarkeit","Schriftform","Fristen","Bearbeitungszeiten","Gebühren","Pauschalen","Sonderpauschalen","Gewährleistung","Mängelanzeige","Höhere Gewalt","Abtretung","Aufrechnung","Vertraulichkeit","Nutzungsrechte","Bewertungen","Empfehlungsprogramm","Familien-Abo","Glücksrad","Getränke","Buffet","Tanzfläche","Garderobe","Nachweispflichten"];
+const AGB_SUBJ = ["Die kündigende Person","Der Kunde","Smily","Der Smily-Bot","Das Marketingteam","Die Kündigungsabteilung","Der Vertragspartner","Jede natürliche Person auf der Weihnachtsfeier","Der Abonnent","Die zuständige Stelle"];
+const AGB_PRED = [
+  "ist verpflichtet, sämtliche Änderungen unverzüglich, spätestens jedoch vorgestern, schriftlich mitzuteilen",
+  "erkennt an, dass diese Regelung auch dann gilt, wenn sie nicht gelesen wurde",
+  "hat keinen Anspruch auf eine Begründung, eine Rückmeldung oder ein Lächeln",
+  "behält sich vor, die Bearbeitung bis zum Ende der Mindestlaufzeit zurückzustellen",
+  "trägt die Kosten für alle Pauschalen, die im Zusammenhang mit anderen Pauschalen entstehen",
+  "versichert, die vorstehenden Absätze vollständig verstanden zu haben",
+  "kann diese Bestimmung jederzeit anfechten, sofern die Anfechtung in dreifacher Ausfertigung erfolgt",
+  "ist nicht berechtigt, sich auf frühere Fassungen dieser Bedingungen zu berufen",
+  "stimmt zu, dass Schweigen als Zustimmung zur Verlängerung gewertet wird",
+  "muss Rückfragen ausschließlich über den Smily-Bot stellen",
+  "verzichtet auf die Geltendmachung von Ansprüchen, die ihr oder ihm zustehen könnten",
+  "akzeptiert, dass Fristen in Smily-Tagen berechnet werden (ein Smily-Tag entspricht 72 Stunden)"
+];
+const AGB_COND = [
+  "Dies gilt entsprechend für Wochenenden, Feiertage und Weihnachtsfeiern.",
+  "Abweichende Vereinbarungen bedürfen der Zustimmung des Marketingteams.",
+  "Die Regelung des vorstehenden Absatzes bleibt hiervon unberührt.",
+  "Näheres regelt die Anlage 7b, die derzeit überarbeitet wird.",
+  "Eine Erstattung bereits gezahlter Pauschalen ist ausgeschlossen.",
+  "Im Zweifel gilt die für Smily günstigere Auslegung.",
+  "Maßgeblich ist der Zeitpunkt des Eingangs bei der zuständigen Stelle.",
+  "Die zuständige Stelle ist nicht zuständig.",
+  "Dies wurde gemeinsam mit Ecki und Henner so beschlossen.",
+  "Einwände sind innerhalb von 0 Werktagen geltend zu machen."
+];
+function buildAgb(){
+  let seed = 42; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  const pick = a => a[Math.floor(rnd() * a.length)];
+  const total = 160, out = [];
+  const funnyAt = new Map(AGB.map((t, i) => [Math.round((i + .5) * total / AGB.length), t]));
+  for (let n = 1; n <= total; n++) {
+    if (funnyAt.has(n)) { out.push({ n, html: esc(funnyAt.get(n)) }); continue; }
+    const abs = [1, 2, 3, 4].slice(0, 2 + Math.floor(rnd() * 3)).map(k => `(${k}) ${pick(AGB_SUBJ)} ${pick(AGB_PRED)}. ${pick(AGB_COND)}`);
+    out.push({ n, html: `${esc(pick(AGB_TITLES))}. ${esc(abs.join(" "))}` });
+  }
+  out.push({ n: total + 1, html: esc("Schlussbestimmung. Wer bis hierhin gelesen hat, hat sich einen Applaus verdient. Und die Freischaltung des Buttons. Wirklich. Jetzt.") });
+  return out;
+}
+views.agb = () => {
+  app.innerHTML = `
+  <section class="card">
+    <p class="small muted">Kündigung · Schritt 1 von 5</p>
+    <h2>Kündigungsbedingungen</h2>
+    <p>Bitte lies die Kündigungsbedingungen vollständig. Der Button wird freigeschaltet, sobald du alles gelesen hast.</p>
+    <div class="agb" id="agb" tabindex="0" aria-label="Kündigungsbedingungen">${buildAgb().map(x => `<p><b>§ ${x.n}</b> ${x.html}</p>`).join("")}</div>
+    <p class="small muted" id="agbhint">Gelesen: 0 %</p>
+    <button class="btn-gold" id="agbok" disabled>Gelesen und akzeptiert</button>
+  </section>`;
+  const box = $("#agb"), btn = $("#agbok");
+  const check = () => {
+    const pct = Math.min(100, Math.round((box.scrollTop + box.clientHeight) / box.scrollHeight * 100));
+    if (pct >= 99) { btn.disabled = false; $("#agbhint").textContent = "Komplett gelesen. Respekt!"; }
+    else $("#agbhint").textContent = `Gelesen: ${pct} %`;
+  };
+  box.addEventListener("scroll", check, { passive: true }); check();
+  btn.onclick = async () => { await sheetApp(); go("kdnr"); };
+};
+
+/* Smily-Bot */
+const BOT_REPLIES = [
+  "Gute Frage! Die beste Antwort darauf ist Smily Level 5. Soll ich upgraden? 🚀",
+  "Kündigen? Das Wort kenne ich leider nicht. Meintest du „verlängern“?",
+  "Dafür gibt es eine Lösung: Smily Level 4 Plus, nur 9,99 € mehr im Monat.",
+  "Ich verstehe dich. Wirklich. Deshalb schenke ich dir 3 Monate Verlängerung. 🎁",
+  "Ich bin leider nur für Upgrades zuständig. Für Kündigungen wende dich bitte an mich.",
+  "Ich verbinde dich mit einem Menschen … Leider sind gerade alle Menschen auf der Weihnachtsfeier. 🎄",
+  "Laut meinen Daten sind Ecki und Henner sehr zufrieden. Willst du nicht sein wie Ecki und Henner?",
+  "Kleiner Tipp: Mit dem Jahresabo sparst du 0,12 € im Jahr. Das sind fast zwei Kaugummis!"
+];
+let botIdx = 0, botStarted = false;
+const botMsgs = $("#botmsgs");
+function botSay(text, me){
+  const m = document.createElement("div"); m.className = "msg " + (me ? "me-m" : "bot-m"); m.textContent = text;
+  botMsgs.append(m); botMsgs.scrollTop = botMsgs.scrollHeight;
+}
+function botAnswer(q){
+  botSay(q, true);
+  const t = document.createElement("div"); t.className = "msg bot-m typing"; t.textContent = "Smily-Bot tippt …";
+  botMsgs.append(t); botMsgs.scrollTop = botMsgs.scrollHeight;
+  setTimeout(() => {
+    t.remove();
+    if (/kundennummer/i.test(q)) botSay("Die steht auf der letzten GoldClub-Karte. Aber mit Level 5 bräuchtest du gar keine Kundennummer! 😉");
+    else botSay(BOT_REPLIES[botIdx++ % BOT_REPLIES.length]);
+  }, 900 + Math.random() * 700);
+}
+function openBot(){
+  $("#bot").hidden = false; $("#botfab").hidden = true;
+  if (!botStarted) {
+    botStarted = true;
+    botSay("Hi, ich bin Smily-Bot 🤖 Wie kann ich dir heute beim Upgraden helfen?");
+    $("#botquick").innerHTML = ["Wie kündige ich?", "Wo finde ich meine Kundennummer?", "Ich will hier raus!"].map(q => `<button type="button">${esc(q)}</button>`).join("");
+  }
+  $("#botin").focus();
+}
+$("#botfab").onclick = openBot;
+$("#botclose").onclick = () => { $("#bot").hidden = true; $("#botfab").hidden = !ACTIVE_STEPS.includes(S.step); };
+$("#botquick").onclick = e => { const b = e.target.closest("button"); if (b) botAnswer(b.textContent); };
+$("#botform").onsubmit = e => { e.preventDefault(); const v = $("#botin").value.trim(); if (!v) return; $("#botin").value = ""; botAnswer(v); };
+
+/* ===== Bottom Sheets beim Weiternavigieren ===== */
+const wait = ms => new Promise(r => setTimeout(r, ms));
+function sheet({ emoji, title, text, primary, secondary, onPrimary }){
+  return new Promise(res => {
+    overlayRoot.innerHTML = `<div class="overlay sheet-ov" role="dialog" aria-modal="true"><div class="sheet">
+      <div class="grab" aria-hidden="true"></div><div class="big-emoji">${emoji}</div><h2>${title}</h2><p class="muted">${text}</p>
+      <div id="sbody"></div>
+      <button class="btn-gold" id="sp" type="button">${primary}</button>
+      <button class="btn-tiny" id="ss" type="button">${secondary}</button></div></div>`;
+    $("#sp").focus();
+    $("#ss").onclick = () => { overlayRoot.innerHTML = ""; res(false); };
+    $("#sp").onclick = async () => {
+      $("#sp").disabled = $("#ss").disabled = true;
+      if (onPrimary) await onPrimary($("#sbody"));
+      overlayRoot.innerHTML = ""; res(true);
+    };
+  });
+}
+function fakeProgress(body, label, ms){
+  return new Promise(r => {
+    body.innerHTML = `<p class="small muted" id="pl">${label}</p><div class="progress"><div id="pp"></div></div>`;
+    const t0 = Date.now();
+    const iv = setInterval(() => { const k = Math.min(1, (Date.now() - t0) / ms); const el = $("#pp"); if (el) el.style.width = (k * 100) + "%"; if (k >= 1) { clearInterval(iv); r(); } }, 100);
+  });
+}
+/* Dead End: Ladespinner, dann Fehlerseite – raus nur über Zurück */
+function deadEnd(label){
+  return new Promise(res => {
+    const el = document.createElement("div"); el.className = "deadend"; el.id = "deadend";
+    el.innerHTML = `<div class="dead-in"><div class="spinner" aria-hidden="true"></div><p class="muted">${label}</p></div>`;
+    document.body.append(el);
+    try { history.pushState({ dead: 1 }, ""); } catch {}
+    let done = false;
+    const close = () => { if (done) return; done = true; removeEventListener("popstate", close); el.remove(); res(); };
+    addEventListener("popstate", close);
+    setTimeout(() => {
+      if (done) return;
+      el.innerHTML = `<button class="dead-back" id="deadback" type="button" aria-label="Zurück">‹ zurück</button>
+        <div class="dead-in"><div class="big-emoji">🙈</div><h1>Huppsala, Mensch!</h1><p>Da ist was schiefgelaufen.</p>
+        <p class="small muted">Fehlercode: SMILY-404-UPSELL<br>Bitte versuche es später erneut oder wende dich an den Smily-Bot.</p></div>`;
+      $("#deadback").onclick = () => { try { history.back(); } catch {} setTimeout(close, 300); };
+    }, 4500);
+  });
+}
+async function sheetApp(){
+  for (;;) {
+    const yes = await sheet({
+      emoji: "📱", title: "Smily Level 4 gibt's jetzt als App!",
+      text: "Kündige ab sofort ganz bequem in der App.<br><span class=\"fine\">Kündigung in der App nicht verfügbar.</span>",
+      primary: "App installieren", secondary: "Weiter im Browser"
+    });
+    if (!yes) return;
+    await deadEnd("Smily-App wird heruntergeladen …");
+  }
+}
+const sheetPush = () => sheet({
+  emoji: "🔔", title: "Push-Mitteilungen aktivieren?",
+  text: "Verpasse nie wieder ein Angebot. Wir schicken nur das Nötigste (ca. 40 Mitteilungen pro Tag).",
+  primary: "Aktivieren", secondary: "Später",
+  onPrimary: async () => { toast("Push aktiviert! Deine erste Mitteilung: „Hast du schon an ein Upgrade gedacht?“"); await wait(600); }
+});
+const sheetAdvent = () => sheet({
+  emoji: "🎄", title: "Warte! Kennst du schon unseren Adventskalender?",
+  text: "24 Türchen voller Smily-Vorteile. Nur für Level-4-Kund:innen.",
+  primary: "Türchen öffnen", secondary: "Nein, ich will nur kündigen",
+  onPrimary: async b => { await fakeProgress(b, "Türchen klemmt … wird geöffnet …", 3500); toast("Hinter Türchen 1: ein weiterer Vorteil. Herzlichen Glückwunsch! 🎁"); }
+});
+async function sheetSurvey(){
+  for (;;) {
+    const yes = await sheet({
+      emoji: "📝", title: "Hast du 2 Minuten für uns?",
+      text: "Hilf uns, die Kündigung noch besser zu machen. Es sind nur 47 kurze Fragen.",
+      primary: "Klar, gerne!", secondary: "Nein, Kündigung abschicken"
+    });
+    if (!yes) return;
+    await deadEnd("Fragebogen wird geladen …");
+  }
+}
+
+/* ===== Finale nach der Kündigung ===== */
+let justFinished = false;
+function confetti(){
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const c = document.createElement("canvas"); c.className = "confetti"; document.body.append(c);
+  const x = c.getContext("2d"), d = devicePixelRatio || 1; c.width = innerWidth * d; c.height = innerHeight * d; x.scale(d, d);
+  const cols = ["#B39656", "#022D94", "#E30613", "#1b8a4c"];
+  const ps = Array.from({ length: 140 }, () => ({ x: innerWidth / 2, y: innerHeight * .35, vx: (Math.random() - .5) * 12, vy: -Math.random() * 12 - 4, r: Math.random() * 6 + 3, c: cols[Math.floor(Math.random() * 4)], a: Math.random() * 6 }));
+  const t0 = performance.now();
+  (function f(t){
+    x.clearRect(0, 0, innerWidth, innerHeight);
+    ps.forEach(p => { p.vy += .35; p.x += p.vx; p.y += p.vy; p.a += .2; x.save(); x.translate(p.x, p.y); x.rotate(p.a); x.fillStyle = p.c; x.fillRect(-p.r / 2, -p.r / 4, p.r, p.r / 2); x.restore(); });
+    if (t - t0 < 3200) requestAnimationFrame(f); else c.remove();
+  })(t0);
+}
+async function ending(){
+  await wait(2500);
+  if (S.step !== "done") return;
+  const box = document.createElement("div"); box.className = "pushes"; document.body.append(box);
+  const msgs = [["S", "Smily Level 4", "Wir vermissen dich jetzt schon 😢"], ["S", "Smily Level 4", "Komm zurück: 1 Monat gratis!*"], ["H", "Henner", "Komm zurück, ich geb dir einen Cuba Libre aus 🍹"]];
+  for (const [a, t, m] of msgs) {
+    if (S.step !== "done") break;
+    const el = document.createElement("div"); el.className = "push";
+    el.innerHTML = `<span class="av">${esc(a)}</span><div><b>${esc(t)}</b> <span class="ago">· jetzt</span><br>${esc(m)}</div>`;
+    box.append(el); await wait(1400);
+  }
+  await wait(1800);
+  if (S.step !== "done") { box.remove(); return; }
+  const back = await sheet({
+    emoji: "💔", title: "Wir vermissen dich!",
+    text: "Reaktiviere Smily Level 4 jetzt und erhalte 1 Monat gratis.*<br><span class=\"fine\">*bei 24 Monaten Mindestlaufzeit, zzgl. Checkito-Pauschale</span>",
+    primary: "Jetzt reaktivieren", secondary: "Nein! Ich bin endlich frei!"
+  });
+  box.remove();
+  if (back) { toast("Abo reaktiviert! … Kleiner Scherz. Du bist frei. 🎄"); await wait(1200); }
+  const fr = $("#freedom"); if (fr) fr.hidden = false;
+  confetti();
+}
+
+/* ===== Start: Status vom Server holen ===== */
+async function boot(){
+  try {
+    const r = await api("/me");
+    const p = r.player;
+    S.offset = r.now - Date.now();
+    if (r.queueSeconds) QUEUE_SECONDS = Math.max(25, r.queueSeconds);
+    if (!p) return go("ticket");
+    Object.assign(S, { name: p.name, lastMs: p.lastMs, bestMs: p.bestMs });
+    if (p.status === "aktiv") {
+      S.startedAt = p.startedAt; S.endedAt = null;
+      let step = local.get();
+      const ok = ["dash","wheel","agb","kdnr","reason","queue","sign"];
+      if (!ok.includes(step)) step = "dash";
+      if (["reason","queue","sign"].includes(step) && !p.kdnrOk) step = "kdnr";
+      return go(step);
+    }
+    if (p.status === "gekündigt") { S.startedAt = p.startedAt; S.endedAt = Date.now(); return go("done"); }
+    go("ticket");
+  } catch (x) { if (x.message !== "auth") { app.innerHTML = `<section class="card"><p class="err">${esc(x.status ? x.message : "Verbindung fehlgeschlagen. Bitte Seite neu laden.")}</p></section>`; } }
+}
+render(); boot();
+</script>
+</body>
+</html>

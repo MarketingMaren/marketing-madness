@@ -1,0 +1,14 @@
+{
+  "frage": "Wähle alle Gründer von CHECK24.",
+  "bilder": [
+    { "datei": "1.jpg", "richtig": true },
+    { "datei": "2.jpg", "richtig": false },
+    { "datei": "3.jpg", "richtig": false },
+    { "datei": "4.jpg", "richtig": true },
+    { "datei": "5.jpg", "richtig": false },
+    { "datei": "6.jpg", "richtig": false },
+    { "datei": "7.jpg", "richtig": false },
+    { "datei": "8.jpg", "richtig": false },
+    { "datei": "9.jpg", "richtig": false }
+  ]
+}
