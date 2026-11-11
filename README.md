@@ -19,7 +19,7 @@ Die Lösungen stehen in [`LOESUNGEN.md`](LOESUNGEN.md). Diese Datei nicht in ein
 ## Was nicht ins Repo gehört
 Diese Dateien entstehen lokal und sind per `.gitignore` ausgeschlossen:
 
-- `zugangsdaten.txt` – geheimer Link-Teil, Admin-Key, PIN (liegt bei Marlon)
+- `zugangsdaten.txt` – geheimer Link-Teil, Admin-Key, PIN (nur lokal bzw. im Passwortmanager, nie hochladen)
 - `.env.local` – von Vercel erzeugt, enthält Zugangstoken
 - `.vercel/` – Verknüpfung mit dem Vercel-Projekt
 - `data.json` – lokale Testrangliste
@@ -49,16 +49,19 @@ TICKET_TOKEN=test node server.js
 ```
 Dann http://localhost:3000/test öffnen (PIN `2412`, Kundennummer `SL4-2412`). Die Rangliste liegt in `data.json`.
 
-## B) Online stellen mit Vercel
-Das Vercel-Projekt `sl4-weihnachten` ist bereits eingerichtet. Änderungen live stellen:
+## B) Online mit Vercel (über GitHub)
+Das Repo ist mit einem Vercel-Projekt verbunden. **Jeder Commit auf `main` wird automatisch veröffentlicht**, auch Änderungen direkt in der GitHub-Weboberfläche. `app/index.html` wird dabei direkt verwendet, ein Zwischenschritt ist nicht nötig.
 
-```bash
-npm run deploy
-```
+Der Link lautet `https://<vercel-adresse>/<TICKET_TOKEN>`. Nur dieser Link liefert die App aus, alle anderen Adressen ergeben 404 (dafür sorgt `vercel.json`).
 
-Das packt `app/index.html` neu ein und deployt (Vercel-Login nötig). Der Link lautet `https://sl4-weihnachten.vercel.app/<TICKET_TOKEN>`.
+Einmalige Einrichtung im Vercel-Projekt:
+1. **Settings → Environment Variables:** `TICKET_TOKEN`, `EVENT_PIN`, `KUNDENNUMMER`, `ADMIN_KEY` eintragen (Werte nur dort und im Passwortmanager ablegen, nie im Repo).
+2. **Storage:** „Upstash for Redis" (kostenloser Tarif, Region Frankfurt) anlegen und mit dem Projekt verbinden.
+3. **Deployments:** letzten Eintrag → „…" → **Redeploy**, damit die Einstellungen greifen.
 
-Neu einrichten (nur falls nötig): `bash setup-vercel.sh` im App-Ordner ausführen. Das Skript legt das Projekt an, setzt die Einstellungen, pausiert für die Datenbank (Vercel → Storage → „Upstash for Redis", kostenlos, Frankfurt) und schreibt Token/Admin-Key in `zugangsdaten.txt`.
+Wechsel auf das GoldClub-Repo später: im Vercel-Projekt unter **Settings → Git** das Repo umstellen. Adresse, Einstellungen und Rangliste bleiben dabei erhalten.
+
+`npm run deploy` und `setup-vercel.sh` sind nur noch für einen Deploy ohne GitHub gedacht und werden normalerweise nicht gebraucht.
 
 Hinweis: Der Hobby-Tarif von Vercel ist laut Vercel für nicht-kommerzielle Nutzung gedacht; für eine interne Feier ggf. kurz klären. Ohne verbundene Datenbank zeigt die App auf Vercel „Rangliste nicht eingerichtet".
 
@@ -67,7 +70,7 @@ Neun Fotos in `app/captcha/` legen, `captcha.beispiel.json` zu `captcha.json` ko
 
 ## Rangliste leeren (nach dem Testen und nach der Feier)
 ```bash
-curl -X POST -H "x-admin-key: <ADMIN_KEY>" https://sl4-weihnachten.vercel.app/<TICKET_TOKEN>/api/admin/reset
+curl -X POST -H "x-admin-key: <ADMIN_KEY>" https://<vercel-adresse>/<TICKET_TOKEN>/api/admin/reset
 ```
 Lokal reicht es, `data.json` zu löschen. Nach der Feier zusätzlich die Upstash-Datenbank im Vercel-Dashboard löschen. Gespeichert sind nur Spitznamen und Zeiten.
 
